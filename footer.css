@@ -1,0 +1,309 @@
+/* ===== Pretendard 폰트 적용 ===== */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+
+/* ----- Footer Layout ----- */
+.custom-footer {
+    background: #fff;
+    border-top: 1px solid #e5e5e5;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+}
+
+.custom-footer * {
+    box-sizing: border-box;
+}
+
+.custom-footer-inner {
+    padding: 50px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.custom-footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+/* ----- 좌측: 로고 + 소셜 ----- */
+.custom-footer-left {
+    flex-shrink: 0;
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.custom-footer-logo {
+    margin-bottom: 5px;
+}
+
+.custom-footer-logo img {
+    height: 60px;
+    width: auto;
+    max-width: 100%;
+}
+
+/* COMPANY 섹션 (중앙 배치용) */
+.custom-footer-company {
+    flex-shrink: 0;
+    width: auto;
+    min-width: 160px;
+}
+
+.custom-company-toggle {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: #222;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+.custom-company-toggle::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid #555;
+    transition: transform 0.3s ease;
+    margin-left: 8px;
+}
+
+.custom-company-toggle.active::after {
+    transform: rotate(180deg);
+}
+
+.custom-company-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+.custom-company-panel.open {
+    max-height: 300px;
+}
+
+.custom-company-content {
+    font-size: 11px;
+    line-height: 1.7;
+    color: #666;
+}
+
+.custom-company-content span {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.custom-company-content a {
+    color: #666;
+    text-decoration: none;
+}
+
+.custom-company-content a:hover {
+    text-decoration: underline;
+}
+
+/* 소셜 미디어 (로고 양 끝에 배치) */
+.custom-footer-social {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+}
+
+.custom-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: transparent;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    flex: 1;
+    max-width: 48%;
+}
+
+.custom-social-left {
+    justify-content: flex-start;
+}
+
+.custom-social-link:hover {
+    background: #f9f9f9;
+    border-color: #ccc;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.custom-social-link img {
+    width: 24px;
+    height: 24px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.custom-social-link:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.custom-social-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.custom-social-label {
+    font-size: 11px;
+    color: #888;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.custom-social-brand {
+    font-size: 13px;
+    color: #333;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.custom-social-link:hover .custom-social-brand {
+    color: #000;
+}
+
+.custom-social-link:hover .custom-social-label {
+    color: #666;
+}
+
+/* ----- 우측: 정보 섹션 (3칸) ----- */
+.custom-footer-info {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 80px;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.custom-footer-col {
+    flex-shrink: 0;
+    width: auto;
+    min-width: 160px;
+}
+
+.custom-footer-col h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    color: #222;
+    white-space: nowrap;
+}
+
+.custom-footer-col p,
+.custom-footer-col a {
+    line-height: 2;
+    color: #666;
+    text-decoration: none;
+    font-size: 12px;
+    display: block;
+    margin: 0;
+}
+
+.custom-footer-col a:hover {
+    text-decoration: underline;
+    color: #333;
+}
+
+/* ----- 반응형: 태블릿 ----- */
+@media (max-width: 1024px) {
+    .custom-footer-content {
+        gap: 40px;
+    }
+
+    .custom-footer-info {
+        gap: 50px;
+    }
+
+    .custom-footer-left {
+        width: 240px;
+    }
+}
+
+/* ----- 반응형: 모바일 ----- */
+@media (max-width: 768px) {
+    .custom-footer-inner {
+        padding: 40px 20px;
+    }
+
+    .custom-footer-content {
+        flex-direction: column;
+        gap: 35px;
+    }
+
+    .custom-footer-left {
+        width: 100%;
+    }
+
+    .custom-footer-logo {
+        text-align: center;
+    }
+
+    .custom-footer-logo img {
+        height: 40px;
+    }
+
+    .custom-footer-company {
+        text-align: left;
+    }
+
+    .custom-footer-social {
+        justify-content: space-between;
+        flex-direction: row;
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
+
+    .custom-social-link {
+        padding: 6px 10px;
+    }
+
+    .custom-footer-info {
+        flex-direction: column;
+        width: 100%;
+        gap: 30px;
+        justify-content: flex-start;
+    }
+
+    .custom-footer-col {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .custom-company-panel.open {
+        max-height: 400px;
+    }
+}
+
+/* ----- 작은 모바일 ----- */
+@media (max-width: 480px) {
+    .custom-footer-col h4 {
+        font-size: 12px;
+    }
+
+    .custom-footer-col p,
+    .custom-footer-col a {
+        font-size: 11px;
+    }
+
+    .custom-footer-social {
+        gap: 12px;
+    }
+}
