@@ -1,0 +1,80 @@
+<div module="product_searchdata">
+    <!--@css(/css/module/product/searchdata.css)-->
+    <form class="searchField" id="{$searchkeyword_form}" action="/product/search.html" method="get">
+        <fieldset>
+        <legend>상품검색</legend>
+            <div class="searchInput">
+                {$searchdata_keywordform}
+                <!-- <input type="image" id="{$search_submit_button}" src="//img.echosting.cafe24.com/skin/skin/product/ico_search.svg" alt="검색" class="btnSearch" /> -->
+
+                <button class="seearch_img" type="submit" alt="검색" id="{$search_submit_button}">
+                    <svg viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title>search</title> <defs></defs><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"><g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-256.000000, -1139.000000)" fill="#000000"><path d="M269.46,1163.45 C263.17,1163.45 258.071,1158.44 258.071,1152.25 C258.071,1146.06 263.17,1141.04 269.46,1141.04 C275.75,1141.04 280.85,1146.06 280.85,1152.25 C280.85,1158.44 275.75,1163.45 269.46,1163.45 L269.46,1163.45 Z M287.688,1169.25 L279.429,1161.12 C281.591,1158.77 282.92,1155.67 282.92,1152.25 C282.92,1144.93 276.894,1139 269.46,1139 C262.026,1139 256,1144.93 256,1152.25 C256,1159.56 262.026,1165.49 269.46,1165.49 C272.672,1165.49 275.618,1164.38 277.932,1162.53 L286.224,1170.69 C286.629,1171.09 287.284,1171.09 287.688,1170.69 C288.093,1170.3 288.093,1169.65 287.688,1169.25 L287.688,1169.25 Z" id="search" sketch:type="MSShapeGroup"></path></g></g></g></svg>
+                </button>
+
+
+                <ul class="autoDrop" id="{$search_auto_id}"></ul>
+            </div>
+            <button type="button" class="btnSearchOption">검색옵션</button>
+            <!-- 검색옵션 레이어 -->
+            <div id="ec-product-searchoption" class="searchOption ec-base-layer">
+                <!--@css(/layout/basic/css/ec-base-layer.css)-->
+                <div class="header">
+                    <h3>검색옵션</h3>
+                </div>
+                <div class="content">
+                    <div class="boardWrite">
+                        <table border="1" >
+                            <caption>검색옵션</caption>
+                            <colgroup>
+                                <col style="width:80px;" />
+                                <col style="width:auto;" />
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">검색어</th>
+                                    <td>
+                                        {$searchdata_detail_keywordform}
+                                        <p class="desc">{$searchdata_detail_type_form}<label for="{$search_detail_type_id}"> 단어를 하나 이상 포함하고 있는 모든 상품 검색</label></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">제외검색어</th>
+                                    <td>
+                                        {$searchdata_except_keywordform}
+                                        <p class="desc">검색결과에서 제외하는 단어 조건을 입력할 수 있습니다.</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="ec-base-button">
+                    <a href="#none" id="{$searchdata_layer_reset}" class="btnNormalFix sizeM">초기화</a>
+                    <a href="#none" id="{$searchdata_layer_submit}" class="btnSubmitFix sizeM">검색</a>
+                </div>
+                <a href="#none" class="close"><img src="//img.echosting.cafe24.com/skin/base/common/btn_close.gif" alt="닫기" /></a>
+            </div><!-- //참고: 검색옵션 레이어 -->
+        </fieldset>
+        <div module="product_RelateKeyword" class="keywordArea">
+            <strong class="heading">연관검색어</strong>
+            <ul class="list">
+                <li><a href="{$relate_url}">{$relate_word}</a></li>
+                <li><a href="{$relate_url}">{$relate_word}</a></li>
+            </ul>
+        </div>
+        <div module="product_HotKeyword" class="keywordArea">
+            <strong class="heading">인기검색어</strong>
+            <ul class="list">
+                <li><a href="{$hot_keyword_search_url}">#{$hot_keyword_name}</a></li>
+                <li><a href="{$hot_keyword_search_url}">#{$hot_keyword_name}</a></li>
+            </ul>
+        </div>
+    </form>
+
+    <div class="searchResult">
+        <p class="record">상품 검색 결과 <strong class="txtEm">{$total_count}</strong>개</p>
+    </div>
+    <div class="noData {$search_fail_display|display}">
+        <h3 class="title">검색결과가 없습니다.</h3>
+    </div>
+</div>

@@ -1,0 +1,357 @@
+<!--@layout(/layout/basic/layout.html)-->
+
+
+    
+<!-- <div module="Layout_BoardInfo" class="ec-base-tab typeMenu gScroll">
+    <ul class="menu">
+        <li><a href="{$board_list_url}" class="button">{$board_name}</a></li>
+        <li><a href="{$board_list_url}" class="button">{$board_name}</a></li>
+    </ul>
+</div> -->
+
+
+<style>
+
+    .cate-list2{ display: flex;flex-wrap: wrap; 
+        padding:0px 0 30px;gap: 8px;}
+    .cate-list2 a{ 
+        display: inline-flex;
+        align-items: center;
+    padding: 2px 5px;
+    font-size: 13px;
+    }
+    .cate-list2 a.on{     background-color: #000;
+        color: #fff;}
+    .xans-board-listpackage .boardSort select{ position: absolute;top: -9999px;left: -9999px;}
+    .board-wrapper2 .col-left .btn-back{display: none;}
+
+    .board-wrapper{
+        border-top: 1px solid #efefef;
+    }
+    .board-list li{
+        border-bottom: 1px solid #efefef;
+    }
+    .board-wrapper .boardListEmpty{
+        border-bottom: 1px solid #efefef;
+    }
+    .board-wrapper.faq .content{
+        padding: 33px 0;
+    }
+    .board-wrapper.faq .content  *{
+        font: inherit !important;
+        color: inherit !important;
+        font-size: 13px !important;
+    }
+
+    .board-list .text{
+        font-size: 13px;
+    }
+    .board-list li:has(.on) .text{
+        font-weight: 600;
+    }
+    @media (max-width:1024px) {
+        .board-wrapper2{display: block;}
+        .board-wrapper2 .col-left{
+            position: relative;
+            padding: 0 20px;
+            width: 100%;
+            
+        }
+
+        .board-wrapper2 .col-left .btn-back{
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+        }
+        .board-wrapper2 .col-left .pc{
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .board-wrapper2 .col-left .pc li{margin-bottom: 0;}
+
+        .cate-list2{flex-wrap: nowrap;
+        overflow-x: auto;
+            margin: 0 -20px 0 -20px;
+            -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.cate-list2::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+        .cate-list2 li{flex-shrink: 0;}
+    }
+
+</style>
+
+
+<div class="board-wrapper2">
+
+    <div class="col-right">
+        
+        <div module="Board_ListPackage_1002">
+            <!--@css(/css/module/board/listPackage.css)-->
+            <div module="board_title_1002">
+                <!-- <div class="path">
+                    <span>현재 위치</span>
+                    <ol>
+                        <li><a href="/">홈</a></li>
+                        <li><a href="/board/index.html">게시판</a></li>
+                        <li title="현재 위치"><strong>{$board_name}</strong></li>
+                    </ol>
+                </div> -->
+        
+                <div class="headline">
+                    <h2>{$board_title} {$board_adult_icon}</h2>
+                </div>
+                <!-- <p class="imgArea">{$board_top_image}</p> -->
+            </div>
+
+            <ul class="cate-list2"></ul>
+        
+            
+            <div class="boardSort">
+                <span module="board_category_1002">{$form.board_category}</span>
+                <span module="board_ReplySort_1002">{$reply_sort}</span>
+            </div>
+        
+           
+        
+            <div class="board-wrapper faq">
+                <ul class="board-list type1 fixed" module="board_fixed_1002">
+                    <!--
+                        $count = 2
+                        $subject_cut = 22
+                        $login_page_url = /member/login.html
+                        $deny_access_url = /index.html
+                    -->
+                 
+                    <li>
+                        <a href="#" class="link">
+                            <span class="num"><span class="chk">
+                                {$checkbox}
+                            </span>{$fixed_icon}</span>
+                            <div class="wrap" >
+                                <div class="box">
+                                    <span class="text">{$subject}</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="content">
+                            {$content}
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="link">
+                            <span class="num"><span class="chk">
+                                {$checkbox}
+                            </span>{$fixed_icon}</span>
+                            <div class="wrap" >
+                                <div class="box">
+                                    <span class="text">{$subject}</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="content">
+                            {$content}
+                        </div>
+                    </li>
+        
+        
+                </ul>
+                <ul class="board-list type1 notice" module="board_notice_1002">
+                    <!--
+                        $count = 10
+                        $login_page_url = /member/login.html
+                        $deny_access_url = /index.html
+                    -->
+        
+                    <li>
+                        <a href="#" class="link">
+                            <span class="num"><span class="chk">
+                                {$checkbox}
+                            </span>{$notice_icon}</span>
+                            <div class="wrap" >
+                                <div class="box">
+                                    <span class="text">{$subject}</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="content">
+                            {$content}
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="link">
+                            <span class="num"><span class="chk">
+                                {$checkbox}
+                            </span>{$notice_icon}</span>
+                            <div class="wrap" >
+                                <div class="box">
+                                    <span class="text">{$subject}</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="content">
+                            {$content}
+                        </div>
+                    </li>
+        
+        
+                </ul>
+                <ul class="board-list type1" module="board_list_1002">
+                    <!--
+                        $login_page_url = /member/login.html
+                        $deny_access_url = /index.html
+                    -->
+                    <li>
+                        {$checkbox}
+                        <a href="#" class="link">
+                            <!-- {$no} -->
+                            <div class="wrap" >
+                                <div class="box">
+                                    <span class="text">{$subject}</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="content">
+                            {$content}
+                        </div>
+                    </li>
+                    <li>
+                        {$checkbox}
+                        <a href="#" class="link">
+                            <!-- {$no} -->
+                            <div class="wrap" >
+                                <div class="box">
+                                    <span class="text">{$subject}</span>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="content">
+                            {$content}
+                        </div>
+                    </li>
+                    
+                </ul>
+                <div class="boardListEmpty {$empty_display|display}" module="board_empty_8">
+                    <p>{$empty_message}</p>
+                </div>
+            </div>
+           
+            <div module="board_paging_1002" class="ec-base-paginate typeList">
+                <!--
+$count = 5
+-->
+                <a href="{$param_prev}">이전 페이지</a>
+                <ol>
+                    <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+                    <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+                </ol>
+                <a href="{$param_next}">다음 페이지</a>
+            </div>
+               <div module="board_ButtonList_8" class="{$write_display|display} ec-base-button gBottom">
+                    <span class="gRight">
+                        <a href="/board/gallery/write.html{$param_write}" class="btnSubmitFix sizeM {$write_display|display}">글쓰기</a>
+                    </span>
+                </div>
+        </div>
+        
+        <!-- Admin only -->
+        <div module="board_catemove_1002">
+            <!--@css(/css/module/board/catemove.css)-->
+            <span class="gColumn">{$board_catemove_selectbox}</span>
+            <span class="gColumn"><a href="#none" class="btnNormal sizeS" onclick="{$action_category_move}">{$category_move}</a></span>
+            
+        </div>
+        
+        <div module="board_function_1002">
+            <!--@css(/css/module/board/function.css)-->
+            <span class="gColumn">{$board_function_selectbox}</span>
+            <span class="gColumn">
+                <a href="#none" class="btnNormal sizeS" onclick="{$action_article_move}">{$article_move}</a>
+                <a href="#none" class="btnNormal sizeS" onclick="{$action_article_copy}">{$article_copy}</a>
+            </span>
+            <span class="ec-base-help">{$board_function_help|replace:*,}</span>
+        </div>
+        <!-- // Admin only -->
+
+    </div>
+</div>
+
+
+<script>
+    var currentUrl = window.location.href;
+      var urlParams = new URLSearchParams(window.location.search);
+      var boardNo = urlParams.get('board_no');
+     // 조건문을 통해 board_no 값에 따른 동작 수행
+     if (boardNo === '1') {
+          document.querySelectorAll('.page-pos li')[0].querySelector('a').classList.add('on');
+      } else if (boardNo === '6') {
+          document.querySelectorAll('.page-pos li')[2].querySelector('a').classList.add('on');
+      }
+
+
+      document.addEventListener('DOMContentLoaded', function() {
+      var selectElement = document.getElementById('board_category');
+      var ulElement = document.querySelector('.cate-list2');
+
+      // Select의 옵션들을 가져오기 (전체 제외)
+      var options = Array.from(selectElement.options).filter(option => option.value !== "");
+
+      // ul.cate-list2 내부에 li>a 구조로 옵션들을 생성
+      options.forEach(option => {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#';
+          a.textContent = option.textContent;
+          a.dataset.value = option.value;
+          li.appendChild(a);
+          ulElement.appendChild(li);
+
+          // a 태그 클릭 이벤트 추가
+          a.addEventListener('click', function(event) {
+              event.preventDefault();
+              selectElement.value = option.value;
+              selectElement.dispatchEvent(new Event('change'));
+
+              // 모든 a 태그에서 'on' 클래스 제거
+              ulElement.querySelectorAll('a').forEach(function(link) {
+                  link.classList.remove('on');
+              });
+
+              // 클릭된 a 태그에 'on' 클래스 추가
+              a.classList.add('on');
+          });
+      });
+
+      // 페이지 로드 시 select의 초기 값에 따른 'on' 클래스 설정
+      selectElement.addEventListener('change', function() {
+          var selectedValue = selectElement.value;
+
+          ulElement.querySelectorAll('a').forEach(function(link) {
+              if (link.dataset.value === selectedValue) {
+                  link.classList.add('on');
+              } else {
+                  link.classList.remove('on');
+              }
+          });
+      });
+
+      // 초기 로드 시 select의 초기 값에 따른 'on' 클래스 설정
+      var initialSelectedValue = selectElement.value;
+      if (initialSelectedValue) {
+          ulElement.querySelectorAll('a').forEach(function(link) {
+              if (link.dataset.value === initialSelectedValue) {
+                  link.classList.add('on');
+              }
+          });
+      }
+  });
+
+
+</script>

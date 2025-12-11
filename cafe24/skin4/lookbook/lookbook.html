@@ -1,0 +1,102 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="breadcrumb" module="product_headcategory" style="display: none;">
+    <span class="blind">현재 위치</span>
+    <ol>
+        <li class="{$disp_cate_1|display}"><a href="/">HOME</a></li>
+        <li class="{$disp_cate_1|display}"><a href="{$link_product_list_1}">{$name_1}</a></li>
+        <li class="{$disp_cate_2|display}"><a href="{$link_product_list_2}">{$name_2}</a></li>
+        <li class="{$disp_cate_3|display}"><a href="{$link_product_list_3}">{$name_3}</a></li>
+        <li class="{$disp_cate_4|display}"><strong><a href="{$link_product_list_4}">{$name_4}</a></strong></li>
+    </ol>
+</div> 
+
+
+<div class="titleArea" module="product_headcategory">
+    <h2>{$title_text_or_image}</h2>
+    <span class="likeButton {$disp_likecate_class}"><button type="button">{$disp_likecate_icon}<strong>{$disp_likecate_count}</strong></button></span>
+</div>
+
+<style>
+    #contents {
+        padding: 0 0px;
+    }
+    .xans-product-normalpackage .cate-list{justify-content: center;}
+    @media (max-width: 1024px) {
+    }
+    @media (max-width: 768px) {
+    #contents {
+        padding: 0 0px;
+    }
+    }
+</style>
+
+
+
+<div module="product_normalpackage" class="lookbook-wrapper">
+    <!--@css(/css/module/product/listnormal.css)-->
+    <!--@js(/js/module/product/normalmenu.js)-->
+
+    <div class="heading-flex">
+        <div class="prd-headline" module="product_headcategory">
+            <h2 class="title">COLLECTION</h2>
+        </div>
+    </div>
+
+    <ul class="cate-list">
+        <li module="product_displaycategory" style="display:{$display};" class="{$selected}">
+            <a href="/lookbook/lookbook.html?{$param_cate_no}" >{$category_name}</a>
+        </li>
+    </ul>
+
+    <div class="product_area">
+        <div module="product_listnormal" class="ec-base-product">
+            <!--
+                $count = 12
+                    ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
+                    ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
+				$moreview = no
+                $cache = no
+                $basket_result = /product/add_basket.html
+                $basket_option = /product/basket_option.html
+            -->
+            <ul class="prdList grid4">
+                <li id="anchorBoxId_{$product_no}">
+                    <div class="prdList__item">
+                        <div class="thumbnail">
+                            <a href="/lookbook/detail.html{$param}"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}"><span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span></a>
+                        </div>
+                        <div class="description">
+                            <strong class="name"><a href="/lookbook/detail.html{$param}" class="{$product_name_display|display}"> {$product_name}</a></strong>
+                            <!-- <p class="desc">{$summary_desc}</p> -->
+                        </div>
+                    </div>
+                </li>
+                <li id="anchorBoxId_{$product_no}">
+                    <div class="prdList__item">
+                        <div class="thumbnail">
+                            <a href="/lookbook/detail.html{$param}"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}"><span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span></a>
+                        </div>
+                        <div class="description">
+                            <strong class="name"><a href="/lookbook/detail.html{$param}" class="{$product_name_display|display}"> {$product_name}</a></strong>
+                            <!-- <p class="desc">{$summary_desc}</p> -->
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div module="product_normalpaging" class="ec-base-paginate new">
+            <!-- <a href="{$param_first}" class="first">first</a> -->
+            <a href="{$param_before}">prev</a>
+            <ol class="list">
+                <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+                <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+                <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+                <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+                <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+            </ol>
+            <a href="{$param_next}">next</a>
+            <!-- <a href="{$param_last}" class="last">end</a> -->
+        </div>
+    </div>
+</div>

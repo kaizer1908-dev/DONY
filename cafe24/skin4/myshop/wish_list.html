@@ -1,0 +1,96 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="path">
+    <span>현재 위치</span>
+    <ol>
+        <li><a href="/">홈</a></li>
+        <li><a href="/myshop/index.html">마이쇼핑</a></li>
+        <li title="현재 위치"><strong>나의 위시리스트</strong></li>
+    </ol>
+</div>
+
+<div class="myshopArea">
+    <div class="titleArea titleArea--myshop">
+        <h2>나의 위시리스트</h2>
+    </div>
+    <div class="ec-base-tab tab-style1">
+        <ul class="">
+            <li><a href="/product/recent_view_product.html">최근 본 상품</a></li>
+            <li class="selected"><a href="/myshop/wish_list.html">위시리스트</a></li>
+            <li><a href="/myshop/board_list.html">게시글</a></li>
+        </ul>
+    </div>
+    <div module="myshop_wishlist">
+        <!--@css(/css/module/myshop/wishlist.css)-->
+        <!--@js(/js/module/myshop/wishlist.js)-->
+        <!--
+            $login_page = /member/login.html
+            $count = 30
+            $use_per_add_option = yes
+        -->
+        <ul module="myshop_wishlistitem">
+            <li class="prd-item ec-base-prdInfo gCheck">
+                <div class="prdBox">
+                    <!-- <span class="check">{$checkbox}</span> -->
+                    <div class="thumbnail"><a href="/product/detail.html{$param}"><img src="{$image_medium}" alt="" width="83" height="83"></a></div>
+                    <div class="description">
+                        <strong class="prdName" title="상품명">{$product_name_link}</strong>
+                        <ul class="price">
+                                <li class="{$strike_custom_price} {$custom_price_display|display}"><strong>{$product_custom}</strong></li>
+                                <li class="{$discount}"><strong class="txtEm">{$price}</strong>{$product_tax_type_text}</li>
+                                <li class="{$product_sale_price_display|display}">{$product_sale_price}</li>
+                            </ul>
+                      
+                    </div>
+                  
+                </div>
+                <a href="#none" class="btnDelete {$class_del}" rel="{$rel_del}">삭제</a>
+            </li>
+            <li class="prd-item ec-base-prdInfo gCheck">
+                <div class="prdBox">
+                    <!-- <span class="check">{$checkbox}</span> -->
+                    <div class="thumbnail"><a href="/product/detail.html{$param}"><img src="{$image_medium}" alt="" width="83" height="83"></a></div>
+                    <div class="description">
+                        <strong class="prdName" title="상품명">{$product_name_link}</strong>
+                        <ul class="price">
+                                <li class="{$strike_custom_price} {$custom_price_display|display}"><strong>{$product_custom}</strong></li>
+                                <li class="{$discount}"><strong class="txtEm">{$price}</strong>{$product_tax_type_text}</li>
+                                <li class="{$product_sale_price_display|display}">{$product_sale_price}</li>
+                            </ul>
+                      
+                    </div>
+                    
+                </div>
+                <a href="#none" class="btnDelete {$class_del}" rel="{$rel_del}">삭제</a>
+            </li>
+        </ul>
+        <p class="ec-base-prdEmpty {$empty_display|display}">관심상품 내역이 없습니다.</p>
+    </div>
+    
+    <!-- <div module="Myshop_WishlistButton">
+        <div class="ec-base-button">
+            <span class="gRight">
+                <a href="#none" class="btnNormal sizeS" onclick="{$chk_wishlist}" id="product_select_all" data-status="off">전체선택</a>
+                <a href="#none" class="btnNormal sizeS" onclick="{$action_delete}">선택삭제</a>
+            </span>
+        </div>
+        <div class="ec-base-button gBottom">
+            <a href="#none" class="btnSubmitFix sizeM" onclick="{$action_order_all}">전체상품주문</a>
+        </div>
+    </div> -->
+
+    <div module="myshop_wishlistpaging" class="ec-base-paginate typeList">
+        <!-- <a href="{$param_first}" class="first">첫 페이지</a> -->
+        <a href="{$param_before}">이전 페이지</a>
+        <ol>
+            <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+            <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+            <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+            <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+            <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+        </ol>
+        <a href="{$param_next}">다음 페이지</a>
+        <!-- <a href="{$param_last}" class="last">마지막 페이지</a> -->
+    </div>
+    
+    <!--@import(/myshop/myshop_main.html)-->    
+</div>  

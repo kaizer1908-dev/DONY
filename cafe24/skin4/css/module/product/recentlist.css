@@ -1,0 +1,26 @@
+.xans-product-listitem { border-top:1px solid #000; display: grid; grid-template-columns: repeat(6,1fr); gap: 10px; padding-top: 20px; }
+.xans-product-listitem .prd-item{ }
+.xans-product-listitem .ec-base-prdInfo{border-bottom: 0;padding: 0;}
+.xans-product-listitem .ec-base-prdInfo .prdBox{ flex-direction: column; }
+.xans-product-listitem .ec-base-prdInfo .thumbnail{ margin: 0; }
+.xans-product-listitem .ec-base-prdInfo .thumbnail > a{ width: 100%; height: auto; }
+.xans-product-listitem .ec-base-prdInfo .description .prdName{ width: 100%; font-size: 12px; line-height: 1.2; margin: 5px 0; }
+.xans-product-listitem #span_mileage_text{display: flex;align-items: center;gap: 3px;}
+.xans-product-listitem .ec-base-prdInfo .description .info .mileage img{margin: 0 !important;}
+.xans-product-listitem .ec-base-prdInfo .btnDelete{ top: 5px;right: 5px; color: #fff;background: #000;width: auto;height: auto; border-radius: 10px;line-height: 1; padding: 3px 5px; font-size: 11px; border: 0; }
+.xans-product-listitem .ec-base-prdInfo .btnDelete::before{display: none;}
+.xans-product-listitem .ec-base-prdInfo .btnDelete::after{display: none;}
+.xans-product-listitem .ec-base-prdInfo .description .price, 
+.xans-product-listitem .ec-base-prdInfo .description .price li{font-size: 10px;line-height: 1.2;}
+
+
+@media all and (max-width:1024px) {
+    .xans-product-listitem {
+        grid-template-columns: repeat(4,1fr);
+    }
+}
+@media all and (max-width:767px) {
+    .xans-product-listitem {
+        grid-template-columns: repeat(3,1fr);
+    }
+}

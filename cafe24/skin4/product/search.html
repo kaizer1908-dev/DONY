@@ -1,0 +1,121 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="path">
+    <span>현재 위치</span>
+    <ol>
+        <li><a href="/">홈</a></li>
+        <li title="현재 위치"><strong>상품검색</strong></li>
+    </ol>
+</div>
+
+<style>
+    body #container {
+        max-width: 100%;
+    }
+
+    body #contents {
+        max-width: 100%;
+        overflow: hidden;
+    }
+    .prd-list .thumb-box .img {
+    width: 100%;
+}
+</style>
+
+<div class="titleArea">
+    <h2>상품검색</h2>
+</div>
+
+<!--@import(/product/shoppQ/searchForm_typeTop.html)-->
+    <div module="Search_Result" class="ec-base-product">
+        <!--
+            $count = 8
+        -->
+        <ul class="prdList prd-list grid4">
+                        
+            <li id="anchorBoxId_{$product_no}">
+                 <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
+            <div class="thumb-box">
+                <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img before"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img after"></div>
+                <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
+                <div class="promotion soldout">
+                    {$soldout_icon}
+                </div>
+                <div class="colorhip_wrap {$colorchip_display|display}">
+                    <div class="color" module="product_Colorchip">
+                        <span class="chips" style="background-color:{$color}"></span>
+                        <span class="chips" style="background-color:{$color}"></span>
+                    </div>
+                </div>
+                <div class="add-text">
+                    {$custom_option1}
+                </div>
+            </div>
+            <div class="text-box">
+                <!-- <div class="user-ac">
+                    <span class="review">리뷰 {$review_count}</span>
+                    <span class="wish">{$list_wish_icon}</span>
+                </div> -->
+                <div class="text">
+                    <strong class="name"><a href="/product/detail.html{$param}" class="{$product_name_display|display}"><span class="title {$product_name_title_display|display}">{$product_name_title} :</span> {$product_name_tag}</a></strong>
+                    <ul module="search_ListItem" class="spec">
+                        <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                        <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                    </ul>
+                </div>
+                <div class="icon">
+                    {$product_icons}
+                </div>
+            </div>
+            </li>
+            <li id="anchorBoxId_{$product_no}">
+                <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
+            <div class="thumb-box">
+                <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img before"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img after"></div>
+                <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
+                <div class="promotion soldout">
+                    {$soldout_icon}
+                </div>
+                <div class="colorhip_wrap {$colorchip_display|display}">
+                    <div class="color" module="product_Colorchip">
+                        <span class="chips" style="background-color:{$color}"></span>
+                        <span class="chips" style="background-color:{$color}"></span>
+                    </div>
+                </div>
+                <div class="add-text">
+                    {$custom_option1}
+                </div>
+            </div>
+            <div class="text-box">
+                <!-- <div class="user-ac">
+                    <span class="review">리뷰 {$review_count}</span>
+                    <span class="wish">{$list_wish_icon}</span>
+                </div> -->
+                <div class="text">
+                    <strong class="name"><a href="/product/detail.html{$param}" class="{$product_name_display|display}"><span class="title {$product_name_title_display|display}">{$product_name_title} :</span> {$product_name_tag}</a></strong>
+                    <ul module="search_ListItem" class="spec">
+                        <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                        <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                    </ul>
+                </div>
+                <div class="icon">
+                    {$product_icons}
+                </div>
+            </div>
+            </li>
+        
+        </ul>
+    </div>
+
+<div module="search_paging" class="ec-base-paginate new">
+     <!-- <a href="{$param_first}" class="first">first</a> -->
+     <a href="{$param_before}">prev</a>
+     <ol class="list">
+         <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+         <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+         <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+         <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+         <li><a href="{$param}" class="{$param_class}">{$no}</a></li>
+     </ol>
+     <a href="{$param_next}">next</a>
+     <!-- <a href="{$param_last}" class="last">end</a> -->
+</div>

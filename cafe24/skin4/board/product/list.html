@@ -1,0 +1,547 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div module="Board_ListPackage_4">
+    <!--@css(/css/module/board/listPackage.css)-->
+    <div module="board_title_4">
+        <!-- <div class="path">
+            <span>현재 위치</span>
+            <ol>
+                <li><a href="/">홈</a></li>
+                <li><a href="/board/index.html">게시판</a></li>
+                <li title="현재 위치"><strong>{$board_name}</strong></li>
+            </ol>
+        </div> -->
+
+        <div class="headline">
+            <h2>{$board_title} {$board_adult_icon}</h2>
+        </div>
+        <!-- <p class="imgArea displaynone">{$board_top_image}</p> -->
+    </div>
+    
+    <!-- <div module="Layout_BoardInfo" class="ec-base-tab typeMenu gScroll">
+        <ul class="menu">
+            <li><a href="{$board_list_url}" class="button">{$board_name}</a></li>
+            <li><a href="{$board_list_url}" class="button">{$board_name}</a></li>
+        </ul>
+    </div> -->
+
+    <div class="boardSort">
+        <span module="board_category_4">{$form.board_category}</span>
+        <span module="board_ReplySort_4">{$reply_sort}</span>
+    </div>
+
+
+    <div class="board-wrapper review">
+        <ul class="board-list type1 fixed" module="board_fixed_4">
+             <!--
+                $count = 10
+                $login_page_url = /member/login.html
+                $deny_access_url = /index.html
+            -->
+            <li>
+                
+                <a href="{$link_board_detail}" class="link">
+                    
+                    <span class="num">
+                        <span class="chk"> {$checkbox} </span>
+<div class="thumb" style="position: relative; width: 80px; height: 80px; overflow: hidden; border-radius: 2px;">
+    <img src="{$product_img_src}" class="base-product-img" alt="상품 이미지" style="width: 100%; height: 100%; object-fit: cover;" />
+
+    <script>
+        (function() {
+            // ★ 디버깅: 모든 가능한 변수 확인
+            console.log('===== 리뷰 변수 전체 확인 =====');
+            console.log('img_src:', '{$img_src}');
+            console.log('upload_file_name:', '{$upload_file_name}');
+            console.log('upload_file:', '{$upload_file}');
+            console.log('file_1:', '{$file_1}');
+            console.log('attach_file:', '{$attach_file}');
+            console.log('link_product_detail:', '{$link_product_detail}');
+            console.log('board_no:', '{$board_no}');
+            console.log('no:', '{$no}');
+            console.log('===========================');
+        })();
+    </script>
+</div>
+                    </span>
+                    <div class="wrap" >
+                        <div class="box">
+                            <p class="product">{$fixed_icon}{$product_name}</p>
+                            <span class="text">{$subject}</span>
+                            <span class="icon">
+                                <span class="comment">{$comment_count}</span>
+                                {$icon_re}{$icon_lock}{$icon_file}
+                                {$icon_new}{$icon_hit}
+                            </span>
+                        </div>
+                       <div class="etc1">
+    <span class="{$date_display|display}">{$write_date|date:Y-m-d}</span>
+    <span class="{$hit_display|display}"><span class="RTMI">조회</span> {$hit_count}</span>
+    <span class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점" /></span>
+    <span class="recommend-count"><span class="RTMI">추천</span> {$recommend_count}</span>
+</div>
+                    </div>
+                    <div class="etc2">
+                        <span>{$member_icon}{$writer}</span>
+                        
+                    </div>
+                </a>
+            </li>
+            <li>
+                
+                <a href="{$link_board_detail}" class="link">
+                    
+                    <span class="num">
+                        <span class="chk"> {$checkbox} </span>
+<div class="thumb" style="position: relative; width: 80px; height: 80px; overflow: hidden; border-radius: 2px;" data-img-src="{$img_src}">
+    <img src="{$product_img_src}" class="base-product-img" alt="상품 이미지" style="width: 100%; height: 100%; object-fit: cover;" />
+
+    <script>
+        (function() {
+            var scripts = document.getElementsByTagName('script');
+            var currentScript = scripts[scripts.length - 1];
+            var container = currentScript.parentNode;
+            var targetImg = container.querySelector('.base-product-img');
+            
+            if (!targetImg) return;
+            
+            var imgSrc = container.getAttribute('data-img-src') || '';
+            var imageUrl = null;
+            
+            // img_src에서 이미지 URL 추출
+            if (imgSrc.length > 5 && /\.(jpg|jpeg|png|gif|webp|bmp)($|\?)/i.test(imgSrc)) {
+                imageUrl = imgSrc;
+                
+                // ★ 파일명이 잘린 경우 감지 (__ 패턴)
+                if (imageUrl.indexOf('__') !== -1) {
+                    console.log('⚠ 파일명 잘림 감지, 스킵:', imageUrl);
+                    return; // 제품 이미지 유지
+                }
+            }
+            
+            // 이미지 로딩
+            if (imageUrl) {
+                if (imageUrl.indexOf('//') === 0) {
+                    imageUrl = 'https:' + imageUrl;
+                }
+                
+                var tempImg = new Image();
+                tempImg.src = imageUrl;
+                
+                tempImg.onload = function() {
+                    targetImg.src = imageUrl;
+                    targetImg.alt = "후기 이미지";
+                };
+                
+                tempImg.onerror = function() {
+                    // 로딩 실패 시 제품 이미지 유지
+                    console.log('✗ 이미지 로딩 실패, 제품 이미지 유지:', imageUrl);
+                };
+            }
+        })();
+    </script>
+</div>
+                    </span>
+                    <div class="wrap" >
+                        <div class="box">
+                            <p class="product">{$fixed_icon}{$product_name}</p>
+                            <span class="text">{$subject}</span>
+                            <span class="icon">
+                                {$icon_re}{$icon_lock}{$icon_file}
+                                <span class="comment">{$comment_count}</span>
+                                {$icon_new}{$icon_hit}
+                            </span>
+                        </div>
+<div class="etc1">
+    <span class="{$date_display|display}">{$write_date|date:Y-m-d}</span>
+    <span class="{$hit_display|display}"><span class="RTMI">조회</span> {$hit_count}</span>
+    <span class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점" /></span>
+    <span class="recommend-count"><span class="RTMI">추천</span> {$recommend_count}</span>
+</div>                    </div>
+                    <div class="etc2">
+                        <span>{$member_icon}{$writer}</span>
+                        
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <ul class="board-list type1 notice" module="board_notice_4">
+           <!--
+                $count = 10
+                $product_name_cut = 30
+                $login_page_url = /member/login.html
+                $deny_access_url = /index.html
+            -->
+
+            <li>
+                
+                <a href="{$link_board_detail}" class="link">
+                    
+                    <span class="num">
+                        <span class="chk"> {$checkbox} </span>
+<div class="thumb" style="position: relative; width: 80px; height: 80px; overflow: hidden; border-radius: 2px;" data-img-src="{$img_src}">
+    <img src="{$product_img_src}" class="base-product-img" alt="상품 이미지" style="width: 100%; height: 100%; object-fit: cover;" />
+
+    <script>
+        (function() {
+            var scripts = document.getElementsByTagName('script');
+            var currentScript = scripts[scripts.length - 1];
+            var container = currentScript.parentNode;
+            var targetImg = container.querySelector('.base-product-img');
+            
+            if (!targetImg) return;
+            
+            var imgSrc = container.getAttribute('data-img-src') || '';
+            var imageUrl = null;
+            
+            // img_src에서 이미지 URL 추출
+            if (imgSrc.length > 5 && /\.(jpg|jpeg|png|gif|webp|bmp)($|\?)/i.test(imgSrc)) {
+                imageUrl = imgSrc;
+                
+                // ★ 파일명이 잘린 경우 감지 (__ 패턴)
+                if (imageUrl.indexOf('__') !== -1) {
+                    console.log('⚠ 파일명 잘림 감지, 스킵:', imageUrl);
+                    return; // 제품 이미지 유지
+                }
+            }
+            
+            // 이미지 로딩
+            if (imageUrl) {
+                if (imageUrl.indexOf('//') === 0) {
+                    imageUrl = 'https:' + imageUrl;
+                }
+                
+                var tempImg = new Image();
+                tempImg.src = imageUrl;
+                
+                tempImg.onload = function() {
+                    targetImg.src = imageUrl;
+                    targetImg.alt = "후기 이미지";
+                };
+                
+                tempImg.onerror = function() {
+                    // 로딩 실패 시 제품 이미지 유지
+                    console.log('✗ 이미지 로딩 실패, 제품 이미지 유지:', imageUrl);
+                };
+            }
+        })();
+    </script>
+</div>
+                    </span>
+                    <div class="wrap" >
+                        <div class="box">
+                            <p class="product">{$product_name}</p>
+                            <span class="text">{$subject}</span>
+                            <span class="icon">
+                                <span class="comment">{$comment_count}</span>
+                                {$icon_re}{$icon_lock}{$icon_file}
+                                {$icon_new}{$icon_hit}
+                            </span>
+                        </div>
+                    <div class="etc1">
+    <span class="{$date_display|display}">{$write_date|date:Y-m-d}</span>
+    <span class="{$hit_display|display}"><span class="RTMI">조회</span> {$hit_count}</span>
+    <span class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점" /></span>
+    <span class="recommend-count"><span class="RTMI">추천</span> {$recommend_count}</span>
+</div>
+                    </div>
+                    <div class="etc2">
+                        <span>{$member_icon}{$writer}</span>
+                        
+                    </div>
+                </a>
+            </li>
+            <li>
+                
+                <a href="{$link_board_detail}" class="link">
+                    
+                    <span class="num">
+                        <span class="chk"> {$checkbox} </span>
+<div class="thumb" style="position: relative; width: 80px; height: 80px; overflow: hidden; border-radius: 2px;" data-img-src="{$img_src}">
+    <img src="{$product_img_src}" class="base-product-img" alt="상품 이미지" style="width: 100%; height: 100%; object-fit: cover;" />
+
+    <script>
+        (function() {
+            var scripts = document.getElementsByTagName('script');
+            var currentScript = scripts[scripts.length - 1];
+            var container = currentScript.parentNode;
+            var targetImg = container.querySelector('.base-product-img');
+            
+            if (!targetImg) return;
+            
+            var imgSrc = container.getAttribute('data-img-src') || '';
+            var imageUrl = null;
+            
+            // img_src에서 이미지 URL 추출
+            if (imgSrc.length > 5 && /\.(jpg|jpeg|png|gif|webp|bmp)($|\?)/i.test(imgSrc)) {
+                imageUrl = imgSrc;
+                
+                // ★ 파일명이 잘린 경우 감지 (__ 패턴)
+                if (imageUrl.indexOf('__') !== -1) {
+                    console.log('⚠ 파일명 잘림 감지, 스킵:', imageUrl);
+                    return; // 제품 이미지 유지
+                }
+            }
+            
+            // 이미지 로딩
+            if (imageUrl) {
+                if (imageUrl.indexOf('//') === 0) {
+                    imageUrl = 'https:' + imageUrl;
+                }
+                
+                var tempImg = new Image();
+                tempImg.src = imageUrl;
+                
+                tempImg.onload = function() {
+                    targetImg.src = imageUrl;
+                    targetImg.alt = "후기 이미지";
+                };
+                
+                tempImg.onerror = function() {
+                    // 로딩 실패 시 제품 이미지 유지
+                    console.log('✗ 이미지 로딩 실패, 제품 이미지 유지:', imageUrl);
+                };
+            }
+        })();
+    </script>
+</div>
+                    </span>
+                    <div class="wrap" >
+                        <div class="box">
+                            <p class="product">{$product_name}</p>
+                            <span class="text">{$subject}</span>
+                            <span class="icon">
+                                {$icon_re}{$icon_lock}{$icon_file}
+                                <span class="comment">{$comment_count}</span>
+                                {$icon_new}{$icon_hit}
+                            </span>
+                        </div>
+                      <div class="etc1">
+    <span class="{$date_display|display}">{$write_date|date:Y-m-d}</span>
+    <span class="{$hit_display|display}"><span class="RTMI">조회</span> {$hit_count}</span>
+    <span class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점" /></span>
+    <span class="recommend-count"><span class="RTMI">추천</span> {$recommend_count}</span>
+</div>
+                    </div>
+                    <div class="etc2">
+                        <span>{$member_icon}{$writer}</span>
+                        
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <ul class="board-list type1" module="board_list_4">
+            <!--
+                $product_name_cut = 30
+                $login_page_url = /member/login.html
+                $deny_access_url = /index.html
+            -->
+            <li>
+                
+                <a href="{$link_board_detail}" class="link">
+                    
+                    <span class="num">
+                        <span class="chk"> {$checkbox} </span>
+<div class="thumb" style="position: relative; width: 80px; height: 80px; overflow: hidden; border-radius: 2px;" data-img-src="{$img_src}">
+    <img src="{$product_img_src}" class="base-product-img" alt="상품 이미지" style="width: 100%; height: 100%; object-fit: cover;" />
+
+    <script>
+        (function() {
+            var scripts = document.getElementsByTagName('script');
+            var currentScript = scripts[scripts.length - 1];
+            var container = currentScript.parentNode;
+            var targetImg = container.querySelector('.base-product-img');
+            
+            if (!targetImg) return;
+            
+            var imgSrc = container.getAttribute('data-img-src') || '';
+            var imageUrl = null;
+            
+            // img_src에서 이미지 URL 추출
+            if (imgSrc.length > 5 && /\.(jpg|jpeg|png|gif|webp|bmp)($|\?)/i.test(imgSrc)) {
+                imageUrl = imgSrc;
+                
+                // ★ 파일명이 잘린 경우 감지 (__ 패턴)
+                if (imageUrl.indexOf('__') !== -1) {
+                    console.log('⚠ 파일명 잘림 감지, 스킵:', imageUrl);
+                    return; // 제품 이미지 유지
+                }
+            }
+            
+            // 이미지 로딩
+            if (imageUrl) {
+                if (imageUrl.indexOf('//') === 0) {
+                    imageUrl = 'https:' + imageUrl;
+                }
+                
+                var tempImg = new Image();
+                tempImg.src = imageUrl;
+                
+                tempImg.onload = function() {
+                    targetImg.src = imageUrl;
+                    targetImg.alt = "후기 이미지";
+                };
+                
+                tempImg.onerror = function() {
+                    // 로딩 실패 시 제품 이미지 유지
+                    console.log('✗ 이미지 로딩 실패, 제품 이미지 유지:', imageUrl);
+                };
+            }
+        })();
+    </script>
+</div>
+                    </span>
+                    <div class="wrap" >
+                        <div class="box">
+                            <p class="product">{$product_name}</p>
+                            <span class="text">{$subject}</span>
+                            <span class="icon">
+                                <span class="comment">{$comment_count}</span>
+                                {$icon_re}{$icon_lock}{$icon_file}
+                                {$icon_new}{$icon_hit}
+                            </span>
+                        </div>
+                     <div class="etc1">
+    <span class="{$date_display|display}">{$write_date|date:Y-m-d}</span>
+    <span class="{$hit_display|display}"><span class="RTMI">조회</span> {$hit_count}</span>
+    <span class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점" /></span>
+    <span class="recommend-count"><span class="RTMI">추천</span> {$recommend_count}</span>
+</div>
+                    </div>
+                    <div class="etc2">
+                        <span>{$member_icon}{$writer}</span>
+                        
+                    </div>
+                </a>
+            </li>
+            <li>
+                
+                <a href="{$link_board_detail}" class="link">
+                    
+                    <span class="num">
+                        <span class="chk"> {$checkbox} </span>
+<div class="thumb" style="position: relative; width: 80px; height: 80px; overflow: hidden; border-radius: 2px;" data-img-src="{$img_src}">
+    <img src="{$product_img_src}" class="base-product-img" alt="상품 이미지" style="width: 100%; height: 100%; object-fit: cover;" />
+
+    <script>
+        (function() {
+            var scripts = document.getElementsByTagName('script');
+            var currentScript = scripts[scripts.length - 1];
+            var container = currentScript.parentNode;
+            var targetImg = container.querySelector('.base-product-img');
+            
+            if (!targetImg) return;
+            
+            var imgSrc = container.getAttribute('data-img-src') || '';
+            var imageUrl = null;
+            
+            // img_src에서 이미지 URL 추출
+            if (imgSrc.length > 5 && /\.(jpg|jpeg|png|gif|webp|bmp)($|\?)/i.test(imgSrc)) {
+                imageUrl = imgSrc;
+                
+                // ★ 파일명이 잘린 경우 감지 (__ 패턴)
+                if (imageUrl.indexOf('__') !== -1) {
+                    console.log('⚠ 파일명 잘림 감지, 스킵:', imageUrl);
+                    return; // 제품 이미지 유지
+                }
+            }
+            
+            // 이미지 로딩
+            if (imageUrl) {
+                if (imageUrl.indexOf('//') === 0) {
+                    imageUrl = 'https:' + imageUrl;
+                }
+                
+                var tempImg = new Image();
+                tempImg.src = imageUrl;
+                
+                tempImg.onload = function() {
+                    targetImg.src = imageUrl;
+                    targetImg.alt = "후기 이미지";
+                };
+                
+                tempImg.onerror = function() {
+                    // 로딩 실패 시 제품 이미지 유지
+                    console.log('✗ 이미지 로딩 실패, 제품 이미지 유지:', imageUrl);
+                };
+            }
+        })();
+    </script>
+</div>
+                    </span>
+                    <div class="wrap" >
+                        <div class="box">
+                            <p class="product">{$product_name}</p>
+                            <span class="text">{$subject}</span>
+                            <span class="icon">
+                                {$icon_re}{$icon_lock}{$icon_file}
+                                <span class="comment">{$comment_count}</span>
+                                {$icon_new}{$icon_hit}
+                            </span>
+                        </div>
+                   <div class="etc1">
+    <span class="{$date_display|display}">{$write_date|date:Y-m-d}</span>
+    <span class="{$hit_display|display}"><span class="RTMI">조회</span> {$hit_count}</span>
+    <span class="{$point_display|display}"><img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점" /></span>
+    <span class="recommend-count"><span class="RTMI">추천</span> {$recommend_count}</span>
+</div>
+                    </div>
+                    <div class="etc2">
+                        <span>{$member_icon}{$writer}</span>
+                        
+                    </div>
+                </a>
+            </li>
+            
+        </ul>
+        <div class="boardListEmpty {$empty_display|display}" module="board_empty_4">
+			<p>{$empty_message}</p>
+		</div>
+    </div>
+
+
+    <div module="board_ButtonList_4" class="{$write_display|display} ec-base-button gBottom">
+        <a href="/board/product/write.html{$param_write}" class="btnSubmitFix {$write_display|display}">글쓰기</a>
+    </div>
+    <div module="board_search_4">
+        <!--@css(/css/module/board/search.css)-->
+        <fieldset class="boardSearch">
+            <legend>게시물 검색</legend>
+            <p class="category {$form.product_category_selector_display|display}">{$form.product_category_selector}</p>
+            <div class="form">{$form.search_date} {$form.search_key} {$form.search} <a href="#none" class="btnNormal" onclick="{$action_search}">찾기</a></div>
+        </fieldset>
+    </div>
+</div>
+
+
+<div module="board_paging_4" class="ec-base-paginate typeList">
+    <!--
+$count = 5
+-->
+    <a href="{$param_prev}">이전 페이지</a>
+    <ol>
+        <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+        <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+        <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+        <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+        <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+    </ol>
+    <a href="{$param_next}">다음 페이지</a>
+</div>
+
+<!-- Admin only -->
+<div module="board_catemove_4">
+    <!--@css(/css/module/board/catemove.css)-->
+    <span class="gColumn">{$board_catemove_selectbox}</span>
+    <span class="gColumn"><a href="#none" class="btnNormal sizeS" onclick="{$action_category_move}">{$category_move}</a></span>
+</div>
+
+<div module="board_function_4">
+    <!--@css(/css/module/board/function.css)-->
+    <span class="gColumn">{$board_function_selectbox}</span>
+    <span class="gColumn">
+        <a href="#none" class="btnNormal sizeS" onclick="{$action_article_move}">{$article_move}</a>
+        <a href="#none" class="btnNormal sizeS" onclick="{$action_article_copy}">{$article_copy}</a>
+    </span>
+    <span class="ec-base-help">{$board_function_help|replace:*,}</span>
+</div>
+<!-- // Admin only -->

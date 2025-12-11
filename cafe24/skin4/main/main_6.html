@@ -1,0 +1,133 @@
+ <div class="bg1">
+
+
+    <section module="product_listmain_1" class="sc-product prd-type1" data-theme="dark">
+
+        <div class="group-intro">
+            <em>{$category_title_text}</em>
+            <h2>Top trendy <br>colors for <br> this season</h2>
+            <a href="" class="btn link2">Detail</a>
+        </div>
+    
+    
+        <div class="swiper">
+            <!--
+            $count = 5
+            ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
+            ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
+            $basket_result = /product/add_basket.html
+            $basket_option = /product/basket_option.html
+            -->
+    
+    
+    
+    
+            <div class="swiper-wrapper prd-list">
+    
+                <div id="anchorBoxId_{$product_no}" class="item swiper-slide">
+                    <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
+                    <div class="thumb-box">
+                        <img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="prd-img" />
+                        <span module="product_Imagestyle">
+                            <span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span>
+                        </span>
+                        <!-- <div class="etc-btn">
+                            <div class="likeButton {$disp_likeprd_class}">
+                                <button type="button">{$disp_likeprd_icon}<strong>{$disp_likeprd_count}</strong></button>
+                            </div>
+                            <div class="option">{$option_preview_icon}</div> 
+                        </div> -->
+                    </div>
+                    <div class="text-box">
+                        <strong class="name"><a href="/product/detail.html{$param}" class="{$product_name_display|display}"><span
+                                    class="title {$product_name_title_display|display}">{$product_name_title} :</span>
+                                {$product_name_tag}</a></strong>
+                        <ul module="product_ListItem" class="spec">
+                            <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                            <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                        </ul>
+                        <div class="{$colorchip_display|display}">
+                            <div class="color" module="product_Colorchip">
+                                <span class="chips" style="background-color:{$color}"></span>
+                                <span class="chips" style="background-color:{$color}"></span>
+                            </div>
+                        </div>
+                        <div class="promotion">
+                            {$soldout_icon} {$stock_icon} {$recommend_icon} {$new_icon} {$product_icons}
+                            {$today_arrival_icon} {$pickup_icon} {$benefit_icons}
+                        </div>
+                    </div>
+                </div>
+    
+    
+    
+                <div id="anchorBoxId_{$product_no}" class="item swiper-slide">
+                    <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
+    
+                    <div class="thumb-box">
+                        <img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="prd-img" />
+                        <span module="product_Imagestyle">
+                            <span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span>
+                        </span>
+                        <!-- <div class="etc-btn">
+                            <div class="likeButton {$disp_likeprd_class}">
+                                <button type="button">{$disp_likeprd_icon}<strong>{$disp_likeprd_count}</strong></button>
+                            </div>
+                            <div class="option">{$option_preview_icon}</div> 
+                        </div> -->
+                    </div>
+    
+                    <div class="text-box">
+                        <strong class="name"><a href="/product/detail.html{$param}" class="{$product_name_display|display}"><span
+                                    class="title {$product_name_title_display|display}">{$product_name_title} :</span>
+                                {$product_name_tag}</a></strong>
+                        <ul module="product_ListItem" class="spec">
+                            <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                            <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                        </ul>
+                        <div class="{$colorchip_display|display}">
+                            <div class="color" module="product_Colorchip">
+                                <span class="chips" style="background-color:{$color}"></span>
+                                <span class="chips" style="background-color:{$color}"></span>
+                            </div>
+                        </div>
+                        <div class="promotion">
+                            {$soldout_icon} {$stock_icon} {$recommend_icon} {$new_icon} {$product_icons}
+                            {$today_arrival_icon} {$pickup_icon} {$benefit_icons}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--//wrapper-->
+            <div class="pagination"></div>
+        </div>
+    
+    
+    </section>
+
+
+
+    <section class="sc-intro2">
+        <section class="group-intro">
+            <div class="img-box">
+                <img src="https://cdn.shopify.com/s/files/1/0625/9326/9957/files/2829_73a7acab-a9cf-4d8d-82f0-b413d427f2a8.jpg?v=1667837738&width=500" alt="">
+            </div>
+            <div class="txt-box">
+                <em>Lorem ipsum dolor sit amet.</em>
+                <strong>Lorem ipsum doloris voluptate reiciendis, suscipit dolor consectetur quis.</strong>
+                <a href="" class="btn">more</a>
+            </div>
+        </section>
+        <section class="group-intro reverse">
+            <div class="img-box">
+                <img src="https://cdn.shopify.com/s/files/1/0625/9326/9957/files/2829_73a7acab-a9cf-4d8d-82f0-b413d427f2a8.jpg?v=1667837738&width=500" alt="">
+            </div>
+            <div class="txt-box">
+                <em>Lorem ipsum dolor sit amet.</em>
+                <strong>Lorem ipsum dolor siptate reiciendis, suscipit dolor consectetur quis.</strong>
+                <a href="" class="btn">more</a>
+            </div>
+        </section>
+    </section>
+
+</div>

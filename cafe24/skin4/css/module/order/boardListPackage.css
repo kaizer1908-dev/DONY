@@ -1,0 +1,22 @@
+#popup { width:700px; }
+.xans-order-boardlist{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+}
+.ec-base-prdInfo{border-bottom: 0;}
+.ec-base-prdInfo .thumbnail{
+    margin: 0;
+}
+.ec-base-prdInfo .description .prdName{width: 100%;font-size: 12px;line-height: 17px;margin-top: 5px;
+    min-height:34px;
+}
+.ec-base-prdInfo .buttonGroup{
+    flex-basis: 100%;
+    margin-top: 10px;
+}
+.ec-base-prdInfo .buttonGroup .sizeS{
+    width: 100%;
+}
+.ec-base-prdInfo .prdBox{display: block;}
+.price .gBlank5{margin: 0;}

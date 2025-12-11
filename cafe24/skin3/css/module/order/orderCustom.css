@@ -1,0 +1,128 @@
+body#userStyle{letter-spacing: normal;background: #fff !important;}
+body#userStyle a{color: inherit }
+#userStyle #mCafe24Order .payMethod > li .inner > .ec-base-label > label { display: block; font-size: 15px; border: 1px solid #EBEBEB; border-bottom: 0; padding: 12px 13px; line-height: 1; height: auto; min-height: auto; }
+#userStyle #header{width: 100%;max-width: 100%;}
+#userStyle #mCafe24Order.typeHeader{padding-top: 30px; border: 0; background: none; }
+#userStyle #mCafe24Order .ec-base-tab{padding: 0 16px;}
+#userStyle #mCafe24Order .ec-base-tab:first-child{margin: 0;}
+#userStyle #mCafe24Order .ec-base-tab ul{border: 0;gap: 10px;margin: 15px 0;}
+#userStyle #mCafe24Order .ec-base-tab li{flex: 0 0 auto; border-radius: 20px; border: 1px solid #c6c6c6; padding: 4px 14px; background: none; }
+#userStyle #mCafe24Order .ec-base-tab a{padding: 0;color: #000;font-size: 14px; line-height: 1;color: #c6c6c6;}
+#userStyle #mCafe24Order .ec-base-tab li.selected{ border: 1px solid #000; }
+#userStyle #mCafe24Order .ec-base-tab li.selected a{ color: #000; }
+
+#userStyle #mCafe24Order .ec-base-fold{margin-bottom: 0;border-bottom: 0; }
+#userStyle #mCafe24Order .ec-base-fold > .title{padding: 0;padding: 15px 40px 15px 16px; }
+#userStyle #mCafe24Order .ec-base-fold > .title:after { position: absolute; top: 21px; right: 16px; width: 9px;height: 9px;border-color:#000;border-width: 1px; }
+#userStyle #mCafe24Order .ec-base-fold.selected > .title:after {top: 25px;}
+#userStyle #mCafe24Order .ec-base-fold > .title .gRight { display: flex; align-items: center; justify-content: flex-end; }
+
+#userStyle #mCafe24Order .title h2{font-size: 16px;font-weight: 600;}
+#userStyle #mCafe24Order .recentShipArea .name{font-size: 14px;}
+#userStyle #mCafe24Order .recentShipArea .recent .address{font-size: 14px;margin-top:0px; padding-right: 110px; }
+#userStyle #mCafe24Order .shippingList .description{    padding: 0px 60px 0 0;}
+#userStyle #mCafe24Order .shippingList .description .address{font-size: 14px;margin-top: 0;}
+#userStyle #mCafe24Order .recentShipArea .contact {margin-top: 0;}
+#userStyle #mCafe24Order .recentShipArea .contact dd{font-size: 14px;}
+#userStyle #mCafe24Order #orderFixItem.ec-base-button.gFull [class*="btn"]{ background: #000; }
+#userStyle #mCafe24Order .shippingList li{border-top: 1px solid #EBEBEB;}
+#userStyle #mCafe24Order .ec-base-prdInfo .description .info{margin-bottom: 0px;}
+#userStyle #mCafe24Order .ec-base-prdInfo .description .info li{ font-size: 12px; line-height: 1.2;}
+#userStyle #mCafe24Order .ec-base-prdInfo .description .proPrice { font-size: 13px; font-weight: 600;}
+#userStyle #mCafe24Order .ec-base-prdInfo .thumbnail{margin-right: 15px;}
+#userStyle #mCafe24Order .orderArea .totalPrice .title{background: #f9f9f9; border-radius: 3px;}
+#userStyle #mCafe24Order .ec-base-mail .mailAddress input[type=text][readonly]{ background: #fff; }
+#userStyle #mCafe24Order .discountDetail .heading{font-size: 14px;}
+#userStyle #mCafe24Order .discountDetail .summary{font-size: 12px;}
+#userStyle #mCafe24Order .discountDetail .displayFlex .control .discountPrice{ margin-right: 10px; display: flex; align-items: center; }
+#userStyle #mCafe24Order .discountDetail .displayFlex .control .discountStrong{font-weight: 600;}
+#userStyle #mCafe24Order .segment .ec-base-table .price{font-weight: 600;}
+#userStyle #mCafe24Order .segment .ec-base-table tbody th, 
+#userStyle #mCafe24Order .segment .ec-base-table tbody td { font-size: 14px; padding: 9px 0; }
+#userStyle #mCafe24Order .orderArea .totalPrice .title h3{font-size: 14px;font-weight: 600;}
+#userStyle #mCafe24Order .totalPay{font-weight: 600;font-size: 14px;}
+#userStyle #mCafe24Order .totalPay.paymentPrice{background: #F6F6F6;}
+#userStyle #mCafe24Order .totalPay.paymentPrice .txtStrong{}
+#userStyle #mCafe24Order .totalPay .heading{font-size: 14px;}
+#userStyle #mCafe24Order .orderArea .ec-base-prdInfo{ margin: 15px 16px 15px 16px; }
+#userStyle #mCafe24Order .btnNormal, 
+#userStyle #mCafe24Order .btnStrong,
+#userStyle #mCafe24Order .btnBasic, 
+#userStyle #mCafe24Order .btnSubmit, 
+#userStyle #mCafe24Order .btnEm, 
+#userStyle #mCafe24Order .btnBase{ font-family: 'Pretendard',Arial,"Apple SD Gothic Neo","Noto Sans Regular","맑은 고딕","malgun gothic","돋움","dotum",sans-serif; }
+#userStyle #mCafe24Order .btnNormal, 
+#userStyle #mCafe24Order .btnStrong, 
+#userStyle #mCafe24Order .btnBasic, 
+#userStyle #mCafe24Order .btnBase{ font-size: 13px; }
+#userStyle #mCafe24Order select{border: 1px solid #E1E1E1;}
+#userStyle #mCafe24Order .txtStrong { color: #000; font-size: 14px; font-weight: 600;}
+#userStyle #mCafe24Order [class*="btn"].mini{ height: 40px; }
+#userStyle #mCafe24Order .helpArea{ background: none; padding: 20px 20px; }
+#userStyle #mCafe24Order .ec-base-button + .helpArea li { padding: 0 0 10px 9px; }
+#userStyle #mCafe24Order .agreeArea .checkNone .agree-msg{ font-size: 13px; }
+#userStyle #mCafe24Order .ec-base-layer{ transform: translateY(0); }
+#userStyle #mCafe24Order .ec-base-layer.typeWide h1 { height: 40px; line-height: 40px; font-size: 16px; font-weight: 600; border: none; background-color: #000000; }
+#userStyle #mCafe24Order .ec-base-layer.typeWide .btnClose{transform: rotate(0);top: 2px;}
+#userStyle .ec-base-layer .btnClose:before{display: none;}
+#userStyle .ec-base-layer .btnClose::after{display: none;}
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .ec-base-layer{background: #ececec;}
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .ec-base-prdInfo{ padding: 0;padding-top: 15px; }
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .segment .totalPay{border-radius: 3px;}
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .title h3{font-weight: 600;}
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .totalPay .heading{font-weight: 600;font-size: 14px;}
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .orderArea .totalPrice{ margin: 20px 14px 0px; padding-bottom: 10px; }
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .pannelArea{border: 0;}
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .title h2{ font-size: 16px; font-weight: 600; }
+#userStyle #mCafe24Order .ec-base-layer.typeWide > .ec-base-button.gFull{padding: 0;border-top: 0;}
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .btnSubmit{padding: 0;margin-bottom: 0;background: #000; border-radius: 0; border: 0; }
+#userStyle #mCafe24Order #ec-shop-confirm_sum_mileage_area{padding-bottom: 10px;}
+#userStyle #mCafe24Order #ec-shop-confirm_sum_mileage_area .totalPay{ margin: 14px; border-top: 0; border-radius: 3px; padding: 13px 15px;}
+#userStyle #progressPaybarBackground{position: fixed;}
+#userStyle #mCafe24Order .payMethod > li .inner > .ec-base-label > input:checked ~ label { border: 1px solid #3971FF; color: #3971FF; font-weight: 700; padding: 12px 13px; font-size: 14px; font-weight: 600; line-height: 1; min-height: auto; }
+#userStyle #mCafe24Order .agreeArea .allAgree > label > strong{font-weight: 600;}
+#userStyle #mCafe24Order .pannelArea{}
+#userStyle #mCafe24Order .agreeArea .allAgree { padding: 10px 0; font-size: 18px; display: flex; align-items: center; }
+#userStyle #mCafe24Order .agreeArea .allAgree > label > strong{ font-size: 14px; }
+#userStyle #mCafe24Order .agreeArea .agreement li{ padding: 7px 0; }
+#userStyle #mCafe24Order .agreeArea .agreement{padding-bottom: 0;}
+#userStyle #mCafe24Order .agreeArea .agreement .agree .check > label { font-size: 14px; font-weight: 400; margin: 0; }
+#userStyle #mCafe24Order .ec-base-label, 
+#userStyle #mCafe24Order label{font-size: 14px;}
+#userStyle #mCafe24Order .ec-base-prdInfo .thumbnail img{
+    height: 100%;
+    object-fit: cover;
+}
+#userStyle #mCafe24Order .segment .paymentList ul li{
+    line-height: 24px;
+}
+#userStyle #mCafe24Order .discountDetail .discountList .title .control span{
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#userStyle #mCafe24Order .discountDetail .discountList .title .heading:after{
+    width: 6px;
+    height: 6px;
+    top: 3px;
+    border-width: 1px;
+    border-color: #000;
+}
+#userStyle #mCafe24Order .discountDetail .discountList.selected .title .heading:after{
+    top: 7px;
+}
+
+
+
+#userStyle #mCafe24Order .discountArea .ec-base-box > .heading{
+    font-size: 14px;
+}
+
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .ec-base-table td .ec-base-table{
+    margin: 0;
+}
+
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .discountArea .ec-base-table.gCellNarrow tbody th, 
+#userStyle #mCafe24Order #ec-shop_orderConfirmLayer .discountArea .ec-base-table.gCellNarrow tbody td{
+    font-size: 14px;
+}

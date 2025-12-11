@@ -1,0 +1,156 @@
+body #container{ padding:0px 0 0px; }
+body #contents{ max-width: 100%; padding: 0; }
+.swiper-button-disabled{opacity: 0.3;}
+.sc-product.slide-prd .group-top .navi .swiper-button-disabled:hover{border: 1px solid #eee;}
+body{ word-break: keep-all; 
+}
+body #header{
+    position: fixed;
+    top: 0;left: 0;
+    width: 100%;
+}
+
+
+.intro{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;left: 0;
+    right: 0;bottom: 0;
+    pointer-events: none;
+    z-index: 1000;
+}
+.intro::after{
+    position: absolute;
+    top: 0;left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    pointer-events: none;
+    content: '';
+}
+.intro img{
+    width: 150px;
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+}
+
+
+
+
+
+.sc-poruct .flex{ display: flex; gap: 40px; }
+
+.sc-visual2{ position: relative;  }
+.sc-visual2 .content,
+.sc-visual2 .thumb{ height: 100%;display: block;}
+
+.sc-visual2 .thumb{ position: relative; overflow: hidden; }
+.sc-visual2 .thumb iframe{ position: absolute; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; width: 177.78% !important; height: 120% !important; pointer-events: none; z-index: 0; }
+@media (max-width:768px) {
+    .sc-visual2 .thumb iframe{ width: 347.78% !important; }
+}
+
+body #header{background: transparent;}
+
+
+.sc-visual2 .content-wrap{height: 100svh;}
+.sc-visual2 .content-wrap.m{display: none;}
+.sc-visual2 .thumb img,
+.sc-visual2 .thumb video{ height: 100%; width: 100%; object-fit: cover; }
+
+.sc-visual2 .text-area{
+    position: absolute;
+    bottom: 0;left: 0;
+    width: 100%;
+    padding: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+.sc-visual2 .text-area h2{font-size: 50px;font-weight: 500;font-family: 'fw',serif;}
+.sc-visual2 .text-area p{font-size: 14px;}
+.sc-visual2 .text-area span{
+    text-decoration: underline;
+}
+
+
+    .sc-intro{ }
+    .sc-intro .flex{ display: flex; height: 100%; }
+    .sc-intro .flex .thumb{ position: relative; flex: 1; }
+    .sc-intro .flex .img{ height: 100%; }
+    .sc-intro .flex img{ aspect-ratio: 3/3.5; width: 100%; height: 100%; object-fit: cover; }
+    .sc-intro .text-area{ position: absolute; top: 50%;left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; color: #fff; gap: 10px; }
+    .sc-intro .text-area h3{ font-weight: 500; font-size: 30px;font-family: 'fw',serif; }
+    .sc-intro .text-area span{
+        text-decoration: underline;
+        font-size: 14px;
+    }
+
+    .sc-footer{position: relative;}
+    .sc-footer .content{height: 100%;}
+
+    .sc-footer .thumb{height: 100%;position: relative;}
+    .sc-footer .text-area{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 20px;
+    }
+    .sc-footer .text-area h2{
+        font-weight: 500;
+        font-size: 30px;
+    }
+    .sc-footer .text-area a{
+        text-decoration: underline;
+        font-size: 14px;
+    }
+    .sc-footer img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .footers{height: auto !important;}
+    
+    .fp-watermark{display: none;}
+
+    body #fp-nav{display: none;}
+    body  #fp-nav ul li a span, body .fp-slidesNav ul li a span{
+            background: #fff;
+        }
+
+        
+    @media (max-width:1024px) {
+        body #header .header-inner .btn-menu span{background: #fff;}
+
+    }
+
+    @media (max-width:768px) {
+        .sc-visual2 .content-wrap.pc{display: none;}
+        .sc-visual2 .content-wrap.m{display: block;}
+
+
+        .sc-visual2 .text-area{padding: 30px;gap: 5px;}
+        .sc-visual2 .text-area p{font-size: 12px;}
+     .sc-visual2 .text-area h2{font-size: 24px;}
+        .sc-intro .text-area{gap: 0;}
+        .sc-footer .text-area{gap: 0;}
+        .sc-intro .text-area h3{font-size: 20px;}
+        .sc-footer .text-area h2{font-size: 25px;}
+
+        .sc-intro .flex{
+            flex-direction: column;
+        }
+        .sc-intro .flex .thumb{height: 50%;}
+    }

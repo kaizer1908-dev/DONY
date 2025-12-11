@@ -1,0 +1,79 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="path">
+    <span>현재 위치</span>
+    <ol>
+        <li><a href="/">홈</a></li>
+        <li><a href="/myshop/index.html">마이쇼핑</a></li>
+        <li title="현재 위치"><strong>게시물 관리</strong></li>
+    </ol>
+</div>
+
+<div class="myshopArea">
+    <div class="titleArea titleArea--myshop">
+        <h2>게시물 관리</h2>
+    </div>
+    <div class="ec-base-tab tab-style1">
+        <ul class="">
+            <li><a href="/product/recent_view_product.html">최근 본 상품</a></li>
+            <li><a href="/myshop/wish_list.html">위시리스트</a></li>
+            <li class="selected"><a href="/myshop/board_list.html">게시글</a></li>
+        </ul>
+    </div>
+
+    <div module="myshop_BoardPackage">
+        <!--@css(/css/module/myshop/boardPackage.css)-->
+        <!-- <div module="myshop_boardListHead" class="RW">
+            <div>{$board_sort}</div>
+        </div> -->
+
+        <div class="board_type1" module="myshop_boardList">
+            <!--
+                $count = 10
+                $relation_post = yes
+            -->
+            <ul class="{$list_display|display}">
+                <li>
+                    <div class="text">
+                        <a href="{$link_board_list}" class="cate">{$board_category}</a>
+                        <a href="{$board_read_url}" class="subject">{$icon_lock}<div class="desc"> {$subject}</div><span class="comment">{$comment_count}</span>{$icon_new}{$icon_file}</a>
+                    </div>
+                    <div class="info">
+                        <span class="date">{$write_date}</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="text">
+                        <a href="{$link_board_list}" class="cate">{$board_category}</a>
+                        <a href="{$board_read_url}" class="subject">{$icon_lock} <div class="desc">{$subject}</div><span class="comment">{$comment_count}</span>{$icon_new}{$icon_file}</a>
+                    </div>
+                    <div class="info">
+                        <span class="date">{$write_date}</span>
+                    </div>
+                </li>
+            </ul>
+            <p class="message {$nodata_display|display} empty_type1">게시물이 없습니다.</p>
+        </div>
+    </div>
+    
+    <div module="myshop_boardlistSearch">
+        <!--@css(/css/module/myshop/boardlistSearch.css)-->
+        <fieldset class="boardSearch">
+            <legend>게시물 검색</legend>
+            <div class="form">{$form.search_key} {$form.search} <a href="#none" class="btnNormal" onclick="{$action_search}">검색</a></div>
+        </fieldset>
+    </div>
+
+    <div module="myshop_boardlistPaging" class="ec-base-paginate typeList">
+        <!--
+            $relation_post = yes
+        -->
+        <a href="{$param_prev}">이전 페이지</a>
+        <ol>
+            <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+            <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+        </ol>
+        <a href="{$param_next}">다음 페이지</a>
+    </div>
+    
+    <!--@import(/myshop/myshop_main.html)-->
+</div>    

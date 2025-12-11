@@ -1,0 +1,89 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div module="board_ReadPackage_9">
+    <!--@css(/css/module/board/readPackage.css)-->
+    <!--@js(/js/module/board/readPackage.js)-->
+    <div module="board_title_9">
+        <!-- <div class="path">
+            <span>현재 위치</span>
+            <ol>
+                <li><a href="/">홈</a></li>
+                <li><a href="/board/index.html">게시판</a></li>
+                <li title="현재 위치"><strong>{$board_name}</strong></li>
+            </ol>
+        </div> -->
+
+        <div class="titleArea">
+            <h2>{$board_title} {$board_adult_icon}</h2>
+        </div>
+    </div>
+
+    <div module="Board_Read_9">
+        <!--
+            $delete_success_url = /board/consult/list.html
+            $login_page_url = /member/login.html
+        -->
+
+        <div class="ec-base-table gLayoutFixed">
+            <div class="head">
+                <h3>{$subject}</h3>
+                <div class="description">
+                    <span class="name">{$writer}</span>
+                    <ul class="etcArea">
+                        <li class="{$config.use_date|display}">
+                            <span class="txtNum">{$write_date}</span>
+                        </li>
+                        <li >
+                            <span>답변여부</span> <span class="txtNum">{$consult}</span>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+
+            <div class="attach {$config.use_attach|display}">{$attach_file}</div>
+            <div class="detail">
+                {$content_image}{$content}
+            </div>
+        </div>
+
+
+
+
+        <div class="ec-base-table gLayoutFixed {$display_consult_reply}">
+            <div class="head">
+                <h3>1:1 맞춤상담 답변</h3>
+                <div class="description">
+                    <span class="name">답변자:{$reply_name}</span>
+                    <ul class="etcArea">
+                        <li >
+                            <span class="txtNum">{$reply_date}</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="detail">
+                {$reply_content}
+            </div>
+        </div>
+
+
+
+
+
+        <div class="ec-base-box typeThinBg gBlank30 {$display_consult_noreply}">
+            <p>빠른시간내에 답변드리겠습니다. 잠시만 기다려 주세요!</p>
+        </div>
+
+        <div class="ec-base-button gBottom">
+            <span class="gLeft"><a href="{$link_board_list}" class="btnNormalFix sizeM">목록</a></span>
+            <span class="gRight">
+                <span class="{$delete_button_auth|display}"><a href="#none" onclick="{$action_delete}" class="btnNormalFix sizeM">삭제</a></span>
+                <span class="{$modify_button_auth|display}"><a href="/board/consult/modify.html{$param_modify}" class="btnNormalFix sizeM">수정</a></span>
+                <span class="{$config.is_admin|display}"><a href="/board/consult/reply.html{$param_reply}" class="btnSubmitFix sizeM {$reply_button_auth|display}">답변</a></span>
+            </span>
+        </div>
+    </div>
+</div>

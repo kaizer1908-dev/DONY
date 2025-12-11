@@ -1,0 +1,8 @@
+
+# Ignore images for code repository
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.zip
+*.tar.gz

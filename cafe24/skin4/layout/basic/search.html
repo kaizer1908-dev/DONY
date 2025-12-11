@@ -1,0 +1,27 @@
+<div class="search_inner">
+    <div module="Layout_SearchHeader">
+        <!--@css(/css/module/layout/searchHeader.css)-->
+        <!--
+        $product_page=/product/detail.html
+        $category_page=/product/list.html
+        -->
+        <fieldset>
+            <legend class="blind">검색</legend>
+            {$form.keyword}
+            <button class="seearch_img" type="submit" alt="검색" onclick="{$action_search_submit}">
+                <svg class="unified-header-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.10001 7.52133C3.10001 5.0795 5.0795 3.1 7.52134 3.1C9.96317 3.1 11.9427 5.0795 11.9427 7.52133C11.9427 9.96316 9.96317 11.9427 7.52134 11.9427C5.0795 11.9427 3.10001 9.96316 3.10001 7.52133ZM7.52134 2.1C4.52722 2.1 2.10001 4.52721 2.10001 7.52133C2.10001 10.5154 4.52722 12.9427 7.52134 12.9427C8.83586 12.9427 10.0411 12.4748 10.9797 11.6965L11.2191 11.936L13.6798 14.3966L14.0333 14.7502L14.7404 14.0431L14.3869 13.6895L11.9262 11.2289L11.6877 10.9903C12.4713 10.0502 12.9427 8.84084 12.9427 7.52133C12.9427 4.52721 10.5155 2.1 7.52134 2.1Z" fill="black"></path></svg>
+            </button>
+        </fieldset>
+    </div>
+    <!-- <div module="search_hotkeyword" class="hotkeyword">
+        <h3>인기 검색어</h3>
+        <ul>
+            <li><a href="{$hot_keyword_url}" class="fs14">{$hot_keyword_name}</a></li>
+            <li><a href="{$hot_keyword_url}" class="fs14">{$hot_keyword_name}</a></li>
+        </ul>
+    </div> -->
+    <button class="btn-close">
+        CLOSE
+        <svg class="Icon Icon--close" role="presentation" viewBox="0 0 16 14"><path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path></svg>
+    </button>
+</div>

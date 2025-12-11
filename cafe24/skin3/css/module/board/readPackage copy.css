@@ -1,0 +1,88 @@
+.xans-board-title p.imgArea { margin:0 0 20px; }
+
+.xans-board-read .adm-btns{
+    display: flex;
+    margin: 10px 0;
+    gap: 5px;
+}
+.xans-board-read .adm-btns > *{
+    border: 1px solid #e5e5e5;
+    text-decoration: none;
+    padding: 3px 10px;
+    font-size: 12px;
+    border-radius: 2px;
+    color: #747474;
+}
+
+.ec-base-box + #BoardDelForm .ec-base-table { border-top: 0; }
+.xans-board-read .ec-base-table .head { padding: 16px 0; border-bottom:1px solid #eaeaea; }
+.xans-board-read .ec-base-table .head h3 {font-size: 14px; font-weight: normal; 
+    display: flex;
+    gap: 5px;
+}
+.xans-board-read .ec-base-table .description {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+ }
+.xans-board-read .ec-base-table .description .name {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    margin-right: 8px; 
+font-size: 12px;color: #858585;}
+.xans-board-read .ec-base-table .etcArea {display: flex;}
+.xans-board-read .ec-base-table .etcArea li {
+     display:inline-block; padding:0 8px; 
+     vertical-align:middle; color:#858585; 
+    display: flex;align-items: center;
+    font-size: 12px;
+}
+.xans-board-read .ec-base-table .etcArea li a { text-decoration:none; }
+.xans-board-read .ec-base-table .etcArea .txtNum { 
+    font-size: 13px; color: #858585; }
+.xans-board-read .ec-base-table .detail { padding: 20px 0; word-break:break-all; line-height:normal;
+    min-height: 300px;
+}
+.xans-board-read .ec-base-table .detail ol,
+.xans-board-read .ec-base-table .detail ul { margin:15px 0; padding:0 0 0 40px; }
+.xans-board-read .ec-base-table .detail ol li { list-style:decimal; }
+.xans-board-read .ec-base-table .detail ul li { list-style:disc; }
+.xans-board-read .ec-base-table .detail img { max-width: 100%; }
+.xans-board-read .ec-base-table .attach {
+    position: relative; padding: 10px 0; margin: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+     text-align: right;
+        font-size: 12px;
+    }
+.xans-board-read .ec-base-table .attach a { padding:0 0 0 12px; color:#6d6d6d; 
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.xans-board-read .ec-base-table .attach a:hover { text-decoration:underline; }
+.xans-board-read .ec-base-table .attach a:first-child { padding-left: 20px; background: url("//img.echosting.cafe24.com/skin/skin/board/icon-file.svg") no-repeat 0 0; background-size: 14px auto; }
+
+.xans-board-product .ec-base-box.typeProduct { margin:0 0 40px; 
+
+}
+
+
+
+.xans-board-product .information h3 { margin:0 0 2px; padding:0 120px 0 0; font-size:14px; }
+.xans-board-product #sPrdCommonImg { position:absolute; top:0; right:0; width:100px; text-align:right; }
+.xans-board-product .information .button { margin:15px 0 0; }
+
+.only_read_board{
+    padding: 16px 16px;
+    background: #f3f3f3;
+    border-radius: 3px;
+}
+
+/********************* Mobile / Tablet *********************/
+/* @media all and (max-width:1024px) {
+    .xans-board-read .ec-base-table .head { padding: 20px 16px; }
+    .xans-board-read .ec-base-table .attach {margin: 0 16px; }
+} */

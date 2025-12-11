@@ -1,0 +1,56 @@
+.xans-myshop-orderhistoryapplycancel .order { position:relative; }
+/* .xans-myshop-orderhistoryapplycancel .order__number { overflow:hidden; padding:20px 0 20px 15px; font-size:13px; background-color:#f6f6f6; border-top:1px solid #000; }
+.xans-myshop-orderhistoryapplycancel .order__number .date { font-weight:bold; } */
+
+.xans-myshop-orderhistoryapplycancel .order__number { display: flex; align-items: center; gap: 10px; overflow: hidden; font-size: 13px; padding: 15px 0; border-top: 1px solid #000; }
+.xans-myshop-orderhistoryapplycancel .order__number .date { font-weight: 600; }
+.xans-myshop-orderhistoryapplycancel .order__number .number{ border: 1px solid #000; padding: 3px 8px; border-radius: 5px; font-size: 11px; line-height: 1; }
+
+
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeList .xans-myshop-products .multiDelivery{background-color:#fbfafa;vertical-align:middle;padding:10px 20px 10px 40px;}
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeList .xans-myshop-products .multiDelivery .inner{display: flex;align-items:center;}
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeList .xans-myshop-products .multiDelivery .address{flex:1;display: block;padding-right:20px;}
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeList .xans-myshop-products .multiDelivery .waybill{flex:none;display: inline-block;}
+
+/* Write */
+.xans-myshop-orderhistoryapplycancel textarea { width:100%; }
+.itemAddInfo input { width:100%; }
+
+.xans-myshop-orderhistoryapplycancel p.ec-base-help { margin:10px 0 0; }
+
+
+
+.xans-myshop-orderhistoryapplycancel .ec-base-prdInfo.gCheck .quantity { border: 0; padding-right: 0; align-items: flex-end; 
+    box-sizing: border-box;
+}
+.xans-myshop-orderhistoryapplycancel .ec-base-prdInfo .prdFoot { padding-top: 10px; }
+.exchangeProduct .quantity{ display: flex; align-items: center; padding-right: 30px; }
+.exchangeProduct .ec-base-prdInfo .btnDelete{ top: 20px; }
+.xans-myshop-orderhistoryapplycancel .ec-base-table{ border: 0; }
+.xans-myshop-orderhistoryapplycancel .addTxt{ font-size: 12px; color: #858585; display: block; }
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeWrite{ padding: 0; }
+.xans-myshop-orderhistoryapplycancel .subTxt { color: #868686; font-size: 12px; line-height: 22px; }
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeWrite td input[type="text"],
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeWrite td input[type="password"], 
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeWrite td select{ border: 1px solid #e0e0e0; }
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeWrite th[scope*="row"]{ display: block; background: none; border-bottom: 0; padding: 0; padding: 4px 0; }
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeWrite td{ display: block; border-bottom: 0; padding: 0; margin-bottom: 10px; }
+.xans-myshop-orderhistoryapplycancel textarea { width:100%; resize: none; box-sizing: border-box; display: block; }
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeWrite td label{ line-height: 22px; }
+
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeWrite td input[type="text"],
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeWrite td input[type="password"],
+.xans-myshop-orderhistoryapplycancel .ec-base-table.typeWrite td select{
+    width: 100%;
+    flex: 1;
+}
+
+/********************* Mobile / Tablet *********************/
+@media all and (max-width:1024px) {
+  
+    .xans-myshop-orderhistoryapplycancel .ec-base-prdInfo.gCheck .quantity{
+      align-items: center;
+      padding-left: 25px;
+    }
+  }
+  

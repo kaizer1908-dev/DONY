@@ -1,0 +1,107 @@
+<!--@layout(/layout/basic/layout.html)-->
+
+<!--@css(/layout/basic/css/main3.css)-->
+<!--@js(/layout/basic/js/lenis.js)-->
+<!--@js(/layout/basic/js/gsap.js)-->
+<!--@js(/layout/basic/js/scrollTrigger.js)-->
+<!--@js(/layout/basic/js/main3.js)-->
+
+<!-- 팝업 html 추가 -->
+<!--@import(/popup/pop_swp.html)-->
+
+
+
+<div class="intro"  df-banner-code="intrologo" hidden>
+    <div df-banner-clone>{#item}</div>
+</div>
+
+
+<section class="section sc-visual2">
+    <div df-banner-code="visual" hidden class="content-wrap pc">
+        <div df-banner-clone class="content">
+            <a href="{#href}" target="{#target}" class="thumb">
+                {#item}
+                <div class="text-area">
+                    <h2>{#title}</h2>
+                    <p>{#html}</p>
+                    <span>More View</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div df-banner-code="visual1-m" hidden class="content-wrap m">
+        <div df-banner-clone class="content">
+            <a href="{#href}" target="{#target}" class="thumb">
+                {#item}
+                <div class="text-area">
+                    <h2>{#title}</h2>
+                    <p>{#html}</p>
+                    <span>More View</span>
+                </div>
+            </a>
+        </div>
+    </div>
+   
+</section>
+
+<section class="section sc-visual2" >
+    <div df-banner-code="visual2" hidden class="content-wrap pc">
+        <div df-banner-clone class="content">
+            <a href="{#href}" target="{#target}" class="thumb">
+                {#item}
+                <div class="text-area">
+                    <h2>{#title}</h2>
+                    <p>{#html}</p>
+                    <span>More View</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div df-banner-code="visual2-m" hidden class="content-wrap m">
+        <div df-banner-clone class="content">
+            <a href="{#href}" target="{#target}" class="thumb">
+                {#item}
+                <div class="text-area">
+                    <h2>{#title}</h2>
+                    <p>{#html}</p>
+                    <span>More View</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- 배너 관리 [콜렉션+머스트헤브]-->
+<section class="sc-intro">
+    <div class="flex" df-banner-code="intro" hidden>
+        <div class="thumb" df-banner-clone>
+            <a href="{#href}" target="{#target}">
+                <div class="text-area">
+                    <h3>{#title}</h3>
+                    <span>More View</span>
+                </div>
+                <div class="img">{#item}</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- 여기서부터 지우세요 -->
+<style>
+    .set_type a:nth-child(3){background: #000;color: #fff;}
+</style>
+<!--@import(/layout/set.html)-->
+<!-- 여기까지 지우세요 -->
+
+
+
+
+
+<!--@define(cmc_log)-->
+

@@ -1,0 +1,371 @@
+<!--@layout(/layout/basic/layout.html)-->
+
+<style>
+    /* #contents{max-width: 100%;padding: 0;} */
+    .xans-board{max-width: 100%;}
+    .board-wrapper2{ display: flex; }
+    .board-wrapper2 .col-left{ width: 314px; padding: 0 35px;
+         box-sizing: border-box; padding-top: 85px; }
+    .board-wrapper2 .col-left .pc ul{}
+    .board-wrapper2 .col-left .pc li{ opacity: 0.3; font-size: 16px; margin-bottom: 20px; }
+    .board-wrapper2 .col-left .pc li.active{ opacity: 1; }
+
+    .board-wrapper2 .col-right{ flex: 1;  padding-right: 20px;}
+    .cate-list2{ display: flex; justify-content: center;gap: 10px; flex-wrap: wrap; padding: 80px 0; gap: 30px; }
+    .cate-list2 a{ display: flex; font-size: 14px;color: #b6b7b8;}
+    .cate-list2 a.on{ font-weight: 600;  color: #000;}
+    .xans-board-listpackage .boardSort select{ position: absolute;top: -9999px;left: -9999px;}
+    .board-wrapper2 .col-left .btn-back{display: none;}
+
+    @media (max-width:1024px) {
+        .board-wrapper2{display: block;}
+        .board-wrapper2 .col-left{
+            position: relative;
+            padding: 0 20px;
+            width: 100%;
+            
+        }
+    .board-wrapper2 .col-right{   padding-right: 0px;}
+
+        .board-wrapper2 .col-left .btn-back{
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+        }
+        .board-wrapper2 .col-left .pc{
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .board-wrapper2 .col-left .pc li{margin-bottom: 0;}
+
+        .cate-list2{
+            padding: 40px 0;
+            gap: 0;
+        }
+        .cate-list2 li{
+            flex: 1;
+        }
+        .cate-list2 a{
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e8e8e8;
+            line-height: 27px;
+        }
+        .cate-list2 a.on{
+            border-bottom: 1px solid #000;
+        }
+    }
+
+</style>
+
+
+<div class="board-wrapper2">
+    <!-- <div class="col-left" >
+        <button class="btn-back" onclick="history.go(-1);return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5.91498 10.085L10.915 5.08496L12.085 6.25494L8.25494 10.085L12.085 13.915L10.915 15.085L5.91498 10.085Z" fill="#1D1D1D"></path></svg>
+        </button>
+        <ul class="pc">
+            <li class="active"><a href="/board/gallery/list.html?board_no=8&category_no=1">EVENT</a></li>
+            <li><a href="/board/free2/list.html?board_no=3&category_no=1">FAQ</a></li>
+        </ul>
+    </div> -->
+
+    <div class="col-right">
+        <ul class="cate-list2"></ul>
+        <div module="Board_ListPackage_8">
+            <!--@css(/css/module/board/listPackage_gallary.css)-->
+
+            <div module="board_title_8" style="display: none;">
+                <div class="path">
+                    <span>현재 위치</span>
+                    <ol>
+                        <li><a href="/">홈</a></li>
+                        <li><a href="/board/index.html">게시판</a></li>
+                        <li title="현재 위치"><strong>{$board_name}</strong></li>
+                    </ol>
+                </div>
+
+                <div class="headline">
+                    <h2>{$board_title} {$board_adult_icon}</h2>
+                </div>
+            </div>
+
+            <div module="board_listheader_8" class="ec-base-tab gBlank7 {$list_type_display|display}">
+                <ul>
+                    <li class="selected"><a href="/board/gallery/list.html{$param_list}"><!--@import(/svg/icon-sort-thumb.html)--> 이미지형</a></li>
+                    <li><a href="/board/gallery/list2.html{$param_list}"><!--@import(/svg/icon-sort-list.html)--> 리스트형</a></li>
+                </ul>
+            </div>
+
+            <div class="boardSort">
+                <span module="board_category_8">{$form.board_category}</span>
+            </div>
+            <div class="boardList">
+                <div module="board_notice_8" class="fix-notice">
+                    <!--
+                        $login_page_url = /member/login.html
+                        $deny_access_url = /index.html
+                    -->
+                    <ul class="board-list type1 notice">
+                    
+                        <li>
+                            <span class="chk">
+                                {$checkbox}
+                            </span>
+                            <a href="{$link_board_detail}" class="link">
+
+                                <span class="thumbnail"><img src="{$img_src}" onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'" alt="" /></span>
+                                <div class="right">
+                                    <p class="text"> {$notice_icon} {$subject}</p>
+                                    <span class="summary">
+                                        <span>작성자 : {$writer}</span>
+                                        <span class="date {$date_display|display}">작성일 : {$write_date|date:Y-m-d H:i:s}</span>
+                                    </span>
+                                </div>
+                               
+                            </a>
+                        </li>
+                        <li>
+                            <span class="chk">
+                                {$checkbox}
+                            </span>
+                            <a href="{$link_board_detail}" class="link">
+
+                                <span class="thumbnail"><img src="{$img_src}" onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'" alt="" /></span>
+                                <div class="right">
+                                    <p class="text"> {$notice_icon} {$subject}</p>
+                                    <span class="summary">
+                                        <span>작성자 : {$writer}</span>
+                                        <span class="date {$date_display|display}">작성일 : {$write_date|date:Y-m-d H:i:s}</span>
+                                    </span>
+                                </div>
+                               
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div module="board_fixed_8" class="fix-notice">
+                    <!--
+                        $login_page_url = /member/login.html
+                        $deny_access_url = /index.html
+                    -->
+                    <ul class="board-list type1 fixed">
+                        <li>
+                    
+                            <a href="{$link_board_detail}" class="link">
+                                
+                                <div class="num">
+                                    <span class="chk">
+                                        {$checkbox}
+                                    </span>
+                                    {$fixed_icon}
+                                </div>
+                                <div class="wrap" >
+                                    <div class="box">
+                                        <span class="text">{$subject}</span>
+                                        <span class="icon">
+                                            <span class="comment">{$comment_count}</span>
+                                            {$icon_re}{$icon_lock}{$icon_file}
+                                            {$icon_new}{$icon_hit}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="etc2">
+                                    <span class="{$date_display|display}">{$write_date|date:Y-m-d}</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                    
+                            <a href="{$link_board_detail}" class="link">
+                                
+                                <div class="num">
+                                    <span class="chk">
+                                        {$checkbox}
+                                    </span>
+                                    {$fixed_icon}
+                                </div>
+                                <div class="wrap" >
+                                    <div class="box">
+                                        <span class="text">{$subject}</span>
+                                        <span class="icon">
+                                            <span class="comment">{$comment_count}</span>
+                                            {$icon_re}{$icon_lock}{$icon_file}
+                                            {$icon_new}{$icon_hit}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="etc2">
+                                    <span class="{$date_display|display}">{$write_date|date:Y-m-d}</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div module="board_list_8" class="normal">
+                    <!--
+                        $count = 12
+                        $login_page_url = /member/login.html
+                        $deny_access_url = /index.html
+                    -->
+                    <ul>
+                        <li>
+                            <a href="{$link_board_detail}">
+                                <span class="thumbnail"><img src="{$img_src}" onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'" alt="" /></span>
+                                <div class="summary">
+                                    <strong class="subject">{$subject}<span class="comment">{$comment_count}</span></strong>
+                                    <!-- <span>{$member_icon}{$writer} </span> -->
+                                    <!-- <span>작성자 : {$writer}</span> -->
+                                    <!-- <span class="date {$date_display|display}">작성일 : {$write_date|date:Y-m-d H:i:s}</span> -->
+                                     <div class="cate">{$category_name}</div>
+                                </div>
+                            </a>
+                            {$checkbox}
+                        </li>
+                        <li>
+                            <a href="{$link_board_detail}">
+                                <span class="thumbnail"><img src="{$img_src}" onerror="this.src='//img.echosting.cafe24.com/thumb/198x198.gif'" alt="" /></span>
+                                <div class="summary">
+                                    <strong class="subject">{$subject}<span class="comment">{$comment_count}</span></strong>
+                                    <!-- <span>{$member_icon}{$writer} </span> -->
+                                    <!-- <span>작성자 : {$writer}</span> -->
+                                    <!-- <span class="date {$date_display|display}">작성일 : {$write_date|date:Y-m-d H:i:s}</span> -->
+                                    <div class="cate">{$category_name}</div>
+                                </div>
+                            </a>
+                            {$checkbox}
+                        </li>
+                    </ul>
+                </div>
+                <div class="boardListEmpty {$empty_display|display}" module="board_empty_8">
+                    <p>{$empty_message}</p>
+                </div>
+            </div>
+
+            <div module="board_ButtonList_8" class="{$write_display|display} ec-base-button gBottom">
+                <span class="gRight">
+                    <a href="/board/gallery/write.html{$param_write}" class="btnSubmitFix sizeM {$write_display|display}">글쓰기</a>
+                </span>
+            </div>
+            <div module="board_search_8" style="display: none;">
+                <!--@css(/css/module/board/search.css)-->
+                <fieldset class="boardSearch">
+                    <legend>게시물 검색</legend>
+                    <div class="form">{$form.search_date} {$form.search_key} {$form.search} <a href="#none" class="btnNormal" onclick="{$action_search}">찾기</a></div>
+                </fieldset>
+            </div>
+        </div>
+
+        <div module="board_paging_8" class="ec-base-paginate typeList">
+            <!--
+$count = 5
+-->
+            <a href="{$param_prev}">이전 페이지</a>
+            <ol>
+                <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+                <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+            </ol>
+            <a href="{$param_next}">다음 페이지</a>
+        </div>
+
+        <!-- Admin only -->
+        <div module="board_catemove_8">
+            <!--@css(/css/module/board/catemove.css)-->
+            <span class="gColumn">{$board_catemove_selectbox}</span>
+            <span class="gColumn"><a href="#none" class="btnNormal sizeS" onclick="{$action_category_move}">{$category_move}</a></span>
+        </div>
+
+        <div module="board_function_8">
+            <!--@css(/css/module/board/function.css)-->
+            <span class="gColumn">{$board_function_selectbox}</span>
+            <span class="gColumn">
+                <a href="#none" class="btnNormal sizeS" onclick="{$action_article_move}">{$article_move}</a>
+                <a href="#none" class="btnNormal sizeS" onclick="{$action_article_copy}">{$article_copy}</a>
+            </span>
+            <span class="ec-base-help">{$board_function_help|replace:*,}</span>
+        </div>
+        <!-- // Admin only -->
+
+    </div>
+
+</div>
+
+
+<script>
+    var currentUrl = window.location.href;
+      var urlParams = new URLSearchParams(window.location.search);
+      var boardNo = urlParams.get('board_no');
+     // 조건문을 통해 board_no 값에 따른 동작 수행
+     if (boardNo === '1') {
+          document.querySelectorAll('.page-pos li')[0].querySelector('a').classList.add('on');
+      } else if (boardNo === '6') {
+          document.querySelectorAll('.page-pos li')[2].querySelector('a').classList.add('on');
+      }
+
+
+      document.addEventListener('DOMContentLoaded', function() {
+      var selectElement = document.getElementById('board_category');
+      var ulElement = document.querySelector('.cate-list2');
+
+      // Select의 옵션들을 가져오기 (전체 제외)
+      var options = Array.from(selectElement.options).filter(option => option.value !== "");
+
+      // ul.cate-list2 내부에 li>a 구조로 옵션들을 생성
+      options.forEach(option => {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#';
+          a.textContent = option.textContent;
+          a.dataset.value = option.value;
+          li.appendChild(a);
+          ulElement.appendChild(li);
+
+          // a 태그 클릭 이벤트 추가
+          a.addEventListener('click', function(event) {
+              event.preventDefault();
+              selectElement.value = option.value;
+              selectElement.dispatchEvent(new Event('change'));
+
+              // 모든 a 태그에서 'on' 클래스 제거
+              ulElement.querySelectorAll('a').forEach(function(link) {
+                  link.classList.remove('on');
+              });
+
+              // 클릭된 a 태그에 'on' 클래스 추가
+              a.classList.add('on');
+          });
+      });
+
+      // 페이지 로드 시 select의 초기 값에 따른 'on' 클래스 설정
+      selectElement.addEventListener('change', function() {
+          var selectedValue = selectElement.value;
+
+          ulElement.querySelectorAll('a').forEach(function(link) {
+              if (link.dataset.value === selectedValue) {
+                  link.classList.add('on');
+              } else {
+                  link.classList.remove('on');
+              }
+          });
+      });
+
+      // 초기 로드 시 select의 초기 값에 따른 'on' 클래스 설정
+      var initialSelectedValue = selectElement.value;
+      if (initialSelectedValue) {
+          ulElement.querySelectorAll('a').forEach(function(link) {
+              if (link.dataset.value === initialSelectedValue) {
+                  link.classList.add('on');
+              }
+          });
+      }
+  });
+
+
+</script>

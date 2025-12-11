@@ -1,0 +1,37 @@
+.xans-myshop-wishlistitem { border-top:1px solid #000; }
+
+.xans-myshop-wishlist .shippingFee { position:relative; display:inline-block; text-align:left; }
+.xans-myshop-wishlist .shippingFee .ec-base-tooltip { display:block; margin:0 0 0 -170px; width:360px; }
+.xans-myshop-wishlist .shippingFee .ec-base-tooltip table th { width:40px; }
+.xans-myshop-wishlist .shippingFee .ec-base-tooltip table th,
+.xans-myshop-wishlist .shippingFee .ec-base-tooltip table td { padding:7px 10px 8px 10px; text-align:left; }
+
+
+
+
+.xans-myshop-wishlistitem { border-top:1px solid #000; display: grid; grid-template-columns: repeat(6,1fr); gap: 10px; padding-top: 20px; }
+.xans-myshop-wishlistitem .prd-item{ }
+.xans-myshop-wishlistitem .ec-base-prdInfo{border-bottom: 0;padding: 0;}
+.xans-myshop-wishlistitem .ec-base-prdInfo .prdBox{ flex-direction: column; }
+.xans-myshop-wishlistitem .ec-base-prdInfo .thumbnail{ margin: 0; }
+.xans-myshop-wishlistitem .ec-base-prdInfo .thumbnail > a{ width: 100%; height: auto; }
+.xans-myshop-wishlistitem .ec-base-prdInfo .description .prdName{ width: 100%; font-size: 12px; line-height: 1.2; margin: 5px 0; font-weight: 600;}
+.xans-myshop-wishlistitem #span_mileage_text{display: flex;align-items: center;gap: 3px;}
+.xans-myshop-wishlistitem .ec-base-prdInfo .description .info .mileage img{margin: 0 !important;}
+.xans-myshop-wishlistitem .ec-base-prdInfo .btnDelete{ top: 5px;right: 5px; color: #fff;background: #000;width: auto;height: auto; border-radius: 10px;line-height: 1; padding: 3px 5px; font-size: 11px; border: 0; }
+.xans-myshop-wishlistitem .ec-base-prdInfo .btnDelete::before{display: none;}
+.xans-myshop-wishlistitem .ec-base-prdInfo .btnDelete::after{display: none;}
+.xans-myshop-wishlistitem .ec-base-prdInfo .description .price, 
+.xans-myshop-wishlistitem .ec-base-prdInfo .description .price li{font-size: 10px;line-height: 1.2;}
+
+
+@media all and (max-width:1024px) {
+    .xans-myshop-wishlistitem {
+        grid-template-columns: repeat(4,1fr);
+    }
+}
+@media all and (max-width:767px) {
+    .xans-myshop-wishlistitem {
+        grid-template-columns: repeat(3,1fr);
+    }
+}

@@ -1,0 +1,266 @@
+.scroll-hidden{
+    overflow: hidden;
+}
+#reviewFullData{
+    display: none;
+}
+
+#asReview{}
+#asReview .group-headline{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+}
+#asReview .group-headline h2{
+    font-size: 18px;
+}
+#asReview .group-headline .bt_write{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 9px;
+}
+
+#asReview .group-intro{
+    
+}
+#asReview .group-intro .data-area{
+    display: flex;
+    padding: 30px 0;
+    border-bottom: 1px solid #eee;
+}
+#asReview .group-intro .data-area .items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+#asReview .group-intro .data-area .title2{font-size: 14px;font-weight: 500;}
+#asReview .group-intro .data-area .value{font-size: 25px;font-weight: bold;}
+
+
+#chartData{}
+#chartData ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 30px 20px;
+    border-bottom: 1px solid #eee;
+    gap: 10px;
+}
+#chartData li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+#chartData .bar{
+    position: relative;
+    height: 10px;
+    background: #eee;
+    width: 100%;
+    border-radius: 3px;
+    flex: 1;
+}
+#chartData .bar .curr{
+    background: #000;
+    position: absolute;
+   top: 0;left: 0;
+    height: 100%;
+    border-radius: 3px;
+}
+#chartData .info{
+    text-align: center;
+    display: flex;
+    gap: 5px;
+    min-width: 30px;text-align: left;
+}
+#chartData .info .tit{font-size: 14px;font-weight: 500;}
+#chartData .descs{font-size: 14px;color: #858585;min-width: 30px;text-align: right;}
+#chartData .per{font-size:12px;font-weight: bold;}
+
+
+
+#userImg{ padding: 20px 0; border-bottom: 1px solid #eee; }
+#userImg h3{ margin-bottom: 10px; font-size: 14px;font-weight: 600; }
+#userImg .swiper{}
+#userImg .swiper-slide{ width: 80px; border-radius: 5px; overflow: hidden; }
+#userImg .swiper-slide img{ width: 80px; height: 80px; object-fit: cover; }
+#userImg .swiper-slide a.totalImg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background-color: #e1e1e1;
+    font-size: 14px;
+    color: #494646;
+    font-weight: 600;
+}
+
+
+
+.iframe-review{ position: fixed; width: 100%; height: 100vh; left: 0; top: 0; display: flex; align-items: center; justify-content: center; padding: 0 100px; z-index: 99999; background-color: rgba(0, 0, 0, 0.7); box-sizing: border-box; display: none; }
+.iframe-review.show{display: flex;}
+.iframe-review .content{ position: relative; max-width: 1080px; width: 100%; height: 70vh; }
+.iframe-review iframe{ width: 100%; height: 100%; }
+.iframe-review .btn-close{ position: absolute; top: 0;right: 0; transform: translate(100%, -100%); padding: 10px; }
+.iframe-review .btn-close svg{ width: 30px; height: 30px; }
+.iframe-review .btn-close svg path{fill:#fff}
+    
+
+
+#iframeReview2 .content{ position: relative; max-width: 1080px; width: 100%; height: 70vh; background: #fff; }
+#userImg2{
+    padding: 10px;
+    height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+#userImg2 ul{
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: auto;
+    gap: 10px;
+}
+#userImg2 img{width: 100%;aspect-ratio: 1/1;object-fit: cover;}
+
+
+.review_grade{}
+.review_grade img{width: 80px !important;}
+
+
+
+
+#fileLoadList {}
+#fileLoadList .list{}
+#fileLoadList .items{
+    position: relative;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+#fileLoadList .items:last-child{border-bottom: 0;}
+#fileLoadList .items .link{
+    position: absolute;
+    top: 0;left: 0;
+    right: 0;bottom: 0;
+}
+#fileLoadList .info{
+    display: flex;
+    gap: 5px;
+    padding: 5px 0 15px;
+    color: #858585;
+}
+#fileLoadList .title{
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+#fileLoadList .cont_desc {
+    position: relative;
+    max-height: 40px; /* 3줄 정도 (3 * 줄 높이: 약 1.5em 기준) */
+    overflow: hidden; /* 넘치는 텍스트는 숨기기 */
+    line-height: 20px;; /* 줄 높이 */
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+#fileLoadList .cont_desc.open {
+    max-height: none; /* 펼쳐졌을 때는 제한 없이 보이도록 */
+}
+
+#fileLoadList .toggle-btn {
+    display: none; /* 기본적으로 버튼을 숨김 */
+    margin-top: 10px;
+    color: #007bff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+#fileLoadList .toggle-btn.show {
+    display: block; /* show 클래스가 있을 때만 버튼 보이기 */
+}
+
+
+.imgList{margin-top: 20px;}
+.imgList ul{ display: flex; gap:5px; }
+.imgList ul li{ width: 60px; border-radius: 5px;overflow: hidden;} 
+.imgList ul li img{ width: 100%; height: 100%; aspect-ratio: 1/1; object-fit: cover; }
+
+.iframe-review .m-head{display: none;}
+@media all and (max-width:1024px) {
+    #asReview{padding: 0;}
+
+    .iframe-review .btn-close{
+        transform: translate(0, 0);
+        top: 2px;
+        right: 10px;
+    }
+    .iframe-review .btn-close svg{
+        width: 20px;
+        height: 20px;
+    }
+
+    .iframe-review{
+        padding: 0;
+    }
+    .iframe-review .content{
+        height: 100vh;
+    }
+    #iframeReview2 .content{
+        height: 100vh;
+    }
+    .iframe-review .btn-close svg path{
+        fill:#000
+    }
+    #userImg2 ul{
+        grid-template-columns: repeat(5,1fr);
+    }
+    #userImg2 {
+        padding: 61px 10px 10px
+    }
+ 
+}
+@media all and (max-width:767px) {
+    .iframe-review .m-head{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;top: 0;
+        left: 0;
+        width: 100%;
+        font-size: 15px;
+        font-weight: 500;
+        height: 50px;
+        background: #fff;
+        z-index: 10;
+        border-bottom: 1px solid #eee;
+    }
+    .iframe-review .m-head .btn-close2{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 20px;
+    }
+    #userImg2 ul{
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    #userImg .swiper{
+        margin: 0 -20px;
+        padding: 0 20px;
+    }
+}

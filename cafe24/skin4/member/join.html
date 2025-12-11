@@ -1,0 +1,502 @@
+<!--@layout(/layout/basic/layout.html)-->
+
+
+
+
+<!-- <div class="ec-base-step">
+    <ol class="step">
+        <li>1. 약관동의</li>
+        <li class="selected">2. 정보입력</li>
+        <li>3. 가입완료</li>
+    </ol>
+</div> -->
+
+<div module="member_join" class="memberArea">
+    <!--@css(/css/module/member/join.css)-->
+    <!--@js(/js/module/member/join.js)-->
+    <!--
+        $returnUrl = /member/join_result.html
+        $checkIdUrl = /member/check_id.html
+        $personalName = 이름
+        $companyName = 법인명
+        $companySsn = 법인번호
+        $foreignerSsn1 = 외국인 등록번호
+        $foreignerSsn2 = 여권번호
+        $foreignerSsn3 = 국제운전면허증번호
+        $isRuleBasedAddrForm = T
+     -->
+     <div class="form-frame">
+        <!-- 회원인증 -->
+        <div class="">
+            <div class="typeWrite join-form">
+                <div class="row" class="{$display_member_type|display}">
+                    <span class="title">회원구분 <i class="req"></i>
+                    </span>
+                    <div class="row radio-style1">{$form.member_type}</div>
+                </div>
+                <div class="row" id="companyWrap">
+                    <span class="title">사업자구분 <i class="req"></i></span>
+                    <div class="row radio-style1">{$form.company_type}</div>
+                </div>
+                <div id="authMember">
+                    <span class="title">회원인증 <i class="req"></i></span>
+                    <div class="formMultiple row">
+                        <div id="authWrap" >
+                            <div id="personAuth">
+                                <div id="personalTypeWrap" class="radio-style1">
+                                    {$form.personal_type}
+                                </div>
+
+                                <div id="ipinWrap " class="gBlank10">
+                                    <a href="#none" class="btnNormal sizeS" onclick="{$action_ipin_open}">아이핀인증</a>
+                                    <p class="txtInfo">아이핀이란, 회원님의 개인정보 보호를 위해 웹사이트에 주민등록번호를 제공하지 않고 본인임을 확인하는 인터넷상의 개인식별번호 서비스입니다. <br />아이핀을 통한 가입을 원하시면 아이핀 인증 버튼을 눌러 진행해 주십시오.</p>
+                                </div>
+
+                                <div id="mobileWrap" class="gBlank10">
+                                    <a href="#none" class="btnNormal sizeS" onclick="{$action_mobile_open}">휴대폰인증</a>
+                                    <p class="txtInfo">본인 명의의 휴대폰으로 본인인증을 진행합니다.</p>
+                                </div>
+
+                                <div id="emailWrap">
+                                    <ul class="txtInfo">
+                                        <li>기본정보 &gt; 이메일 항목에 입력하신 정보로 본인인증을 진행합니다.</li>
+                                        <li>회원가입 후에 입력하신 이메일 주소로 인증 메일이 발송되오니, 확인해 주시기 바랍니다.</li>
+                                        </ul>
+                                </div>
+                            </div>
+
+                            <div id="businessAuth">
+                                <dl>
+                                    <dt class="title">법인명</dt>
+                                    <dd>{$form.bname}</dd>
+                                    <dt class="title">법인번호</dt>
+                                    <dd class="formGroup code telGroup">
+                                        {$form.bssn1} - {$form.bssn2} 
+                                        <a href="#none" class="btnNormal" onclick="{$action_business_dupl}">중복확인</a>
+                                    </dd>
+                                </dl>
+                            </div>
+
+                            <div id="foreignerAuth">
+                                <dl>
+                                    <dt class="title">이름(Name)</dt>
+                                    <dd>{$form.foreigner_name}</dd>
+                                    <dt class="radio-style1 gBlank10">{$form.foreigner_type}</dt>
+
+                                    <dd class="formGroup gBlank10">
+                                        {$form.foreigner_ssn} 
+                                        <a href="#none" class="btnNormal" onclick="{$action_foreigner_check}">중복확인</a>
+                                    </dd>
+
+                                </dl>
+                                <div id="foreignerPersonWrap">
+                                    <p class="txtInfo">회사는 회원의 본인확인 및 서비스제공을 위하여 고유식별정보를 수집하여 보관하며 개인정보처리방침에 따라 보유 및 이용합니다.<br />고유식별정보 제공을 거부하는 경우 서비스 이용이 제한됩니다.</p>
+                                    <p class="gBlank10">{$form.f_identification_check}</p>
+                                </div>
+                                <div id="foreignerEmailWrap">
+                                    <ul class="txtInfo">
+                                        <li>기본정보 &gt; 이메일 항목에 입력하신 정보로 본인인증을 진행합니다.</li>
+                                        <li>회원가입 후에 입력하신 이메일 주소로 인증 메일이 발송되오니, 확인해 주시기 바랍니다.</li>
+                                        </ul>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- 기본 -->
+        <div class="typeWrite join-form">
+        
+                <div class="row {$display_use_id|display}">
+                    <span  class="title">아이디<i class="req"></i></span>
+                    <div class="wrap">
+                        {$form.member_id} 
+                        <div class="desc">
+                            <p id="{$idMsg_id}" class="txtSuccess"></p>
+                            <span class="txtInfo">(영문소문자/숫자, 4~16자)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row"> 
+                    <span class="title">비밀번호<i class="req"></i></span>
+                    <div class="wrap">
+                        {$form.passwd}
+                        <div class="desc end">
+                            <span class="txtInfo">{$passwd_type_desc}</span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <span class="title">비밀번호 확인<i class="req"></i></span>
+                    <div class="wrap">
+                        {$form.user_passwd_confirm} 
+                        <div class="desc end">
+                            <span class="txtInfo txtDanger" id="{$pwConfirmMsg_id}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row {$display_hint|display}">
+                    <span class="title">비밀번호 확인 질문<i class="req"></i></span>
+                    <div class="wrap">{$form.hint}</div>
+                </div>
+
+                <div class="row {$display_hint_answer|display}">
+                    <span class="title">비밀번호 확인 답변<i class="req"></i></span>
+                    <div class="wrap">{$form.hint_answer}</div>
+                </div>
+
+                <div class="row">
+                    <span class="title" id="{$name_title}">이름<i class="req"></i></span>
+                    <div class="wrap">
+                        <span id="{$name_contents}">{$form.name}</span>
+                        <div class="desc end">
+                            <span id="under14Msg" class="txtInfo displaynone">14세 미만 사용자는 법정대리인 동의가 필요합니다.</s>
+                        </div>
+                    </div>
+                </div>
+                <div class="row {$display_eng_name|display}">
+                    <span class="title">이름(영문) <i class="req {$display_required_name_en|display}"></i></span>
+                    <div class="wrap">
+                        {$form.name_en} 
+                        <div class="desc end"><span class="txtInfo">(이름 - 성 형식으로 입력해 주세요.)</span></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="title" id="ssnTitle"></span>
+                    <div class="wrap" id="ssnContents"></div>
+                </div>
+                <div class="row" id="{$companyRow}">
+                    <span class="title">상호명<i class="req"></i></span>
+                    <div class="wrap" id="companyName">{$form.cname}</div>
+                </div>
+                <div class="row" id="{$companyNoRow}">
+                    <span class="title">사업자번호<i class="req"></i></span>
+                    <div class="wrap formGroup" id="companySsn">
+                        {$form.cssn}
+                        <a href="#none" class="btnNormal {$display_cssn_dupl|display}" onclick="{$action_cssn_dupl}">중복확인</a>
+                        <p id="{$cssnMsg_id}"></p>
+                    </div>
+                </div>
+                <div class="row" id="nation">
+                    <span class="title">국적 <i class="req"></i></span>
+                    <div class="wrap">{$form.citizenship}</div>
+                </div>
+                <div class="row {$display_addr|display}">
+                    <span class="title">주소 <i class="req {$display_required_address|display}"></i></span>
+                    <div class="formMultiple">{$form.address}</div>
+                </div>
+                <div class="row {$display_phone|display}">
+                    <span class="title">일반전화 <i class="req {$display_required_phone|display}"></i></span>
+                    <div class="wrap telGroup formGroup code">{$form.phone}</div>
+                </div>
+
+                <div class="row {$display_mobile|display}">
+                    <span class="title ">휴대전화 <i class="req {$display_required_cell|display}"></i></span>
+                    <div class="wrap formGroup code">
+
+                        <div class="verify-box">
+                            <div class="telGroup">{$form.mobile}</div>
+                            <button type="button" id="{$btn_action_verify_mobile}" class="btnNormal {$display_verify_mobile|display}" onclick="{$action_verify_mobile}">인증번호받기</button>
+                        </div>
+                        <div class="desc end">
+                            <span class="txtInfo {$bDisplayMobileVerifyInfoDefault|display}"><span id="{$result_send_verify_mobile_fail}" class="error"></span></span>
+                        </div>
+                        <ul class="txtInfo {$bDisplayMobileVerifyInfoDefault|display}" id="{$result_send_verify_mobile_success}">
+                            <li>인증번호가 발송되었습니다.</li>
+                            <li>인증번호를 받지 못하셨다면 휴대폰 번호를 확인해 주세요.</li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="row {$display_verify_mobile_confirm|display}" id="{$confirm_verify_mobile}">
+                    <span class="title">인증번호<i class="req"></i></span>
+                    <div class="wrap formGroup verify-box">
+                        <div class="verify">
+                            <div>{$form.verify_sms_number}</div>
+                            <span class="time" id="{$expiryTime}"></span>
+                        </div>
+                        <button type="button" class="btnNormal" id="{$btn_verify_mobile_confirm}" onclick="{$action_verify_mobile_confirm}">확인</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="title">이메일<i class="req"></i></span>
+                    <div class="wrap">{$form.email} 
+                        <div class="desc end">
+                            <span class="txtInfo" id="{$emailMsg_id}"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="{$display_is_lifetime|display}">
+                    <span class="title">평생회원</span>
+                    <div class="wrap">
+                        <div class="radio-style1">
+                            {$form.is_lifetime}
+                        </div>
+                        <ul class="txtInfo">
+                            <li>평생회원으로 가입하시면 <strong>{$mall_name}</strong> 회원 탈퇴시까지는 휴면회원으로 전환되지 않으며, 고객님의 개인정보가 탈퇴시까지 안전하게 보관됩니다.</li>
+                            <li class="{$display_is_lifetime_benefit|display}">지금 평생회원으로 가입하시면 쿠폰혜택을 드립니다. (쿠폰혜택을 받으신 경우, 3개월간 평생회원을 유지하셔야 합니다.)</li>
+                        </ul>
+                    </div>
+                </div>
+        </div>
+    
+        <!-- 추가 -->
+        <div class=" typeWrite join-form {$display_add_title|display} new_add">
+            <div class="row {$display_nick|display}">
+                <span class="title">별명<i class="req {$display_required_nick_name_flag|display}"></i></span>
+                <div class="wrap">{$form.nick_name} <span class="txtInfo" id="{$nick_msg}"></span></div>
+            </div>
+            <div class="row {$display_is_sex|display}">
+                <span class="title">성별<i class="req {$display_required_sex|display}"></i></span>
+                <div class="wrap"><div class="radio-style1">{$form.is_sex}</div></div>
+            </div>
+            <div class="row birth {$display_birthday|display}">
+                <span class="title">생년월일<i class="req {$display_required_is_birthday|display}"></i></span>
+                <div class="wrap formGroup date telGroup">
+                    {$form.birth_year} 년 {$form.birth_month} 월 {$form.birth_day} 일
+                </div>
+                <div class="gFlow {$display_calendar_type|display} radio-style1 ">
+                    {$form.is_solar_calendar}
+                </div>
+            </div>
+            <div class="row {$display_marry|display}">
+                <span class="title">결혼기념일<i class="req {$display_required_is_wedding_anniversary|display}"></i></span>
+                <div class="wrap formGroup date telGroup">
+                    {$form.marry_year} 년 {$form.marry_month} 월 {$form.marry_day} 일
+                </div>
+            </div>
+            <div class="row {$display_partner|display}">
+                <span class="title">배우자생일<i class="req {$display_required_is_life_partner|display}"></i></span>
+                <div class="wrap formGroup date telGroup">
+                    {$form.partner_year} 년 {$form.partner_month} 월 {$form.partner_day} 일
+                </div>
+            </div>
+            <div class="row {$display_child|display}">
+                <span class="title">자녀<i class="req {$display_required_child|display}"></i></span>
+                <div class="wrap">{$form.child}</div>
+            </div>
+            <div class="row {$display_school|display}">
+                <span class="title">최종학력<i class="req {$display_required_school|display}"></i></span>
+                <div class="wrap">{$form.school}</div>
+            </div>
+            <div class="row {$display_job_class|display}">
+                <span class="title">직종<i class="req {$display_required_job_class|display}"></i></span>
+                <div class="wrap">{$form.job_class}</div>
+            </div>
+            <div class="row {$display_job|display}">
+                <span class="title">직업<i class="req {$display_required_job|display}"></i></span>
+                <div class="wrap">{$form.job}</div>
+            </div>
+            <div class="row {$display_earning|display}">
+                <span class="title">연소득<i class="req {$display_required_earning|display}"></i></span>
+                <div class="wrap">{$form.earning}</div>
+            </div>
+            <div class="row {$display_car|display}">
+                <span class="title">자동차<i class="req {$display_required_car|display}"></i></span>
+                <div class="wrap">{$form.car}</div>
+            </div>
+            <div class="row {$display_region|display}">
+                <span class="title">지역<i class="req {$display_required_region|display}"></i></span>
+                <div class="wrap">{$form.region}</div>
+            </div>
+            <div class="row {$display_internet|display}">
+                <span class="title">인터넷 이용장소<i class="req {$display_required_internet|display}"></i></span>
+                <div class="wrap">{$form.internet}</div>
+            </div>
+            <div class="row {$display_inter|display}">
+                <span class="title">관심분야<i class="req {$display_required_interest|display}"></i></span>
+                <div class="wrap"><div class="interest">{$form.inter_check}</div></div>
+            </div>
+            <div class="row {$display_add1|display}">
+                <span class="title">{$title_add1}<i class="req {$display_required_add1|display}"></i></span>
+                <div class="wrap">{$form.add1}</div>
+            </div>
+            <div class="row {$display_add2|display}">
+                <span class="title">{$title_add2}<i class="req {$display_required_add2|display}"></i></span>
+                <div class="wrap">{$form.add2}</div>
+            </div>
+            <div class="row {$display_add3|display}">
+                <span class="title">{$title_add3}<i class="req {$display_required_add3|display}"></i></span>
+                <div class="wrap">{$form.add3}</div>
+            </div>
+            <div class="row {$display_add4|display}">
+                <span class="title">{$title_add4}<i class="req {$display_required_add4|display}"></i></span>
+                <div class="wrap">{$form.add4}</div>
+            </div>
+            <div class="row {$display_add5|display}">
+                <span class="title">{$title_add5}<i class="req {$display_required_add5|display}"></i></span>
+                <div class="wrap">{$form.add5}</div>
+            </div>
+            <div class="row {$display_add6|display}">
+                <span class="title">{$title_add6}<i class="req {$display_required_add6|display}"></i></span>
+                <div class="wrap">{$form.add6}</div>
+            </div>
+            <div class="row {$display_add7|display}">
+                <span class="title">{$title_add7}<i class="req {$display_required_add7|display}"></i></span>
+                <div class="wrap">{$form.add7}</div>
+            </div>
+            <div class="row {$display_add8|display}">
+                <span class="title">{$title_add8}<i class="req {$display_required_add8|display}"></i></span>
+                <div class="wrap">{$form.add8}</div>
+            </div>
+            <div class="row {$display_add9|display}">
+                <span class="title">{$title_add9}<i class="req {$display_required_add9|display}"></i></span>
+                <div class="wrap">{$form.add9}</div>
+            </div>
+            <div class="row {$display_add10|display}">
+                <span class="title">{$title_add10}<i class="req {$display_required_add10|display}"></i></span>
+                <div class="wrap">{$form.add10}</div>
+            </div>
+            <div class="row {$display_add11|display}">
+                <span class="title">{$title_add11}<i class="req {$display_required_add11|display}"></i></span>
+                <div class="wrap">{$form.add11}</div>
+            </div>
+            <div class="row {$display_add12|display}">
+                <span class="title">{$title_add12}<i class="req {$display_required_add12|display}"></i> </span>
+                <div class="wrap">{$form.add12}</div>
+            </div>
+            <div class="row {$display_add13|display}">
+                <span class="title">{$title_add13}<i class="req {$display_required_add13|display}"></i> </span>
+                <div class="wrap">{$form.add13}</div>
+            </div>
+            <div class="row {$display_add14|display}">
+                <span class="title">{$title_add14}<i class="req {$display_required_add14|display}"></i> </span>
+                <div class="wrap">{$form.add14}</div>
+            </div>
+            <div class="row {$display_add15|display}">
+                <span class="title">{$title_add15}<i class="req {$display_required_add15|display}"></i> </span>
+                <div class="wrap">{$form.add15}</div>
+            </div>
+            <div class="row {$display_reco_id|display}">
+                <span class="title">추천인 아이디<i class="req {$display_required_reco_id|display}"></i></span>
+                <div class="wrap">{$form.reco_id}</div>
+            </div>
+            <div class="row {$display_bank|display}">
+                <span class="title"> 환불계좌 정보<i class="req {$display_required_bank_account_no|display}"></i></span>
+                <div class="wrap formMultiple">
+                    <dl>
+                        <dt class="title">예금주</dt>
+                        <dd>{$form.bank_account_owner}</dd>
+                        <dt class="title">은행명</dt>
+                        <dd>{$form.refund_bank_code}</dd>
+                        <dt class="title">계좌번호</dt>
+                        <dd>{$form.bank_account_no}
+                            <div class="desc end">
+                                <span class="txtInfo">('-'와 숫자만 입력해주세요.)</span>
+                            </div>
+                            </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="join-form chk-form">
+            <div class="all-chk">
+                <input type="checkbox" id="allChk"><label for="allChk">전체동의</label>
+            </div>
+
+            <div class="row agree ">
+                <div class="title">
+                    <div class="blind">{$form.agree_service_check}</div>
+                    <div class="box">
+                        <input id="chk1" type="checkbox">
+                        <label for="chk1">[필수]이용약관 동의</label>
+                    </div>
+                    <button type="button" class="more" aria-label="약관더보기"></button>
+                </div>
+                <div class="wrap">
+                    {$service_desc}
+                </div>
+            </div>
+            <div class="row agree ">
+                <div class="title">
+                    <div class="blind">{$form.agree_privacy_check}</div>
+                    <div class="box">
+                        <input id="chk2" type="checkbox">
+                        <label for="chk2">[필수]개인정보 수집 및 이용 동의</label>
+                    </div>
+                    <button type="button" class="more" aria-label="약관더보기"></button>
+                </div>
+                <div class="wrap">
+                    {$privacy_desc}
+                </div>
+            </div>
+            <div class="row agree {$display_is_sms|display}">
+                <div class="title">
+                    <div class="blind">{$form.is_sms}</div>
+                    <div class="box">
+                        <input id="chk5" type="checkbox">
+                        <label for="chk5">[선택]SMS 수신여부</label>
+                    </div>
+                    <button type="button" class="more" aria-label="약관더보기"></button>
+                </div>
+                <div class="wrap">
+                    쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수 있습니다.
+                </div>
+            </div>
+            <div class="row agree {$display_is_news_mail|display}">
+                <div class="title">
+                    <div class="blind">{$form.is_news_mail}</div>
+                    <div class="box">
+                        <input id="chk6" type="checkbox">
+                        <label for="chk6">[선택]이메일 수신여부</label>
+                    </div>
+                    <button type="button" class="more" aria-label="약관더보기"></button>
+                </div>
+                <div class="wrap">
+                    쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수 있습니다.
+                </div>
+            </div>
+
+            <div class="row agree {$display_information|display}">
+                <div class="title">
+                    <div class="blind">{$form.agree_information_check}</div>
+                    <div class="box">
+                        <input id="chk3" type="checkbox">
+                        <label for="chk3">[선택]개인정보 제3자 제공 동의</label>
+                    </div>
+                    <button type="button" class="more" aria-label="약관더보기"></button>
+                </div>
+                <div class="wrap">
+                    {$information_desc}
+                </div>
+            </div>
+            <div class="row agree {$display_consignment|display}">
+                <div class="title">
+                    <div class="blind">{$form.agree_consignment_check}</div>
+                    <div class="box">
+                        <input id="chk4" type="checkbox">
+                        <label for="chk4">[선택]개인정보 취급 위탁 동의</label>
+                    </div>
+                    <button type="button" class="more" aria-label="약관더보기"></button>
+                </div>
+                <div class="wrap">
+                    {$consignment_desc}
+                </div>
+            </div>
+
+
+        
+            
+
+            <div class="group-btn">
+                <a href="#none" class="btn_normal" onclick="{$action_func_join}">회원가입</a>
+            </div>
+
+        </div>
+
+        
+    </div>
+
+
+    <!--@import(/member/join_confirm.html)-->
+</div>
+
+

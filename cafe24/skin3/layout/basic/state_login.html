@@ -1,0 +1,44 @@
+<!-- 로그인전 상태 -->
+
+<div module="Layout_statelogoff" class="util-area">
+    <a href="/myshop/index.html" aria-label="마이페이지" class="logins">
+        <!-- <svg class="unified-header-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.3999 5.19963C6.3999 4.26075 7.16102 3.49963 8.0999 3.49963C9.03879 3.49963 9.7999 4.26075 9.7999 5.19963C9.7999 6.13852 9.03879 6.89963 8.0999 6.89963C7.16102 6.89963 6.3999 6.13852 6.3999 5.19963ZM5.3999 5.19963C5.3999 3.70846 6.60873 2.49963 8.0999 2.49963C9.59107 2.49963 10.7999 3.70846 10.7999 5.19963C10.7999 6.6908 9.59107 7.89963 8.0999 7.89963C6.60873 7.89963 5.3999 6.6908 5.3999 5.19963ZM2.5 14H3.5198L12.4802 14H13.5L13.3 13L13.2629 12.8146L13.26 12.8C12.7526 10.2988 10.5535 8.5 8 8.5C5.44654 8.5 3.24736 10.2988 2.74002 12.8L2.73709 12.8146L2.7 13L2.5 14ZM12.2802 13L12.2799 12.9988C11.8671 10.9637 10.0777 9.5 8 9.5C5.92233 9.5 4.13291 10.9637 3.72008 12.9987L12.2799 12.9988L3.72006 12.9988L3.71982 13L12.2802 13Z" fill="black"></path></svg> -->
+         <img src="//ecimg.cafe24img.com/pg1867b30565137078/gith6409/icon/250823_my.png" alt=""></a>
+    <a href="javascript:void(0)" class="btn-search" aria-label="제품검색">
+        <svg class="unified-header-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.10001 7.52133C3.10001 5.0795 5.0795 3.1 7.52134 3.1C9.96317 3.1 11.9427 5.0795 11.9427 7.52133C11.9427 9.96316 9.96317 11.9427 7.52134 11.9427C5.0795 11.9427 3.10001 9.96316 3.10001 7.52133ZM7.52134 2.1C4.52722 2.1 2.10001 4.52721 2.10001 7.52133C2.10001 10.5154 4.52722 12.9427 7.52134 12.9427C8.83586 12.9427 10.0411 12.4748 10.9797 11.6965L11.2191 11.936L13.6798 14.3966L14.0333 14.7502L14.7404 14.0431L14.3869 13.6895L11.9262 11.2289L11.6877 10.9903C12.4713 10.0502 12.9427 8.84084 12.9427 7.52133C12.9427 4.52721 10.5155 2.1 7.52134 2.1Z" fill="black"></path></svg>
+     </a>
+  
+     <a href="/order/basket.html" aria-label="장바구니" class="cart">
+        <svg class="unified-header-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0.5C6.34315 0.5 5 1.84315 5 3.5V4H3H2V5V13V14H3L13 14H14V13L14 5V4H13H11V3.5C11 1.84315 9.65685 0.5 8 0.5ZM10 4V3.5C10 2.39543 9.10457 1.5 8 1.5C6.89543 1.5 6 2.39543 6 3.5V4H10ZM13 5V13H3L3 5H13Z" fill="black"></path></svg>
+        <span class="num {$basket_count_display|display} {$basket_count_display_class}">
+            <span class="{$basket_count_class}">{$basket_count}</span>
+        </span>
+
+     </a>
+
+ 
+</div>
+
+<!-- 로그인후 상태 -->
+<div module="Layout_stateLogon" class="util-area">
+
+
+     <a href="/myshop/index.html" aria-label="마이페이지" class="logins">
+        <!-- <svg class="unified-header-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M6.3999 5.19963C6.3999 4.26075 7.16102 3.49963 8.0999 3.49963C9.03879 3.49963 9.7999 4.26075 9.7999 5.19963C9.7999 6.13852 9.03879 6.89963 8.0999 6.89963C7.16102 6.89963 6.3999 6.13852 6.3999 5.19963ZM5.3999 5.19963C5.3999 3.70846 6.60873 2.49963 8.0999 2.49963C9.59107 2.49963 10.7999 3.70846 10.7999 5.19963C10.7999 6.6908 9.59107 7.89963 8.0999 7.89963C6.60873 7.89963 5.3999 6.6908 5.3999 5.19963ZM2.5 14H3.5198L12.4802 14H13.5L13.3 13L13.2629 12.8146L13.26 12.8C12.7526 10.2988 10.5535 8.5 8 8.5C5.44654 8.5 3.24736 10.2988 2.74002 12.8L2.73709 12.8146L2.7 13L2.5 14ZM12.2802 13L12.2799 12.9988C11.8671 10.9637 10.0777 9.5 8 9.5C5.92233 9.5 4.13291 10.9637 3.72008 12.9987L12.2799 12.9988L3.72006 12.9988L3.71982 13L12.2802 13Z" fill="black"></path></svg> -->
+        <img src="//ecimg.cafe24img.com/pg1867b30565137078/gith6409/icon/250823_my.png" alt=""></a>
+    <a href="javascript:void(0)" class="btn-search" aria-label="제품검색">
+        <svg class="unified-header-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.10001 7.52133C3.10001 5.0795 5.0795 3.1 7.52134 3.1C9.96317 3.1 11.9427 5.0795 11.9427 7.52133C11.9427 9.96316 9.96317 11.9427 7.52134 11.9427C5.0795 11.9427 3.10001 9.96316 3.10001 7.52133ZM7.52134 2.1C4.52722 2.1 2.10001 4.52721 2.10001 7.52133C2.10001 10.5154 4.52722 12.9427 7.52134 12.9427C8.83586 12.9427 10.0411 12.4748 10.9797 11.6965L11.2191 11.936L13.6798 14.3966L14.0333 14.7502L14.7404 14.0431L14.3869 13.6895L11.9262 11.2289L11.6877 10.9903C12.4713 10.0502 12.9427 8.84084 12.9427 7.52133C12.9427 4.52721 10.5155 2.1 7.52134 2.1Z" fill="black"></path></svg>
+     </a>
+  
+     <a href="/order/basket.html" aria-label="장바구니" class="cart">
+        <svg class="unified-header-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 0.5C6.34315 0.5 5 1.84315 5 3.5V4H3H2V5V13V14H3L13 14H14V13L14 5V4H13H11V3.5C11 1.84315 9.65685 0.5 8 0.5ZM10 4V3.5C10 2.39543 9.10457 1.5 8 1.5C6.89543 1.5 6 2.39543 6 3.5V4H10ZM13 5V13H3L3 5H13Z" fill="black"></path></svg>
+        <span class="num {$basket_count_display|display} {$basket_count_display_class}">
+            <span class="{$basket_count_class}">{$basket_count}</span>
+        </span>
+
+     </a>
+
+
+
+     
+</div>

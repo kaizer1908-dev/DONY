@@ -1,0 +1,117 @@
+<!--@layout(/layout/basic/layout.html)-->
+<!-- <div class="path">
+    <span>현재 위치</span>
+    <ol>
+        <li><a href="/">홈</a></li>
+        <li title="현재 위치">마이 쇼핑</li>
+    </ol>
+</div> -->
+
+<div module="layout_logincheck">
+    <!--
+        $url = /member/login.html
+    -->
+
+    <div class="myshopArea myshopMain">
+        <h2 class="blind">마이 쇼핑</h2>
+
+
+        <div class="benefit"  module="myshop_asyncbankbook">
+            <!--@css(/css/module/myshop/bankbook.css)-->
+            <div class="flex">
+                <div  class="col-left ">
+                    <div class="info">
+                        
+                        <strong class="intro" module="Layout_stateLogon">{$name} 고객님 안녕하세요!</strong>
+                        <div class="txt">
+                            <div class="name-wrap" module="myshop_asyncbenefit">
+                                <div class="name">{$group_name}</div>
+                                <div class="grade pc">
+                                    <p class="{$display_no_benefit|display} {$display_no_benefit_class}"><strong class="txtEm">{$dc_pay} {$dc_min_price}</strong> 구매시 <strong class="txtEm">{$dc_price}{$dc_type}</strong>을 {$use_dc} 받으실 수 있습니다. {$dc_max_percent}</p>
+                                    <p class="{$display_with_all|display} {$display_with_all_class}"><strong class="txtEm">{$dc_pay} {$dc_min_price_mileage}</strong> 구매시 <strong class="txtEm">{$dc_price_mileage}{$dc_type_mileage}</strong>을 {$use_dc_mileage} 받으실 수 있습니다. {$dc_max_mileage_percent}</p>
+                                </div>
+                            </div>
+                            
+                            <a href="/member/modify.html" class="link">회원정보변경</a>
+                            <!-- <a href="" class="link">등급혜택 </a> -->
+                        </div>
+                    </div>
+                      <div class="grade m" module="myshop_asyncbenefit">
+                          <p class="{$display_no_benefit|display} {$display_no_benefit_class}"><strong class="txtEm">{$dc_pay} {$dc_min_price}</strong> 구매시 <strong class="txtEm">{$dc_price}{$dc_type}</strong>을 {$use_dc} 받으실 수 있습니다. {$dc_max_percent}</p>
+                          <p class="{$display_with_all|display} {$display_with_all_class}"><strong class="txtEm">{$dc_pay} {$dc_min_price_mileage}</strong> 구매시 <strong class="txtEm">{$dc_price_mileage}{$dc_type_mileage}</strong>을 {$use_dc_mileage} 받으실 수 있습니다. {$dc_max_mileage_percent}</p>
+                    </div>
+                    
+                    
+                </div>
+                <div class="col-right">
+                    <a href="/myshop/mileage/historyList.html">
+                        <span class="title">{$mileage_name}</span>
+                        <span class="data">{$avail_mileage}</span>
+                    </a>
+                    <a href="/myshop/coupon/coupon.html" >
+                        <span class="title">쿠폰</span>
+                        <span class="data" id="coupon">
+                            {$coupon_cnt}
+                        </span>
+                    </a>    
+                    <!-- <a href="/myshop/order/list.html">
+                        <span class="title">총주문</span>
+                        <span class="data">{$total_order_price}</span>
+                    </a>     -->
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="order">
+            <div class="cm-title">
+                <h3>나의 주문처리 현황 
+                    <span class="desc">(최근 <span class="txtEm">3개월</span> 기준)</span>
+                </h3>
+            </div>
+            <div module="myshop_orderstate">
+                <!--@css(/css/module/myshop/orderState.css)-->
+                <div class="tab-style1">
+                    <ul class="">
+                        <li>
+                            <a href="{$shppiedBeforeUrl}" class="count">입금전 {$shppiedBeforeCount}</a>
+                        </li>
+                        <li>
+                            <a href="{$shppiedStandbyUrl}" class="count">배송준비중 {$shppiedStandbyCount}</a>
+                        </li>
+                        <li>
+                            <a href="{$shppiedBeginUrl}" class="count">배송중 {$shppiedBeginCount}</a>
+                        </li>
+                        <li>
+                            <a href="{$shppiedComplateUrl}" class="count">배송완료 {$shppiedComplateCount}</a>
+                        </li>
+                    </ul>
+                    <ul class="">
+                        <li>
+                            <a href="{$orderCancelUrl}" class="count">취소 {$orderCancelCount}</a>
+                        </li>
+                        <li>
+                            <a href="{$orderExchangeUrl}" class="count">교환 {$orderExchangeCount}</a>
+                        </li>
+                        <li>
+                            <a href="{$orderReturnUrl}" class="count">반품 {$orderReturnCount}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="RW">
+                <div class="titleArea titleArea--middle">
+                    <h3>주문내역 조회</h3>
+                </div>
+                <!--@import(/myshop/order/history_list_item.html)-->
+            </div>
+        </div>
+
+        <!--@import(/myshop/myshop_main.html)-->    
+        
+    </div>    
+
+</div>
+

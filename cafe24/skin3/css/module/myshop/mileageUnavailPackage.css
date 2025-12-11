@@ -1,0 +1,10 @@
+
+.xans-myshop-unavaillist h3 { padding:19px 15px; line-height:1.5;background:#f6f6f6; }
+.xans-myshop-unavaillist h3 .number{ display:inline-block;margin: 0 0 0 10px; }
+.xans-myshop-unavaillist .item { margin:25px 0 0; }
+.xans-myshop-unavaillist .ec-base-table { border-top:none; }
+.xans-myshop-unavaillist .item table th,
+.xans-myshop-unavaillist .item table td {line-height:1.5;background:#fff;}
+.xans-myshop-unavaillist .item table th {color:#6d6d6d;text-align:left;font-weight:normal;}
+
+

@@ -1,0 +1,40 @@
+
+.headline{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+.xans-mall-faq >*+*{margin-top: 16px;}
+.xans-mall-faq h3{
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+.xans-mall-faq b{
+    /* font-weight: 600 !important;
+    font-size: 14px; */
+}
+.xans-mall-faq .contents,
+.fr-view-mall-agreement p,
+.agree p{
+    /* font-size: 14px;
+    line-height: 1.6;
+    padding: 16px 0; */
+    /* color: #565656; */
+}
+.fr-view-mall-agreement p:first-child,
+.agree p:first-child{padding-top: 0;}
+.fr-view strong{font-weight: 500 !important;}
+@media (max-width:767px) {
+    .headline{
+        margin-bottom: 15px;
+    }
+    /* .xans-mall-faq .contents,
+    .fr-view-mall-agreement p,
+    .agree p{
+        font-size: 12px;
+        padding: 8px 0;
+    } */
+
+}

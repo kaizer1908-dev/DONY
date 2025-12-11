@@ -1,0 +1,137 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div module="board_ModifyPackage_9">
+    <!--@css(/css/module/board/modifyPackage_9.css)-->
+     <!--@css(/css/module/board/modifyPackage.css)-->
+    <!--@css(/css/module/board/readPackage.css)-->
+     <!--@js(/js/module/board/readPackage.js)-->
+
+   <div module="board_title_9">
+        <!-- <div class="path">
+            <span>현재 위치</span>
+            <ol>
+                <li><a href="/">홈</a></li>
+                <li><a href="/board/index.html">게시판</a></li>
+                <li title="현재 위치"><strong>{$board_name}</strong></li>
+            </ol>
+        </div> -->
+
+        <div class="titleArea">
+            <h2>{$board_title}</h2>
+        </div>
+    </div>
+
+    <div module="board_modify_9">
+        <!--
+            $modify_success_url = /board/consult/read.html
+        -->
+        <div class="xans-board-read {$display_parent_form|display}">
+            <div class="ec-base-table gLayoutFixed">
+                <div class="head">
+                    <h3>{$parent_subject}</h3>
+                    <div class="description">
+                        <span class="name">{$parent_writer}</span>
+                        <ul class="etcArea">
+                            <li class="{$config.use_date|display}">
+                                <span class="txtNum">{$parent_write_date}</span>
+                            </li>
+                            <li >
+                                <span>답변여부</span> <span class="txtNum">{$parent_consult}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+                <div class="attach {$config.use_attach|display}">{$attach_file}</div>
+                <div class="detail">
+                    {$parent_content}
+                </div>
+            </div>
+        </div>
+
+
+
+        
+        <div class="write-from typeWrite">
+            <div class="subject row">
+                <span class="title">제목</span>
+                <div class="wrap">
+                    {$form.subject}
+                </div>
+            </div>
+            <div class="row email ">
+                <span class="title">답변여부를 메일로 받으시겠습니까?</span>
+                <div class="wrap">
+                    {$form.cons_re}
+                </div>
+            </div>
+            <div class="row">
+                <span class="title">본문</span>
+                <div class="wrap"> {$form.content}</div>
+            </div>
+            <div class="{$config.use_attach|display} file-area">
+                <div class="row">
+                    <span class="title">첨부파일1 </span>
+                    <div class="wrap">
+                        <div class="file">{$form.attach_file}<img class="preview" /></div>
+                        <div class="name">
+                            <div class="text">{$attached_file1}</div>
+                            <button type="button" class="del">삭제</button>
+                        </div>
+                     </div>
+                </div>
+                <div class="row">
+                    <span class="title">첨부파일2 </span>
+                    <div class="wrap">
+                         <div class="file">{$form.attach_file}<img class="preview" /></div>
+                        <div class="name">
+                            <div class="text">{$attached_file2}</div>
+                            <button type="button" class="del">삭제</button>
+                        </div>
+                     </div>
+                </div>
+                <div class="row">
+                    <span class="title">첨부파일3</span>
+                    <div class="wrap">
+                         <div class="file">{$form.attach_file}<img class="preview" /></div>
+                        <div class="name">
+                            <div class="text">{$attached_file3}</div>
+                            <button type="button" class="del">삭제</button>
+                        </div>
+                     </div>
+                </div>
+                <div class="row">
+                    <span class="title">첨부파일4</span>
+                    <div class="wrap">
+                         <div class="file">{$form.attach_file}<img class="preview" /></div>
+                        <div class="name">
+                            <div class="text">{$attached_file4}</div>
+                            <button type="button" class="del">삭제</button>
+                        </div>
+                     </div>
+                </div>
+                <div class="row">
+                    <span class="title">첨부파일5</span>
+                    <div class="wrap">
+                         <div class="file">{$form.attach_file}<img class="preview" /></div>
+                        <div class="name">
+                            <div class="text">{$attached_file5}</div>
+                            <button type="button" class="del">삭제</button>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+            <div class="ec-base-button gBottom">
+                <span class="gLeft RW"><a href="{$link_board_list}" class="btnNormalFix sizeM">목록</a></span>
+                <span class="gRight">
+                    <a href="{$link_board_list}" class="btnNormalFix sizeM">취소</a>
+                    <a href="#none" class="btnSubmitFix sizeM" onclick="{$action_modify}">수정</a>
+                </span>
+            </div>
+        </div>
+
+
+    </div>
+</div>

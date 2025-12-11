@@ -1,0 +1,83 @@
+
+<button class="btn-menu" aria-label="확장메뉴">
+    MENU
+</button>
+
+<div class="dimmed_nav"></div>
+<div class="side-nav" >
+    <div class="content" data-lenis-prevent>
+        <button class="btn-close">CLOSE
+            <svg class="Icon Icon--close" role="presentation" viewBox="0 0 16 14">
+                <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
+              </svg>
+        </button>
+
+        
+        <ul class="nav-list" module="Layout_category">
+            <!--@css(/css/module/layout/387/category.css)-->
+            <!--@js(/js/module/layout/387/category.js)-->
+            <li class="nav-item">
+                <div class="item">
+                    <a href="/product/list.html{$param}" class="hov">{$name_or_img_tag}</a>
+                    <button class="arrow"></button>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="item">
+                    <a href="/product/list.html{$param}" class="hov">{$name_or_img_tag}</a>
+                    <button class="arrow"></button>
+                </div>
+            </li>
+            <li class="nav-item">
+                <div class="item">
+                    <a href="/product/list.html{$param}" class="hov">{$name_or_img_tag}</a>
+                    <button class="arrow"></button>
+                </div>
+            </li>
+            <!-- <li class="nav-item">
+                <div class="item"><a href="/lookbook/lookbook.html?cate_no=28" class="title">Collection</a></div>
+            </li> -->
+        </ul>
+
+        <ul class="nav-list sub">
+          
+            <li class="nav-item  hover-menu ">
+                <div class="item">
+                    <a href="/shopinfo/company.html" class="title">BRAND</a>
+                </div>
+                <ul class="sub-list">
+                    <li><div class="item"><a href="/shopinfo/company.html">BRAND STORY</a></div></li>
+                    <!-- <li><div class="item"><a href="/shopinfo/location.html">Stockist</a></div></li> -->
+                    <!-- <li><div class="item"><a href="/shopinfo/membership.html">MEMBERSHIP</a></div></li> -->
+                </ul>
+            </li>
+
+
+            <li class="nav-item hover-menu ">
+                <div class="item">
+                    <a href="/board/free/list.html?board_no=1" class="title">COMMUNITY</a>
+                </div>
+                <ul class="sub-list">
+                    <li><div class="item"><a href="/board/free/list.html?board_no=1">NOTICE</a></div></li>
+                    <li><div class="item"><a href="/board/review/list.html?board_no=4">REVIEW</a></div></li>
+                    <!-- <li><div class="item"><a href="/board/consult/list.html?board_no=8">STYLE</a></div></li> -->
+                    <!-- <li><div class="item"><a href="/board/free2/list.html?board_no=3">FAQ</a></div></li> -->
+                    <li><div class="item"><a href="/board/product/list.html?board_no=6">Q&A</a></div></li>
+                </ul>
+            </li>
+            <li class="nav-item hover-menu ">
+                <div class="item">
+                    <a href="/board/free/list.html?board_no=1" class="title">ACCOUNT</a>
+                </div>
+                <ul class="sub-list"  module="Layout_statelogoff">
+                    <li><div class="item"><a href="/member/login.html">LOGIN</a></div></li>
+                    <li><div class="item"><a href="/member/join.html">JOIN US</a></div></li>
+                </ul>
+                <ul class="sub-list" module="Layout_stateLogon" >
+                    <li><div class="item"><a href="/myshop/index.html">MY PAGE</a></div></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+

@@ -1,0 +1,7 @@
+.xans-member-updateeventlogon {
+    padding: 20px 0;
+}
+.xans-member-updateeventlogon .title { display:block; margin:0 0 15px; padding: 0 !important;}
+.xans-member-updateeventlogon ul > li { position:relative; padding:0 0 0 12px; line-height:1.75; font-size: 12px;color: #868686;}
+.xans-member-updateeventlogon ul > li:before { content:""; display:inline-block; position:absolute; top:8px; left:0; width:3px; height:3px; border-radius:50%; background-color:#868686; }
+

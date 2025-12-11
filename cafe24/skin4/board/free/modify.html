@@ -1,0 +1,172 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div module="board_ModifyPackage_1002">
+    <!--@css(/css/module/board/modifyPackage.css)-->
+    <div module="board_title_1002">
+        <div class="path">
+            <span>현재 위치</span>
+            <ol>
+                <li><a href="/">홈</a></li>
+                <li><a href="/board/index.html">게시판</a></li>
+                <li title="현재 위치"><strong>{$board_name}</strong></li>
+            </ol>
+        </div>
+
+        <div class="titleArea">
+            <h2>{$board_title}</h2>
+        </div>
+    </div>
+
+    <div module="board_modify_1002">
+        <div class="ec-base-box typeProduct {$display_product|display}">
+            <p class="thumbnail"><a href="/product/detail.html{$param}"><img id="{$product_img_id}" src="{$url_product_img}" onerror="this.src='//img.echosting.cafe24.com/thumb/75x75.gif'" alt="" /></a></p>
+            <div class="information">
+                {$product_icon}
+                <h3><a href="/product/detail.html{$param_product}" id="{$product_name_link_id}">{$product_name}</a></h3>
+                <p class="price">{$product_price} {$product_tax_type_text}</p>
+                <p class="button">
+                    <span id="{$product_view_id}" class="{$display_product_info|display}"><a href="/product/detail.html{$param_product}" id="{$product_link_id}" class="btnNormal sizeS" target="_blank" >상품상세보기</a></span>
+                    <span class="{$display_product_select|display}"><a href="#none" class="btnNormal sizeS" onclick="{$action_product_select}">상품정보선택</a></span>
+                    <span class="{$display_order_select|display}"><a href="#none" class="btnNormal sizeS" onclick="{$action_order_select}">주문상품선택</a></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="write-from mod-write">
+            <div class="subject row">
+                <span class="title">제목</span>
+                <div class="wrap">
+                    {$form.board_category}{$form.subject}<span class="ec-base-label">{$form.notice}</span><span class="ec-base-label">{$form.is_post}</span>
+                </div>
+            </div>
+            <div class="row {$config.is_login|display}">
+                <span class="title">작성자</span>
+                <div class="wrap">
+                    {$form.writer}
+                </div>
+            </div>
+            <div class="row email {$config.use_write_email|display}">
+                <span class="title">이메일</span>
+                <div class="wrap">
+                    {$form.email}
+                </div>
+            </div>
+            <div class="grade row {$config.is_use_point|display}">
+                <span class="title">평점</span>
+                <div class="wrap">
+                    <span class="blind">{$form.point}</span>
+                    <div class="star-wrap">
+                        <div class="star_rating">
+                            <span class="star on" value="5"> </span>
+                            <span class="star" value="4"> </span>
+                            <span class="star" value="3"> </span>
+                            <span class="star" value="2"> </span>
+                            <span class="star" value="1"> </span>
+                        </div>
+                        <span class="desc">나쁨</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <span class="title">본문</span>
+                <div class="wrap"> {$form.content}</div>
+            </div>
+            <div class="row">
+                <span class="title">UCC URL</span>
+                <div class="wrap">{$form.ucc}</div>
+            </div>
+
+            <div class="{$config.use_attach|display} file-area">
+                <div class="row">
+                    <span class="title">첨부파일1 </span>
+                    <div class="wrap">
+                        <div class="file">{$form.attach_file}<img class="preview" /></div>
+                        <div class="name">
+                            <div class="text">{$attached_file1}</div>
+                            <button type="button" class="del">삭제</button>
+                        </div>
+                     </div>
+                </div>
+                <div class="row">
+                    <span class="title">첨부파일2 </span>
+                    <div class="wrap">
+                         <div class="file">{$form.attach_file}<img class="preview" /></div>
+                        <div class="name">
+                            <div class="text">{$attached_file2}</div>
+                            <button type="button" class="del">삭제</button>
+                        </div>
+                     </div>
+                </div>
+                <div class="row">
+                    <span class="title">첨부파일3</span>
+                    <div class="wrap">
+                         <div class="file">{$form.attach_file}<img class="preview" /></div>
+                        <div class="name">
+                            <div class="text">{$attached_file3}</div>
+                            <button type="button" class="del">삭제</button>
+                        </div>
+                     </div>
+                </div>
+                <div class="row">
+                    <span class="title">첨부파일4</span>
+                    <div class="wrap">
+                         <div class="file">{$form.attach_file}<img class="preview" /></div>
+                        <div class="name">
+                            <div class="text">{$attached_file4}</div>
+                            <button type="button" class="del">삭제</button>
+                        </div>
+                     </div>
+                </div>
+                <div class="row">
+                    <span class="title">첨부파일5</span>
+                    <div class="wrap">
+                         <div class="file">{$form.attach_file}<img class="preview" /></div>
+                        <div class="name">
+                            <div class="text">{$attached_file5}</div>
+                            <button type="button" class="del">삭제</button>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+            <div class="etc">
+                <div class="row {$config.use_password|display}">
+                    <span class="title">비밀번호</span>
+                    <div class="wrap">{$form.password}</div>
+                </div>
+                <div class="row secret {$config.use_secret|display}">
+                    <span class="title">비밀글설정</span>
+                    <div class="wrap">{$form.secure}</div>
+                </div>
+                <div class="row captcha {$config.use_captcha_write|display}">
+                    <span class="title">보안문자</span>
+                    <div class="wrap">
+                        <div class="formGroup">
+                            <div class="img">{$captcha_image} {$captcha_refresh}</div>
+                             {$form.captcha}
+                            </div>
+                        <span class="ec-base-help">영문, 숫자 조합을 공백없이 입력하세요(대소문자구분)</span>
+                    </div>
+                </div>
+                <div class="row agree {$config.is_login|display}">
+                    <span class="title">{$form.privacy_agreement_radio} <button type="button" class="more" aria-label="약관더보기"></button></span>
+                    <div class="wrap">
+                        {$privacy_agreement}
+                        <span class="gSpace20">개인정보 수집 및 이용에 동의하십니까?</span>
+                        <br class="RMB">
+                        
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="ec-base-button gBottom gBreak">
+                <span class="gLeft RW"><a href="{$link_board_list}" class="btnNormalFix sizeM">목록</a></span>
+                <span class="gRight">
+                    <a href="{$link_board_list}" class="btnNormalFix sizeM">취소</a>
+                    <a href="#none" class="btnSubmitFix sizeM" onclick="{$action_modify}">수정</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

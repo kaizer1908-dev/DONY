@@ -1,0 +1,106 @@
+/* body #container{max-width: 100%;padding: 0 0 100px;}
+body #contents{max-width: 100%;padding: 0;} */
+@media (max-width:1280px) {
+    body #container{
+    }
+}
+
+.xans-product-normalpackage .headline{padding: 0px 0 20px;}
+.xans-product-normalpackage .headline h2{font-size: 16px;font-weight: 600;text-align: left;}
+.xans-product-normalpackage .cate-list{ display: flex; gap: 10px; flex-wrap: wrap; flex: 1; margin-bottom: 20px;}
+.xans-product-normalpackage .cate-list li{ }
+.xans-product-normalpackage .cate-list li.selected > a{    
+    background: var(--point-color1);
+    color: #fff;}
+.xans-product-normalpackage .cate-list a{
+    display: block;
+    background: #f9f9f9;
+    padding: 5px 12px;
+    border-radius: 14px;
+    font-size: 13px;
+} 
+.xans-product-normalpackage .xans-product-children{display: flex;}
+.xans-product-normalpackage .prd-header{ display: flex; justify-content: space-between; }
+
+.sort-wrapper{ display: flex; justify-content: flex-end; gap: 20px;align-items: center;}
+.sort-wrapper .view-area{display: flex;align-items: center;}
+.btn-view{}
+.btn-view .icon_1{display: block;}
+.btn-view .icon_2{display: none;}
+.btn-view.on .icon_1{display: none;}
+.btn-view.on .icon_2{display: block;}
+
+
+#Product_ListMenu{position: relative;}
+#Product_ListMenu .btn-sort{ display: flex; align-items: center; gap: 5px; font-weight: 600;text-transform: uppercase;}
+#Product_ListMenu .btn-sort path{fill:#000}
+#Product_ListMenu .sort-pop{display: none; position: absolute; top: calc(100% + 9px); right: 0; border: 1px solid #9b978c; background: #fff; z-index: 10; padding: 8px 15px; white-space: nowrap; border-radius: 3px; }
+#Product_ListMenu .sort-pop li{padding: 3px 0;font-size: 12px;}
+
+
+
+.lookbook-wrapper .ec-base-product ul.grid3{ gap: 10px; }
+.lookbook-wrapper .ec-base-product .prdList .thumbnail{margin-bottom: 0;}
+.lookbook-wrapper .ec-base-product .prdList .description{  
+    width: 100%;
+     box-sizing: border-box; bottom: 0;left: 0; z-index: 1; 
+        padding: 15px;
+    }
+/* .lookbook-wrapper .ec-base-product .prdList .prdList__item::after{ position: absolute; top: 0;left: 0;right: 0;bottom: 0; background: rgb(0,0,0); background: linear-gradient(0deg, rgba(0,0,0,0.5214460784313726) 0%, rgba(255,255,255,0) 100%); content: ''; pointer-events: none; } */
+
+.lookbook-wrapper .ec-base-product .prdList .description .name span{
+    }
+.lookbook-wrapper .ec-base-product .prdList .description .desc{ 
+    margin-top: 10px;line-height: 1.5;
+ }
+
+
+
+.list-wrapper .prd-innner{
+    flex: 1;
+}
+/* .xans-product-normalmenu { border-top:1px solid #e0e0e0; }
+.xans-product-normalmenu .function { overflow:hidden; text-align:right; line-height:38px; }
+.xans-product-normalmenu .function .btnCompare { display:inline-block; padding:0 12px; border-left:1px solid #d7d5d5; }
+.xans-product-normalmenu .function .btnCompare:hover { text-decoration:none; }
+.xans-product-normalmenu .prdCount { float:left; color:#7d7d7d; }
+.xans-product-normalmenu .prdCount strong { margin-left:8px; }
+.xans-product-normalmenu fieldset { margin:20px 0 0; padding:10px 16px; text-align:right; background:#fbf9fa; }
+ */
+
+/********************* Mobile *********************/
+/* @media all and (max-width:767px) {
+    .xans-product-normalmenu {padding: 20px 16px 0;}
+    .xans-product-normalpackage .product_area {margin: 0 16px;}
+} */
+/********************* Mobile / Tablet *********************/
+/* @media all and (max-width:1024px) {
+    .xans-product-normalmenu { margin:40px 0 0; }
+} */
+
+/********************* Tablet *********************/
+/* @media all and (min-width:768px) and (max-width: 1024px){
+    .xans-product-normalmenu { padding:20px 24px 0; }
+    .xans-product-normalpackage .product_area { margin:0 24px; }
+} */
+
+/********************* PC *********************/
+@media all and (max-width:1280px) {
+    .sort-wrapper{
+    }
+
+}
+@media all and (max-width:1024px) {
+    .lookbook-wrapper .ec-base-product ul.grid2{
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .lookbook-wrapper .ec-base-product ul.grid3{gap: 5px;}
+    .lookbook-wrapper .ec-base-product .prdList .description{
+        padding: 10px;
+    }
+    .lookbook-wrapper .ec-base-product .prdList .description .name span{
+        font-size: 14px !important;
+    }
+}
+.ec-base-product{margin-top: 0;}

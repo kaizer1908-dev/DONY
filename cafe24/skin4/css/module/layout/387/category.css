@@ -1,0 +1,18 @@
+/* .xans-layout-category { margin:0 0 30px; }
+.xans-layout-category .position {}
+.xans-layout-category .position > ul {}
+.xans-layout-category .position > ul > li { position:relative; z-index:10; }
+.xans-layout-category .position > ul > li > a { display:block; padding:12px 20px 12px 9px; color:#2e2e2e; font-size:14px; font-weight:bold; font-family:Tahoma,Dotum,sans-serif; word-spacing:-1px; text-decoration:none; background:url("http://img.echosting.cafe24.com/skin/base_ko_KR/layout/ico_category1.gif") no-repeat 165px 17px; }
+.xans-layout-category .position > ul > li > a:hover,
+.xans-layout-category .position > ul > li.selected > a,
+.xans-layout-category .position > ul > li.on > a { }
+
+.xans-layout-category .sub-category { position:absolute; top:0; left:100%; width:158px;}
+.xans-layout-category .sub-category ul {}
+.xans-layout-category .sub-category li { }
+.xans-layout-category .sub-category a { color: #000; }
+.xans-layout-category .sub-category li:first-child { }
+.xans-layout-category .sub-category li:first-child a { }
+.xans-layout-category .sub-category a { }
+.xans-layout-category .sub-category a:hover,
+.xans-layout-category .sub-category li.selected a {} */

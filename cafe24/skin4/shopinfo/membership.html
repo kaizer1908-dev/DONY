@@ -1,0 +1,217 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="path">
+    <span>현재 위치</span>
+    <ol>
+        <li><a href="/">홈</a></li>
+        <li title="현재 위치"><strong>회사소개</strong></li>
+    </ol>
+</div>
+
+<div class="module-headline">
+    <h2>멤버십</h2>
+</div>
+
+
+
+
+
+<div module="mall_membership">
+    <!--@css(/css/module/mall/membership.css)-->
+
+
+    <div class="content pc">
+        <table>
+            <thead>
+                <tr>
+                    <th>등급</th>
+                    <th>MEMBER</th>
+                    <th>GOLD</th>
+                    <th>VIP</th>
+                    <th>BLACK</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>등급기준</th>
+                    <td>구매 금액 10만원 미만</td>
+                    <td>구매 금액 10만원 이상 30만원 미만</td>
+                    <td>구매 금액 30만원 이상 100만원 미만</td>
+                    <td>구매 금액 100만원 이상</td>
+                </tr>
+                <tr>
+                    <th>구매 적립금</th>
+                    <td>
+                        5%<br>
+                        1만원 이상 구매 시 적용
+                    </td>
+
+                    <td>
+                        7%<br>
+                        1만원 이상 구매 시 적용
+                    </td>
+
+                    <td>
+                        10%<br>
+                        1만원 이상 구매 시 적용
+                    </td>
+
+
+                    <td>
+                        15%<br>
+                        1만원 이상 구매 시 적용
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <th>등급별 할인</th>
+                    <td>
+                        3%<br>
+                        1만원 이상 구매 시 적용
+                    </td>
+                    <td>
+                        5%<br>
+                        1만원 이상 구매 시 적용
+                    </td>
+                    <td>
+                        10%<br>
+                        1만원 이상 구매 시 적용
+                    </td>
+                    <td>
+                        15%<br>
+                        1만원 이상 구매 시 적용
+                    </td>
+                </tr>
+                <tr>
+                    <th>공통혜택</th>
+                    <td>신규가입쿠폰 15%</td>
+
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="content m">
+        <!-- MEMBER Table -->
+        <table>
+            <thead>
+            <tr>
+                <th colspan="2">MEMBER</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>등급 기준</th>
+                <td>구매 금액 10만원 미만</td>
+            </tr>
+            <tr>
+                <th>구매 적립금</th>
+                <td>5%<br>1만원 이상 구매 시 적용</td>
+            </tr>
+            <tr>
+                <th>등급별 할인</th>
+                <td>3%<br>1만원 이상 구매 시 적용</td>
+            </tr>
+            <tr>
+                <th>공통 혜택</th>
+                <td>신규가입쿠폰 15%</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- GOLD Table -->
+        <table>
+            <thead>
+            <tr>
+                <th colspan="2">GOLD</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>등급 기준</th>
+                <td>구매 금액 10만원 이상 30만원 미만</td>
+            </tr>
+            <tr>
+                <th>구매 적립금</th>
+                <td>7%<br>1만원 이상 구매 시 적용</td>
+            </tr>
+            <tr>
+                <th>등급별 할인</th>
+                <td>5%<br>1만원 이상 구매 시 적용</td>
+            </tr>
+            <tr>
+                <th>공통 혜택</th>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- VIP Table -->
+        <table>
+            <thead>
+            <tr>
+                <th colspan="2">VIP</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>등급 기준</th>
+                <td>구매 금액 30만원 이상 100만원 미만</td>
+            </tr>
+            <tr>
+                <th>구매 적립금</th>
+                <td>10%<br>1만원 이상 구매 시 적용</td>
+            </tr>
+            <tr>
+                <th>등급별 할인</th>
+                <td>10%<br>1만원 이상 구매 시 적용</td>
+            </tr>
+            <tr>
+                <th>공통 혜택</th>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- BLACK Table -->
+        <table>
+            <thead>
+            <tr>
+                <th colspan="2">BLACK</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>등급 기준</th>
+                <td>구매 금액 100만원 이상</td>
+            </tr>
+            <tr>
+                <th>구매 적립금</th>
+                <td>15%<br>1만원 이상 구매 시 적용</td>
+            </tr>
+            <tr>
+                <th>등급별 할인</th>
+                <td>15%<br>1만원 이상 구매 시 적용</td>
+            </tr>
+            <tr>
+                <th>공통 혜택</th>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+    <div class="info">
+        <p>*멤버십 등급은 최근 6개월 실 결제 금액(쿠폰 및 적립금 사용을 제외한 결제 금액)을 기준으로 조정됩니다.</p>
+        <p>*멤버십 등급 및 쿠폰은 1개월 단위(매월 1일) 업데이트 됩니다.</p>
+    </div>
+
+    <div module="Layout_statelogoff" >
+        <a href="/member/join.html" class="link-join">회원가입</a>
+    </div>
+
+</div>

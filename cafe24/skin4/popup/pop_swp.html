@@ -1,0 +1,55 @@
+<!--@css(/css/pop_swp.css)-->
+<!--@js(/js/pop_swp.js)-->
+
+<style>
+    /* 1. PC (768px 이상) : 좌우 가운데 / 하단에 배치 (최고 우선순위) */
+    @media (min-width: 768px) {
+        
+        html body #wrap .pop_swp {
+            /* (1) 위치 기준을 좌측 50%로 설정 */
+            left: 50% !important; 
+            /* (2) 하단에 10px 여백을 주고 고정 */
+            bottom: 10px !important; 
+            
+            /* (3) 기존 상단/우측 위치값 강제 초기화 */
+            top: auto !important;
+            right: auto !important; 
+
+            /* (4) X축으로만 -50% 이동시켜 좌우 가운데 정렬 */
+            transform: translateX(-50%) !important; 
+        }
+    }
+</style>
+
+<div class="pop_swp"  df-banner-code="popup-bnr" hidden>
+    <div class="dimmed2"></div>
+    <div class="pop-content">
+        <div class="pop_swiper">
+            <ul class="swiper-wrapper">
+                <li class="swiper-slide" df-banner-clone><a href="{#href}">{#item}</a></li>       
+            </ul>
+            <div class="swiper-pagination"></div>
+        </div><!-- .pop_swiper -->
+        <div class="closeInfo">
+            <a id="closeToday">오늘 하루 보지 않기</a>
+            <a id="closePop" class="closePop">닫기</a>
+        </div>
+    </div>
+<script>
+    (function() {
+        // 화면 너비가 768px 이상(PC)인지 확인
+        if (window.innerWidth >= 768) {
+            // .pop_swp 요소를 찾음
+            var popSwp = document.querySelector('.pop_swp');
+            if (popSwp) {
+                // CSS 'style' 속성에 직접 !important 값을 삽입
+                popSwp.style.setProperty('top', '50%', 'important');
+                popSwp.style.setProperty('left', '50%', 'important');
+                popSwp.style.setProperty('bottom', 'auto', 'important');
+                popSwp.style.setProperty('right', 'auto', 'important');
+                popSwp.style.setProperty('transform', 'translate(-50%, -50%)', 'important');
+            }
+        }
+    })();
+</script>
+</div>

@@ -1,0 +1,369 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div module="Board_ListPackage_4">
+    <style>
+        /* 레이아웃 기본 */
+        .board-wrapper { border: 0; max-width: 100%; }
+        .xans-board { max-width: 100%; }
+        
+        /* 헤드라인 및 정렬 탭 */
+        .review-headline { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; margin-top: 50px; }
+        .review-headline h3 { font-size: 30px; font-weight: 600; margin: 0; }
+
+        .review-sort-tabs { display: flex; gap: 8px; }
+        .sort-tab {
+            padding: 8px 16px; border: 1px solid #ddd; background: #fff; color: #858585;
+            font-size: 14px; cursor: pointer; border-radius: 4px; transition: all 0.3s;
+        }
+        .sort-tab:hover { border-color: #000; color: #000; }
+        .sort-tab.active { background: #000; color: #fff; border-color: #000; }
+        .sort-tab .arrow { margin-left: 5px; font-size: 10px; }
+
+        /* 리뷰 리스트 그리드 */
+        .review-list { padding: 0; margin: 0; }
+        .review-list.grid5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        
+        .review-list li { list-style: none; min-width: 0; }
+        .review-list .link {
+            display: flex; flex-direction: column; height: 100%; border: 1px solid #eee;
+            position: relative; text-decoration: none; color: inherit; background: #fff;
+        }
+
+        /* 썸네일 */
+        .review-list .thumb { background: #f8f8f8; aspect-ratio: 1/1; overflow: hidden; }
+        .review-list .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .review-list .link:hover .thumb img { transform: scale(1.05); }
+
+        /* 텍스트 영역 */
+        .review-list .wrap {
+            padding: 15px; display: flex; flex-direction: column; justify-content: space-between;
+            flex: 1; min-height: 160px;
+        }
+        .review-list .product { font-size: 12px; color: #999; margin-bottom: 8px; }
+        .review-list .title {
+            display: block; font-size: 15px; font-weight: 500; margin-bottom: 5px;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #333;
+        }
+        .review-list .content-desc {
+            font-size: 13px; line-height: 1.5; color: #666; margin-bottom: 20px;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+        }
+
+        /* 메타 정보 (별점, 작성자, 조회수 등) */
+        .review-list .etc1 { margin-top: auto; }
+        .review-list .star img { height: 14px; margin-bottom: 8px; }
+        
+/* [CODE-X] 메타 정보 한 줄 배치 수정 */
+.review-list .etc-wrap {
+    display: flex;
+    justify-content: space-between; /* 날짜는 좌측, 조회/추천은 우측 정렬 */
+    align-items: center;            /* 수직 중앙 정렬 */
+    font-size: 11px;
+    color: #999;
+    margin-top: auto;               /* 하단 고정 */
+}
+
+/* 날짜 영역 */
+.review-list .etc-wrap .left {
+    display: flex;
+    align-items: center;
+}
+
+/* 조회수/추천수 영역 (가로 배치) */
+.review-list .right-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 조회수와 추천수 사이 간격 */
+}
+
+/* 개별 아이템 스타일 */
+.review-list .right-meta > span {
+    display: flex;
+    align-items: center;
+}
+
+.RTMI {
+    margin-right: 3px;
+    font-weight: normal;
+}
+
+/* [중요] 데이터가 비어있을 때 CSS로 강제 '0' 표시 (JS 실패 시 대비) */
+.num-val:empty::after {
+    content: "0";
+}
+        /* 반응형 */
+        @media (max-width: 1024px) {
+            .review-list.grid5 { grid-template-columns: repeat(4, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .review-headline { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .review-headline h3 { font-size: 20px; }
+            .review-sort-tabs { width: 100%; }
+            .sort-tab { flex: 1; text-align: center; padding: 8px 0; }
+            .review-list.grid5 { grid-template-columns: repeat(2, 1fr); }
+            .review-list .wrap { padding: 10px; min-height: auto; }
+        }
+    </style>
+
+    <div class="board-wrapper">
+
+        <div module="board_title_4"></div>
+
+        <div module="board_fixed_4" class="best-review">
+            <h3>WEEKLY BEST REVIEW</h3>
+            <div class="swiper">
+                <ul class="swiper-wrapper review-list">
+                    <li class="swiper-slide">
+                        <a href="/board/review/read.html{$param_read}" class="link">
+                            <div class="thumb">
+                                <img src="{$product_img_src}" onerror="this.src='/file_data/gith6409/{$real_filename}'" alt="{$product_name}">
+                            </div>
+                            <div class="wrap">
+                                <div class="box">
+                                    <p class="product">{$product_name}</p>
+                                    <strong class="title">{$subject}</strong>
+                                    <div class="content-desc">{$content}</div>
+                                </div>
+                                <div class="etc1">
+                                    <div class="star"><img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점"></div>
+                                    <div class="etc-wrap">
+                                        <div class="left">
+                                            <span>{$writer}</span>
+                                            <span>{$write_date|date:Y-m-d}</span>
+                                        </div>
+                                        <div class="right-meta">
+                                            <span><span class="RTMI">조회</span> {$hit_count}</span>
+                                            <span><span class="RTMI">추천</span> {$vote_count}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="swiper-slide">
+                        <a href="/board/review/read.html{$param_read}" class="link">
+                            <div class="thumb">
+                                <img src="{$product_img_src}" onerror="this.src='/file_data/gith6409/{$real_filename}'" alt="{$product_name}">
+                            </div>
+                            <div class="wrap">
+                                <div class="box">
+                                    <p class="product">{$product_name}</p>
+                                    <strong class="title">{$subject}</strong>
+                                    <div class="content-desc">{$content}</div>
+                                </div>
+                                <div class="etc1">
+                                    <div class="star"><img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점"></div>
+                                    <div class="etc-wrap">
+                                        <div class="left">
+                                            <span>{$writer}</span>
+                                            <span>{$write_date|date:Y-m-d}</span>
+                                        </div>
+                                        <div class="right-meta">
+                                            <span><span class="RTMI">조회</span> {$hit_count}</span>
+                                            <span><span class="RTMI">추천</span> {$vote_count}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+
+        <div class="normal-review">
+            <div class="review-headline">
+                <h3>REVIEW</h3>
+                <div class="review-sort-tabs">
+                    <button class="sort-tab active" data-sort="recent">최신순 <span class="arrow">▼</span></button>
+                    <button class="sort-tab" data-sort="views">조회순 <span class="arrow"></span></button>
+                    <button class="sort-tab" data-sort="recommend">추천순 <span class="arrow"></span></button>
+                </div>
+            </div>
+
+            <ul class="review-list grid5" module="board_list_4">
+<li data-date="{$write_date}" data-hit="{$hit_count}" data-vote="{$vote_count}">
+    <a href="/board/review/read.html{$param_read}" class="link">
+        <span class="chk">{$checkbox}</span>
+
+        <div class="thumb">
+            <img src="{$product_img_src}" onerror="this.onerror=null; this.src='/file_data/gith6409/{$real_filename}';" alt="{$product_name}">
+        </div>
+
+        <div class="wrap">
+            <div class="box">
+                <p class="product">{$product_name}</p>
+                <strong class="title">{$subject}</strong>
+                <div class="content-desc">{$content}</div>
+            </div>
+            
+            <div class="etc1">
+                <div class="star {$point_display|display}">
+                    <img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점">
+                </div>
+
+                <div class="etc-wrap">
+                    <div class="left">
+                        <span class="{$date_display|display}">{$write_date|date:Y-m-d}</span>
+                    </div>
+                    
+                    <div class="right-meta">
+                        <span class="meta-hit {$hit_display|display}">
+                            <span class="RTMI">조회</span> 
+                            <span class="num-val hit">{$hit_count}</span>
+                        </span>
+                        
+                        <span class="meta-vote">
+                            <span class="RTMI">추천</span> 
+                            <span class="num-val vote">{$vote_count}</span>
+                        </span>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </a>
+</li>
+                <li data-date="{$write_date}" data-hit="{$hit_count}" data-vote="{$vote_count}">
+                    <a href="/board/review/read.html{$param_read}" class="link">
+                        <span class="chk">{$checkbox}</span>
+                        <div class="thumb">
+                             <img src="{$product_img_src}" onerror="this.onerror=null; this.src='/file_data/gith6409/{$real_filename}';" alt="{$product_name}">
+                        </div>
+                        <div class="wrap">
+                            <div class="box">
+                                <p class="product">{$product_name}</p>
+                                <strong class="title">{$subject}</strong>
+                                <div class="content-desc">{$content}</div>
+                            </div>
+                            <div class="etc1">
+                                <div class="star {$point_display|display}">
+                                    <img src="//img.echosting.cafe24.com/skin/skin/board/icon-star-rating{$point_count}.svg" alt="{$point_count}점">
+                                </div>
+                                <div class="etc-wrap">
+                                    <div class="left">
+                                        <span class="{$member_icon_display|display}">{$member_icon} {$writer}</span>
+                                        <span class="{$date_display|display}">{$write_date|date:Y-m-d}</span>
+                                    </div>
+                                    <div class="right-meta">
+                                        <span class="meta-hit {$hit_display|display}"><span class="RTMI">조회</span> <span class="num-val">{$hit_count}</span></span>
+                                        <span class="meta-vote {$vote_display|display}"><span class="RTMI">추천</span> <span class="num-val">{$vote_count}</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="boardListEmpty {$empty_display|display}" module="board_empty_4">
+            <p>{$empty_message}</p>
+        </div>
+
+        <div module="board_ButtonList_4" class="{$write_display|display} ec-base-button gBottom" style="margin-top:20px; text-align:right;">
+            <a href="/board/product/write.html{$param_write}" class="btnSubmitFix {$write_display|display}">글쓰기</a>
+        </div>
+
+        <div module="board_paging_4" class="ec-base-paginate typeList">
+            <a href="{$param_first}" class="first">첫 페이지</a>
+            <a href="{$param_prev}">이전 페이지</a>
+            <ol>
+                <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+                <li><a href="{$param_num}" class="{$param_class}">{$page_num}</a></li>
+            </ol>
+            <a href="{$param_next}">다음 페이지</a>
+            <a href="{$param_last}" class="last">마지막 페이지</a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. Swiper 초기화
+    if(typeof Swiper !== 'undefined') {
+        new Swiper('.best-review .swiper', {
+            slidesPerView: 2,
+            spaceBetween: 10,
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+            breakpoints: {
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 }
+            }
+        });
+    }
+
+    // 2. [CODE-X Fix] 조회수/추천수 데이터 무결성 검사 및 '0' 처리
+    const metaNumbers = document.querySelectorAll('.right-meta .num-val');
+    
+    metaNumbers.forEach(span => {
+        // 공백 제거 후 텍스트 가져오기
+        let text = span.innerText.trim();
+        
+        // 값이 없거나, undefined거나, 숫자가 아닌 경우 '0'으로 강제 변환
+        if (!text || text === '' || text === 'undefined') {
+            span.textContent = '0';
+        }
+    });
+
+    // 3. 정렬 로직 (최신순/조회순/추천순)
+    const sortTabs = document.querySelectorAll('.sort-tab');
+    const reviewList = document.querySelector('.normal-review .review-list');
+    
+    if (reviewList && sortTabs.length > 0) {
+        let sortState = { recent: 'desc', views: 'desc', recommend: 'desc' };
+
+        sortTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const type = this.getAttribute('data-sort');
+                const isSameTab = this.classList.contains('active');
+
+                sortTabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.querySelector('.arrow').textContent = '';
+                });
+                this.classList.add('active');
+
+                if (isSameTab) {
+                    sortState[type] = sortState[type] === 'desc' ? 'asc' : 'desc';
+                } else {
+                    sortState[type] = 'desc';
+                }
+
+                this.querySelector('.arrow').textContent = sortState[type] === 'desc' ? '▼' : '▲';
+
+                const items = Array.from(reviewList.children);
+                items.sort((a, b) => {
+                    let aVal, bVal;
+
+                    if (type === 'recent') {
+                        aVal = a.getAttribute('data-date') || '';
+                        bVal = b.getAttribute('data-date') || '';
+                        return sortState[type] === 'desc' ? bVal.localeCompare(aVal) : aVal.localeCompare(bVal);
+                    } else {
+                        const attrKey = (type === 'views') ? 'data-hit' : 'data-vote';
+                        // HTML 속성값이 비어있을 경우를 대비해 텍스트 내용으로 이중 체크
+                        let aRaw = a.getAttribute(attrKey);
+                        let bRaw = b.getAttribute(attrKey);
+
+                        // 속성값이 없으면 innerText에서 숫자를 찾아봄 (Fallback)
+                        if (!aRaw && type === 'recommend') aRaw = a.querySelector('.num-val.vote').textContent;
+                        if (!bRaw && type === 'recommend') bRaw = b.querySelector('.num-val.vote').textContent;
+
+                        aVal = parseInt(aRaw || '0', 10);
+                        bVal = parseInt(bRaw || '0', 10);
+                        
+                        if (isNaN(aVal)) aVal = 0;
+                        if (isNaN(bVal)) bVal = 0;
+
+                        return sortState[type] === 'desc' ? bVal - aVal : aVal - bVal;
+                    }
+                });
+
+                items.forEach(item => reviewList.appendChild(item));
+            });
+        });
+    }
+});
+</script>

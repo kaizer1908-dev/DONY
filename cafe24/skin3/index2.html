@@ -1,0 +1,107 @@
+<!--@layout(/layout/basic/layout.html)-->
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/Draggable.min.js"></script>
+
+<!--@css(/layout/basic/css/main2.css)-->
+<!--@js(/layout/basic/js/main2.js)-->
+
+<!-- 팝업 html 추가 -->
+<!--@import(/popup/pop_swp.html)-->
+
+<section class="main-section sec1 ">
+    <div class="ec-base-product" module="product_listmain_1" >
+        <!--
+        $count = 50
+        $moreview = no
+        ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
+        ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
+        $basket_result = /product/add_basket.html
+        $basket_option = /product/basket_option.html
+        -->
+        <ul class="prd-list size_m">
+            <li id="anchorBoxId_{$product_no}" class="swiper-slide item">
+                <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
+                <div class="thumb-box">
+                    <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img before"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img after"></div>
+                    <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
+                    <div class="promotion soldout">
+                        {$soldout_icon}
+                    </div>
+                    <div class="colorhip_wrap {$colorchip_display|display}">
+                        <div class="color" module="product_Colorchip">
+                            <span class="chips" style="background-color:{$color}"></span>
+                            <span class="chips" style="background-color:{$color}"></span>
+                        </div>
+                    </div>
+                    <div class="add-text">
+                        {$custom_option1}
+                    </div>
+                </div>
+                <div class="text-box">
+                    <div class="text">
+                        <strong class="name"><a href="/product/detail.html{$param}" class="{$product_name_display|display}"><span class="title {$product_name_title_display|display}">{$product_name_title} :</span> {$product_name_tag}</a></strong>
+                        <ul module="product_ListItem" class="spec">
+                            <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                            <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                        </ul>
+                    </div>
+                    <div class="icon">
+                        {$product_icons}
+                    </div>
+                </div>
+            </li>
+            <li id="anchorBoxId_{$product_no}" class="swiper-slide item">
+                <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
+                <div class="thumb-box">
+                    <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img before"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img after"></div>
+                    <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
+                    <div class="promotion soldout">
+                        {$soldout_icon}
+                    </div>
+                    <div class="colorhip_wrap {$colorchip_display|display}">
+                        <div class="color" module="product_Colorchip">
+                            <span class="chips" style="background-color:{$color}"></span>
+                            <span class="chips" style="background-color:{$color}"></span>
+                        </div>
+                    </div>
+                    <div class="add-text">
+                        {$custom_option1}
+                    </div>
+                </div>
+                <div class="text-box">
+                    <div class="text">
+                        <strong class="name"><a href="/product/detail.html{$param}" class="{$product_name_display|display}"><span class="title {$product_name_title_display|display}">{$product_name_title} :</span> {$product_name_tag}</a></strong>
+                        <ul module="product_ListItem" class="spec">
+                            <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                            <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                        </ul>
+                    </div>
+                    <div class="icon">
+                        {$product_icons}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="progress">
+        <button data-size="size_s">Small</button>
+        <button data-size="size_m" class="on">Medium</button>
+        <button data-size="size_l">Large</button>
+    </div>
+</section>
+
+
+
+
+<!-- 여기서부터 지우세요 -->
+<style>
+    .set_type a:nth-child(2){background: #000;color: #fff;}
+</style>
+<!--@import(/layout/set.html)-->
+<!-- 여기까지 지우세요 -->
+
+    
+<!--@define(cmc_log)-->
+

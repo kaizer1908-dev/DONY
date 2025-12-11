@@ -1,0 +1,35 @@
+<!--@layout(/layout/basic/layout.html)-->
+<div class="path">
+    <span>현재 위치</span>
+    <ol>
+        <li><a href="/">홈</a></li>
+        <li title="현재 위치"><strong>회사소개</strong></li>
+    </ol>
+</div>
+
+<div class="module-headline">
+    <h2>Stockist</h2>
+</div>
+
+
+<div module="mall_location">
+    <!--@css(/css/module/mall/location.css)-->
+
+    <div df-banner-code="shop" hidden class="store__list">
+    
+        <li class="store__item" df-banner-clone>
+            <div class="img">{#item}</div>
+            <div class="info">
+                {#html}
+            </div>
+        </li>
+
+
+    </div>
+    </ul>
+
+
+</div>
+
+
+

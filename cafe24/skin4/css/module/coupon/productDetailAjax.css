@@ -1,0 +1,88 @@
+.xans-coupon-productdetailajax { clear:both; overflow:hidden; }
+.xans-coupon-productdetailajax > .title { position:relative; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;}
+.xans-coupon-productdetailajax > .title h2 { font-size:16px; color:#000; font-weight:normal; 
+ 
+}
+.xans-coupon-productdetailajax > .title .button { background:#fff; }
+
+.xans-coupon-productdetailajax .couponSkinArea { padding:16px 0 0; }
+.xans-coupon-productdetailajax .couponSkinArea ul { margin:0 auto; padding:0; text-align:center; gap: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;}
+.xans-coupon-productdetailajax .couponSkinArea ul:after { content:""; display:block; clear:both; }
+.xans-coupon-productdetailajax .couponSkinArea ul li { padding:0; list-style:none; }
+.xans-coupon-productdetailajax .couponSkinArea .coupon { 
+    display: flex;
+     font-size:12px; line-height:1.5; text-align:center; background-repeat:no-repeat; 
+     background: none !important;
+     border: 1px solid #000;
+     padding: 8px;
+     justify-content: space-between;
+    }
+.xans-coupon-productdetailajax .couponSkinArea .coupon img { border:0; }
+.xans-coupon-productdetailajax .couponSkinArea .coupon p { margin:0; padding:0; }
+.xans-coupon-productdetailajax .couponSkinArea .coupon .title { display:block; 
+    font-size:10px; line-height:15px;
+     font-weight:normal; }
+.xans-coupon-productdetailajax .couponSkinArea .coupon .discount { font-size:18px; 
+    line-height:28px; font-weight:500; 
+     text-decoration:none; letter-spacing:-1px; color: #000 !important;}
+.xans-coupon-productdetailajax .couponSkinArea .coupon .discount span { 
+    font-size:16px; }
+.xans-coupon-productdetailajax .couponSkinArea .coupon .period { 
+    font-size:11px; line-height:13px; font-weight:normal; letter-spacing:-1px; color: #6c6c6c !important ;}
+.xans-coupon-productdetailajax .couponSkinArea .coupon .button {text-align:center; }
+.xans-coupon-productdetailajax .couponSkinArea .coupon .button img{display: none; }
+.xans-coupon-productdetailajax .couponSkinArea .coupon .button a{
+    background: #000;
+    color: #fff;
+    display: block;
+    padding: 5px 8px;
+}
+.xans-coupon-productdetailajax .couponSkinArea .imgCoupon .title,
+.xans-coupon-productdetailajax .couponSkinArea .imgCoupon .discount,
+.xans-coupon-productdetailajax .couponSkinArea .imgCoupon .period,
+.xans-coupon-productdetailajax .couponSkinArea .imgCoupon .button { display:none; }
+.xans-coupon-productdetailajax .couponSkinArea .imgCoupon .detail { height:100%; }
+.xans-coupon-productdetailajax .couponSkinArea .discount { text-decoration:none; }
+.xans-coupon-productdetailajax .detail{text-align: left;}
+
+#dCouponDetail { z-index:1001; overflow:hidden; position:fixed; top:50% !important; left:0 !important; right:0; margin:0 auto; width:398px; border:1px solid #000; background:#fff; transform:translateY(calc(-50% + 0.5px)); }
+#dCouponDetail h3 { height:60px; margin:0 20px; padding:20px 0; font-size:16px; box-sizing:border-box; border-bottom:1px solid #e5e5e5; }
+#dCouponDetail h3 + a { position:absolute; right:20px; top:20px; }
+#dCouponDetail ul { padding:16px 10px 17px 20px; margin:25px 19px; background:#f5f5f5; }
+#dCouponDetail ul li { margin:7px 0 0; color:#2e2e2e; line-height:18px; }
+#dCouponDetail ul li:first-child { margin-top:0; }
+#dCouponDetail ul + a { display:block; padding:12px 0; text-align:center; border-top:1px solid #d7d5d5; background:#fbfafa; }
+
+
+.xans-coupon-productdetailajax .couponSkinArea ul{
+    display: grid;
+}
+/********************* Mobile / Tablet *********************/
+@media all and (max-width:1024px) {
+    .xans-coupon-productdetailajax .couponSkinArea ul{
+        /* grid-template-columns: repeat(3,1fr); */
+    }
+  .xans-coupon-productdetailajax .couponSkinArea ul li {  }
+  .xans-coupon-productdetailajax .couponSkinArea .coupon { margin:0 auto; }
+  
+  #dCouponDetail { width:88%; }
+}
+
+@media all and (max-width:768px) {
+    .xans-coupon-productdetailajax .couponSkinArea ul{
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+
+
+/********************* PC *********************/
+@media all and (min-width:1025px) {
+  /* .xans-coupon-productdetailajax { margin:100px 0 0; } */
+
+}

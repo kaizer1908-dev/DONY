@@ -1,0 +1,90 @@
+
+
+
+.xans-mall-membership{}
+.xans-mall-membership table{
+}
+/* .xans-mall-membership table th,
+.xans-mall-membership table td{border: 1px solid #000;} */
+.xans-mall-membership thead{
+
+}
+.xans-mall-membership thead th{
+    font-size: 14px;
+    padding: 10px 0;
+    font-weight: 500;
+    background: #000;
+    color: #fff;
+}
+
+.xans-mall-membership tbody th{
+    background: #fbfbfb;
+}
+.xans-mall-membership tbody th,
+.xans-mall-membership tbody td{
+    padding: 30px 0;
+    text-align: center;
+    font-size: 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+.xans-mall-membership tbody td{
+    font-size: 12px;
+    color: #6c6c6c;
+    line-height: 1.5;
+}
+
+.info{
+    padding: 20px 0;
+    font-size: 12px;
+    color: #6c6c6c;
+    line-height: 1.5;
+}
+
+.link-join{
+    margin-top: 100px;
+    display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 0;
+        background: #fff;
+        border: 1px solid #000;
+        color: #000;
+        font-size: 14px;
+        font-weight: 500;
+        transition: .3s;
+}
+.link-join:hover{
+    background: #000;
+    color: #fff;
+}
+.content.m{display: none;}
+@media (max-width:1024px) {
+    .content.pc{display: none;}
+    .content.m{display: block;}
+
+    .xans-mall-membership thead th{
+        font-size: 14px;
+        padding: 10px 0;
+    }
+    .xans-mall-membership tbody th{
+        width: 120px;
+    }
+    .xans-mall-membership tbody th, .xans-mall-membership tbody td{
+        font-size: 12px;
+        padding: 18px 0;
+    }
+    table+table{margin-top: 40px;}
+    .info{
+        font-size: 11px;
+        word-break: keep-all;
+    }
+    .info p+p{margin-top: 5px;}
+
+}
+@media (max-width:768px) {
+    .link-join{
+        font-size: 14px;
+    }
+}
+

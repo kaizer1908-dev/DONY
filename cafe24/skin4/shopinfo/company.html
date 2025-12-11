@@ -1,0 +1,141 @@
+<!--@layout(/layout/basic/layout.html)-->
+<style>
+    /* 1. 페이지 전체 배경 및 여백 초기화 */
+    html, body {
+        background-color: #293b36 !important; /* 대표님 요청 컬러로 강제 변경 */
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden; /* 스크롤바 숨기기 (풀스크린 이미지용) */
+    }
+
+    /* 2. 레이아웃의 기본 흰색 배경 제거 */
+    #wrap, #container, #contents {
+        background-color: transparent !important;
+    }
+
+    /* 3. 브랜드 스토리 컨테이너 (핵심)
+       - 화면 전체를 덮는 배경 이미지 역할을 하도록 설정
+    */
+    .brand-story-container {
+        position: fixed; /* 뷰포트에 고정 */
+        top: 0;
+        left: 0;
+        width: 100vw; /* 화면 너비 100% */
+        height: 100vh; /* 화면 높이 100% */
+        z-index: 1; /* 헤더(10)보다 뒤에 위치 */
+        line-height: 0; /* 이미지 틈새 제거 */
+        font-size: 0; /* 틈새 제거 */
+    }
+
+    /* 4. 컨테이너 내부 이미지 스타일 */
+    .brand-story-container img {
+        width: 100%;
+        height: 100%; /* 컨테이너(100vh)를 꽉 채움 */
+        object-fit: cover; /* 비율을 유지하며 꽉 채우기 (이미지 일부 잘릴 수 있음) */
+        object-position: center; /* 중앙 정렬 */
+        display: block; 
+        border: none; 
+        outline: none;
+        box-shadow: none;
+    }
+
+    /* 5. 헤더와 푸터 설정 (핵심)
+       - z-index를 높여 이미지 '위'에 뜨도록 하고, 배경을 투명하게
+    */
+    #header, #footer {
+        position: relative; /* z-index가 작동하도록 position 설정 */
+        z-index: 10; /* z-index: 1인 이미지보다 위에 표시 */
+        background-color: transparent !important;
+        border: none !important; /* 헤더/푸터의 기본 선 제거 */
+    }
+
+    /* --- [수정된 부분 1] --- */
+    /* 6b. 메인 헤더 (logo, menu, icons)
+       - [수정] 너무 광범위했던 '#header a' 규칙을 수정하여,
+       - '투명한 헤더'에 보이는 요소들(로고, 로그인, 메뉴버튼, 아이콘)만 흰색으로 지정
+    */
+    #header,
+    #header .header-inner .logo a, /* 로고 */
+    #header .xans-layout-statelogin a, /* 로그인/회원가입 */
+    #header a.btnMenu, /* 모바일 'MENU' 버튼 */
+    #header .xans-layout-searchheader a, /* 검색 아이콘 */
+    #header .xans-layout-orderbasketcount a /* 카트 아이콘 */
+    {
+        color: #FFFFFF !important; 
+    }
+
+    /* --- [수정된 부분 2] --- */
+    /* 6c. [수정] 헤더의 '최상위' 아이콘(검색,카트)만 흰색으로 변경
+       - (모바일 메뉴 패널 내부의 아이콘은 제외)
+    */
+    #header > .header-inner .xans-layout-searchheader svg path,
+    #header > .header-inner .xans-layout-orderbasketcount svg path,
+    #header > .header-inner a.btnMenu svg path /* 모바일 'MENU' 버튼 SVG */
+    {
+         stroke: #FFFFFF !important;
+    }
+    
+    /* 6d. 푸터 (footer) - (기존과 동일) */
+    #footer,
+    #footer a, 
+    #footer p, 
+    #footer span, 
+    #footer strong,
+    #footer .licensee a {
+         color: #FFFFFF !important; /* 푸터 내 모든 텍스트 요소 */
+    }
+    
+    /* --- [추가된 부분] --- */
+    /* 6e. [추가] 모바일 메뉴 패널 (흰색 배경) 내부 텍스트 색상
+       - 'company.html'에서 흰색 배경의 모바일 메뉴가 열렸을 때,
+       - 그 안의 글자(링크, 닫기 버튼)를 검은색으로 강제 변경합니다.
+    */
+    /* .navigation 클래스는 Cafe24의 기본 모바일 패널 클래스입니다. */
+    .navigation {
+        background-color: #FFFFFF !important; /* 만약을 위해 배경도 흰색으로 강제 */
+    }
+    
+    .navigation a,
+    .navigation .btnClose, /* 닫기 버튼 */
+    .navigation span, /* + 기호 등 */
+    .navigation strong, /* 카테고리명 등 */
+    .navigation li /* 메뉴 리스트 */
+    {
+        color: #000000 !important; /* 검은색 */
+    }
+
+    /* .navigation 내부의 SVG 아이콘(+, X 버튼 등) 색상도 검은색으로 */
+    .navigation svg path {
+        stroke: #000000 !important;
+    }
+    
+
+    /* 7. 이미지 교체 로직 (기존과 동일) */
+    .brand-story-container .brand-story-vertical {
+        display: block; 
+    }
+    .brand-story-container .brand-story-horizontal {
+        display: none;
+    }
+
+    @media (orientation: landscape) {
+        .brand-story-container .brand-story-vertical {
+            display: none;
+        }
+        .brand-story-container .brand-story-horizontal {
+            display: block;
+        }
+    }
+</style>
+
+
+<div class="brand-story-container">
+    <img src="//ecimg.cafe24img.com/pg1867b30565137078/gith6409/BRAND%20STORY%20%28Vertical2%29.jpg" 
+         alt="AFTERDAWN Brand Story Vertical" 
+         class="brand-story-vertical">
+    
+    <img src="//ecimg.cafe24img.com/pg1867b30565137078/gith6409/1761881936291.jpg"
+         alt="AFTERDAWN Brand Story Horizontal" 
+         class="brand-story-horizontal">
+</div>

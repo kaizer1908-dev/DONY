@@ -1,0 +1,460 @@
+<!-- Footer Section with Inline Styles (Fixed Version) -->
+<style>
+/* ===== Pretendard 폰트 적용 ===== */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css');
+
+/* ----- Footer Layout ----- */
+.custom-footer {
+    background: #fff !important;
+    border-top: 1px solid #e5e5e5 !important;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif !important;
+}
+
+.custom-footer * {
+    box-sizing: border-box !important;
+}
+
+.custom-footer-inner {
+    padding: 50px 20px !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+}
+
+.custom-footer-content {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    gap: 40px !important;
+}
+
+/* ----- 좌측: 로고 + 소셜 ----- */
+.custom-footer-left {
+    flex-shrink: 0 !important;
+    width: 380px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: center !important; /* [수정됨] PC에서 로고와 버튼 중앙 정렬 */
+}
+
+.custom-footer-logo {
+    margin-bottom: 5px !important;
+}
+
+.custom-footer-logo img {
+    height: 60px !important;
+    width: auto !important;
+    max-width: 100% !important;
+}
+
+/* COMPANY 섹션 (중앙 배치용) */
+.custom-footer-company {
+    flex-shrink: 0 !important;
+    width: auto !important;
+    min-width: 160px !important;
+}
+
+.custom-company-toggle {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    margin: 0 0 10px 0 !important;
+    color: #222 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    user-select: none !important;
+}
+
+.custom-company-toggle::after {
+    content: '' !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-left: 4px solid transparent !important;
+    border-right: 4px solid transparent !important;
+    border-top: 5px solid #555 !important;
+    transition: transform 0.3s ease !important;
+    margin-left: 8px !important;
+}
+
+.custom-company-toggle.active::after {
+    transform: rotate(180deg) !important;
+}
+
+.custom-company-panel {
+    max-height: 0 !important;
+    overflow: hidden !important;
+    transition: max-height 0.4s ease-out !important;
+}
+
+.custom-company-panel.open {
+    max-height: 300px !important;
+}
+
+.custom-company-content {
+    font-size: 11px !important;
+    line-height: 1.7 !important;
+    color: #666 !important;
+}
+
+.custom-company-content span {
+    display: block !important;
+    margin-bottom: 2px !important;
+}
+
+.custom-company-content a {
+    color: #666 !important;
+    text-decoration: none !important;
+}
+
+.custom-company-content a:hover {
+    text-decoration: underline !important;
+}
+
+/* 소셜 미디어 */
+.custom-footer-social {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important; /* [수정됨] PC에서 버튼 그룹 중앙 정렬 */
+    align-items: center !important;
+    width: 100% !important;
+    gap: 10px !important; /* [수정됨] 버튼 사이 간격 */
+}
+
+.custom-social-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 12px !important;
+    background: transparent !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    flex: 0 0 auto !important;
+    width: auto !important; /* [수정됨] PC에서는 내용물 크기만큼만 */
+    max-width: none !important;
+}
+
+.custom-social-left {
+    justify-content: flex-start !important;
+}
+
+.custom-social-link:hover {
+    background: #f9f9f9 !important;
+    border-color: #ccc !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+}
+
+.custom-social-link img {
+    width: 20px !important;
+    height: 20px !important;
+    /* opacity: 0.8 !important; 삭제: 새 아이콘 색상 유지를 위해 */
+    transition: all 0.3s ease !important;
+    flex-shrink: 0 !important;
+}
+
+.custom-social-link:hover img {
+    /* opacity: 1 !important; 삭제 */
+    transform: scale(1.1) !important;
+}
+
+.custom-social-text {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+}
+
+.custom-social-label {
+    font-size: 10px !important;
+    color: #888 !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+}
+
+.custom-social-brand {
+    font-size: 12px !important;
+    color: #333 !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+}
+
+.custom-social-link:hover .custom-social-brand {
+    color: #000 !important;
+}
+
+.custom-social-link:hover .custom-social-label {
+    color: #666 !important;
+}
+
+/* ----- 우측: 정보 섹션 (3칸) ----- */
+.custom-footer-info {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 80px !important;
+    flex-grow: 1 !important;
+    justify-content: flex-end !important;
+}
+
+.custom-footer-col {
+    flex-shrink: 0 !important;
+    width: auto !important;
+    min-width: 160px !important;
+}
+
+.custom-footer-col h4 {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    margin: 0 0 15px 0 !important;
+    color: #222 !important;
+    white-space: nowrap !important;
+}
+
+.custom-footer-col p,
+.custom-footer-col a {
+    line-height: 2 !important;
+    color: #666 !important;
+    text-decoration: none !important;
+    font-size: 12px !important;
+    display: block !important;
+    margin: 0 !important;
+}
+
+.custom-footer-col a:hover {
+    text-decoration: underline !important;
+    color: #333 !important;
+}
+
+/* ----- 반응형: 태블릿 ----- */
+@media (max-width: 1024px) {
+    .custom-footer-content {
+        gap: 40px !important;
+    }
+
+    .custom-footer-info {
+        gap: 50px !important;
+    }
+
+    .custom-footer-left {
+        width: 240px !important;
+    }
+}
+
+/* ----- 반응형: 모바일 (최종 수정됨) ----- */
+@media (max-width: 768px) {
+    .custom-footer-inner {
+        padding: 40px 20px !important;
+    }
+
+    .custom-footer-content {
+        flex-direction: column !important;
+        gap: 35px !important;
+    }
+
+    .custom-footer-left {
+        width: 100% !important;
+        align-items: center !important;
+    }
+
+    .custom-footer-logo {
+        text-align: center !important;
+        margin-bottom: 15px !important;
+    }
+
+    .custom-footer-logo img {
+        height: 50px !important;
+    }
+
+    /* [수정됨] 모바일에서 버튼 꽉 채우기 */
+    .custom-footer-social {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        gap: 12px !important;
+        margin-top: 0 !important;
+    }
+
+    /* [수정됨] 모바일 버튼 개별 스타일 */
+    .custom-social-link {
+        flex: 1 !important; /* 공간 균등 분할 */
+        width: auto !important;
+        max-width: none !important;
+        justify-content: center !important;
+        padding: 14px 0 !important; /* 높이 키우기 */
+    }
+    
+    .custom-social-link img {
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    .custom-footer-company {
+        text-align: center !important;
+        width: 100% !important;
+    }
+    
+    .custom-company-toggle {
+        justify-content: center !important;
+    }
+
+    .custom-footer-info {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 30px !important;
+        justify-content: flex-start !important;
+        text-align: center !important;
+    }
+
+    .custom-footer-col {
+        width: 100% !important;
+        min-width: auto !important;
+    }
+
+    .custom-company-panel.open {
+        max-height: 400px !important;
+    }
+}
+
+/* ----- 작은 모바일 ----- */
+@media (max-width: 480px) {
+    .custom-footer-col h4 {
+        font-size: 12px !important;
+    }
+
+    .custom-footer-col p,
+    .custom-footer-col a {
+        font-size: 11px !important;
+    }
+}
+</style>
+
+<footer class="custom-footer">
+    <div class="custom-footer-inner">
+        <div class="custom-footer-content">
+            <div class="custom-footer-left">
+                <div class="custom-footer-logo">
+                    <img src="//ecimg.cafe24img.com/pg1867b30565137078/gith6409/web/logo.png" alt="AFTER DAWN Logo">
+                </div>
+
+                <div class="custom-footer-social">
+                    <a href="https://www.instagram.com/afterdawn.kr" target="_blank" class="custom-social-link custom-social-left">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23E4405F'%3E%3Cpath d='M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z'/%3E%3C/svg%3E" alt="Instagram">
+                        <span class="custom-social-text">
+                            <span class="custom-social-label">Instagram</span>
+                        </span>
+                    </a>
+                   <a href="http://pf.kakao.com/_Pxoxktn" target="_blank" class="custom-social-link custom-social-left">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg" alt="KakaoTalk">
+    <span class="custom-social-text">
+        <span class="custom-social-label">Kakaotalk</span>
+    </span>
+</a>
+                </div>
+            </div>
+
+            <div class="custom-footer-company">
+                <h4 class="custom-company-toggle" id="customCompanyToggle">COMPANY</h4>
+                <div class="custom-company-panel" id="customCompanyPanel">
+                    <div class="custom-company-content">
+                        <span>상호: 주식회사 기스</span>
+                        <span>대표자명: 이문권</span>
+                        <span>서울 성동구 왕십리로 16가길 24 5층 (04788)</span>
+                        <span>사업자등록번호: 717-86-03531</span>
+                        <span><a href="https://www.ftc.go.kr/www/selectBizCommView.do?pageUnit=10&pageIndex=1&searchCnd=BZMNNM&searchKrwd=%EC%A3%BC%EC%8B%9D%ED%9A%8C%EC%82%AC%20%EA%B8%B0%EC%8A%A4&key=253&token=CCAD9860-9D8A-33F0-79AD-3AC853240ACE82CFE95BEDE5F120B522715C8B7B944E&opnSn=2025303010330201181" target="_blank"><span>통신판매신고번호: 2025-서울성동-1181</span></a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="custom-footer-info">
+                <div class="custom-footer-col">
+                    <h4>TERMS</h4>
+                    <a href="/member/agreement.html">Terms of Service</a>
+                    <a href="/member/privacy.html">Privacy</a>
+                    <a href="/shopinfo/guide.html">Shop Guide</a>
+                </div>
+
+                <div class="custom-footer-col">
+                    <h4>CUSTOMER CENTER</h4>
+                    <a href="tel:070-8065-3433">070-8065-3433</a>
+                    <p>평일 10:00 - 14:00</p>
+                    <p>토, 일요일 및 공휴일 휴무</p>
+                </div>
+
+                <div class="custom-footer-col">
+                    <h4>CONTACT</h4>
+                    <a href="mailto:operation@gith.kr">operation@gith.kr</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+// COMPANY 아코디언 토글 기능
+(function() {
+    const companyToggle = document.getElementById('customCompanyToggle');
+    const companyPanel = document.getElementById('customCompanyPanel');
+
+    if (companyToggle && companyPanel) {
+        companyToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            companyPanel.classList.toggle('open');
+        });
+    }
+})();
+</script>
+
+<!-- 나머지 기존 코드 유지 -->
+<div id="progressPaybar" style="display:none;">
+    <div id="progressPaybarBackground" class="layerProgress"></div>
+    <div id="progressPaybarView">
+        <div class="box">
+            <h3>현재 결제가 진행중입니다.</h3>
+            <p class="txt">본 결제 창은 결제완료 후 자동으로 닫히며,결제 진행 중에 본 결제 창을 닫으시면<br />주문이 되지 않으니 결제 완료 될 때 까지 닫지 마시기 바랍니다.</p>
+            <div class="progressbar"><img src="//img.echosting.cafe24.com/skin/skin/common/img_loading.gif" alt="loading" loading="lazy"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ... 나머지 기존 코드 ... -->
+    
+
+        <!-- <div class="front">
+            <div class="col">
+                <a href="/member/agreement.html">Terms of Service</a>
+                <a href="/member/privacy.html">Privacy</a>
+                <a href="/shopinfo/guide.html">Shop Guide</a>
+            </div>
+        </div> -->
+             
+        <!-- <div class="info">
+            <div class="addr">
+                <span>Company Name:{$company_name} </span>
+                <span>Owner :{$president_name}</span> <br>
+                <span>Address : {$mall_zipcode} {$mall_addr1} {$mall_addr2}</span><br>
+                <span>Business Registration Number :{$company_regno} <span onclick="{$action_biz_info}" style="cursor:pointer">Check business</span></span>
+                <span>Business License : {$network_regno} </span> 
+                <span></span>
+            </div>
+
+            <div class="links">
+                <small>ⓒ {$company_name} All rights reserved.</small> 
+                <a href="https://d.cafe24.com/designer/designer_product?agencyId=tjeodnjsdlwl" target="_blank" class="made">website by AllroundShop</a>
+            </div>
+        </div> -->
+    </div>
+</footer>
+<div id="progressPaybar" style="display:none;">
+    <div id="progressPaybarBackground" class="layerProgress"></div>
+    <div id="progressPaybarView">
+        <div class="box">
+            <h3>현재 결제가 진행중입니다.</h3>
+            <p class="txt"> 본 결제 창은 결제완료 후 자동으로 닫히며,결제 진행 중에 본 결제 창을 닫으시면<br /> 주문이 되지 않으니 결제 완료 될 때 까지 닫지 마시기 바랍니다.
+            </p>
+            <div class="progressbar"><img src="//img.echosting.cafe24.com/skin/skin/common/img_loading.gif"
+                    alt="loading" loading="lazy"></div>
+        </div>
+    </div>
+</div>
+<div module="Layout_multishopShipping">

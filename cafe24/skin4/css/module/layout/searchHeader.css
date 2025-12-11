@@ -1,0 +1,49 @@
+
+
+.xans-search-hotkeyword{ padding-top: 20px; }
+.xans-search-hotkeyword h3 { font-size: 16px;font-weight: 600; }
+.xans-search-hotkeyword ul{ display: flex;flex-direction: column; gap: 18px; counter-reset: section; /* 카운터 초기화 */ padding-top: 20px; }
+.xans-search-hotkeyword ul a { font-size: 14px; font-weight: 500; }
+.xans-search-hotkeyword ul li:before { counter-increment: section; content: counter(section); letter-spacing: -1px; width: 16px; display: inline-block; color: #ff702e; margin-right: 9px; font-size: 14px; font-weight: 500; }
+
+.search_inner{ position: fixed; top: 0%; left: 0; width: 100%;
+     height: 100%; background:rgba(255,255,255,.7);
+      backdrop-filter: blur(10px); padding: 20px; box-sizing: border-box; 
+      transition: .3s cubic-bezier(0.78, 0.27, 0.25, 1);
+       display: flex; align-items: center; justify-content: center; z-index: 10; 
+       display: none;
+}
+.search_inner.on{ display: flex;}
+.search_inner fieldset{ position: relative; display: flex; max-width: 500px; margin: 0 auto; }
+.search_inner input{border: 0;padding: 0; width: 100%; border-bottom: 1px solid #000; width: 500px; font-size: 16px;}
+.search_inner input::placeholder{ font-size: 12px; color: #000;text-align: center; font-size: 16px; }
+.search_inner .seearch_img{ position: absolute; top: 0;right: 0; height: 100%;  transition: .3s; }
+.search_inner .seearch_img:hover{ opacity: 1; }
+.search_inner .seearch_img svg{fill:#000; width: 25px; height: 25px; }
+
+.search_inner .btn-close{ 
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    
+}
+.search_inner .btn-close svg{ 
+    width: 10px;
+    height: 10px;
+}
+
+.search_inner .inputTypeText{border:none !important}
+
+.xans-search-recentkeyword{display: block !important;}
+@media all and (max-width:1024px) {
+}
+@media all and (max-width:767px) {
+    .search_inner input::placeholder{ font-size: 14px; }
+    .search_inner{padding: 16px;padding-top: 64px;}
+    #searchBarForm{ width: 100%; }
+    .search_inner .inputTypeText{ width: 100%; }
+}
