@@ -1,604 +1,793 @@
 <!--@layout(/layout/basic/layout.html)-->
 <html lang="ko">
+
 <head>
-<meta name="facebook-domain-verification" content="qn7jiynlbml1rnyt0jw6xu408ywrn9" />    
+    <meta name="facebook-domain-verification" content="qn7jiynlbml1rnyt0jw6xu408ywrn9" />
     <!-- Meta Pixel Code -->
-<script>
-  
-    !function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '830401176040389');
-fbq('track', 'PageView');
+    <script>
 
-    // SNS URL 자동 감지 및 Embed 변환
-(function() {
-    'use strict';
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '830401176040389');
+        fbq('track', 'PageView');
 
-    function convertToEmbed(url) {
-        if (!url) return null;
+        // SNS URL 자동 감지 및 Embed 변환
+        (function () {
+            'use strict';
 
-        // 유튜브
-        if (url.includes('youtube.com') || url.includes('youtu.be')) {
-            let videoId = null;
-            if (url.includes('/shorts/')) {
-                videoId = url.split('/shorts/')[1].split('?')[0].split('&')[0];
-            } else if (url.includes('watch?v=')) {
-                videoId = url.split('watch?v=')[1].split('&')[0];
-            } else if (url.includes('youtu.be/')) {
-                videoId = url.split('youtu.be/')[1].split('?')[0].split('&')[0];
+            function convertToEmbed(url) {
+                if (!url) return null;
+
+                // 유튜브
+                if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                    let videoId = null;
+                    if (url.includes('/shorts/')) {
+                        videoId = url.split('/shorts/')[1].split('?')[0].split('&')[0];
+                    } else if (url.includes('watch?v=')) {
+                        videoId = url.split('watch?v=')[1].split('&')[0];
+                    } else if (url.includes('youtu.be/')) {
+                        videoId = url.split('youtu.be/')[1].split('?')[0].split('&')[0];
+                    }
+                    if (videoId) {
+                        return `<iframe src="https://www.youtube.com/embed/${videoId}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen scrolling="no"></iframe>`;
+                    }
+                }
+
+                // 인스타그램
+                if (url.includes('instagram.com')) {
+                    let postId = null;
+                    if (url.includes('/reel/')) {
+                        postId = url.split('/reel/')[1].split('/')[0].split('?')[0];
+                        return `<iframe src="https://www.instagram.com/reel/${postId}/embed" allowfullscreen scrolling="no"></iframe>`;
+                    } else if (url.includes('/p/')) {
+                        postId = url.split('/p/')[1].split('/')[0].split('?')[0];
+                        return `<iframe src="https://www.instagram.com/p/${postId}/embed" allowfullscreen scrolling="no"></iframe>`;
+                    }
+                }
+
+                // 틱톡
+                if (url.includes('tiktok.com')) {
+                    let videoId = url.split('/video/')[1];
+                    if (videoId) {
+                        videoId = videoId.split('?')[0].split('/')[0];
+                        return `<iframe src="https://www.tiktok.com/embed/v2/${videoId}" allowfullscreen scrolling="no"></iframe>`;
+                    }
+                }
+
+                return null;
             }
-            if (videoId) {
-                return `<iframe src="https://www.youtube.com/embed/${videoId}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+            function initializeSNSGrid() {
+                const snsItems = document.querySelectorAll('.sns-embed-target');
+                snsItems.forEach(function (item) {
+                    const url = item.getAttribute('data-url');
+                    const thumb = item.getAttribute('data-thumb');
+
+                    // Check if thumb is an Instagram URL (not an image)
+                    if (thumb && thumb.includes('instagram.com')) {
+                        // Use Instagram oEmbed to get thumbnail
+                        fetchInstagramThumbnail(thumb, item);
+                    } else if (thumb && !thumb.includes('instagram.com')) {
+                        // Static Thumbnail (image URL)
+                        item.innerHTML = `<img src="${thumb}" alt="SNS Content" style="width: 100%; height: 100%; object-fit: cover; border: none; display: block;">`;
+                    } else {
+                        // Fallback: Auto Embed
+                        const embedHTML = convertToEmbed(url);
+                        if (embedHTML) {
+                            item.innerHTML = embedHTML;
+                        }
+                    }
+                });
             }
-        }
 
-        // 인스타그램
-        if (url.includes('instagram.com')) {
-            let postId = null;
-            if (url.includes('/reel/')) {
-                postId = url.split('/reel/')[1].split('/')[0].split('?')[0];
-                return `<iframe src="https://www.instagram.com/reel/${postId}/embed" allowfullscreen></iframe>`;
-            } else if (url.includes('/p/')) {
-                postId = url.split('/p/')[1].split('/')[0].split('?')[0];
-                return `<iframe src="https://www.instagram.com/p/${postId}/embed" allowfullscreen></iframe>`;
+            function fetchInstagramThumbnail(instagramUrl, targetElement) {
+                // Instagram oEmbed API
+                const oembedUrl = `https://graph.instagram.com/oembed?url=${encodeURIComponent(instagramUrl)}`;
+
+                fetch(oembedUrl)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.thumbnail_url) {
+                            targetElement.innerHTML = `<img src="${data.thumbnail_url}" alt="Instagram Post" style="width: 100%; height: 100%; object-fit: cover; border: none; display: block;">`;
+                        }
+                    })
+                    .catch(err => {
+                        // Fallback to placeholder
+                        targetElement.innerHTML = `<div style="width: 100%; height: 100%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #999;">Instagram 콘텐츠</div>`;
+                    });
             }
-        }
 
-        // 틱톡
-        if (url.includes('tiktok.com')) {
-            let videoId = url.split('/video/')[1];
-            if (videoId) {
-                videoId = videoId.split('?')[0].split('/')[0];
-                return `<iframe src="https://www.tiktok.com/embed/v2/${videoId}" allowfullscreen></iframe>`;
+            function initSnsSwiper() {
+                const snsSwiper = new Swiper('.sns-swiper', {
+                    slidesPerView: 2.2, /* Mobile Defaults */
+                    spaceBetween: 10,
+                    observer: true,
+                    observeParents: true,
+                    scrollbar: {
+                        el: ".swiper-scrollbar",
+                        hide: false,
+                        draggable: true,
+                    },
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 3.2,
+                            spaceBetween: 15
+                        },
+                        1025: {
+                            /* Desktop: Enabled Swiper (Slider) */
+                            slidesPerView: 5.5, /* Show 5.5 items for better density on full width */
+                            spaceBetween: 20
+                        }
+                    }
+                });
             }
-        }
 
-        return null;
-    }
-
-    function initializeSNSGrid() {
-        const snsItems = document.querySelectorAll('.sns-item[data-url]');
-        snsItems.forEach(function(item) {
-            const url = item.getAttribute('data-url');
-            const embedHTML = convertToEmbed(url);
-            if (embedHTML) {
-                item.innerHTML = embedHTML;
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function () {
+                    initializeSNSGrid();
+                    initSnsSwiper();
+                });
+            } else {
+                initializeSNSGrid();
+                initSnsSwiper();
+                // Fallback for Swiper if loaded late
+                if (typeof Swiper !== 'undefined') initSnsSwiper();
             }
-        });
-    }
+        })();
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeSNSGrid);
-    } else {
-        initializeSNSGrid();
-    }
-})();
+    </script>
 
-</script>
-    
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-   
-    
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Afterdawn Marquee Banner</title>
-    
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 
-<style>
-/* ========================================
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+    <style>
+        /* ========================================
    기본 리셋 및 공통 스타일
 ======================================== */
-* {
-    box-sizing: border-box;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-/* ========================================
+        /* ========================================
    메인 배너 애니메이션
 ======================================== */
-@keyframes scroll-left {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
 
-.section-mq {
-    overflow: hidden;
-    width: 100%;
-    height: 6.875vw;
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-}
+            100% {
+                transform: translateX(-50%);
+            }
+        }
 
-.section-mq .wrap {
-    display: flex;
-    width: max-content;
-    animation: scroll-left 30s linear infinite;
-}
+        .section-mq {
+            overflow: hidden;
+            width: 100%;
+            height: 6.875vw;
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+        }
 
-.section-mq .wrap span {
-    white-space: nowrap;
-    font-family: 'Pretendard', sans-serif;
-    font-size: 3.49vw;
-    padding-right: 1.875vw;
-    line-height: 1;
-}
+        .section-mq .wrap {
+            display: flex;
+            width: max-content;
+            animation: scroll-left 30s linear infinite;
+        }
 
-.section-mq .wrap:hover {
-    animation-play-state: paused;
-}
+        .section-mq .wrap span {
+            white-space: nowrap;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 3.49vw;
+            padding-right: 1.875vw;
+            line-height: 1;
+        }
 
-/* ========================================
-   SNS 그리드 섹션
+        .section-mq .wrap:hover {
+            animation-play-state: paused;
+        }
+
+
+        /* ========================================
+   SNS SECTION STYLES (Swiper + Grid)
 ======================================== */
-.sns-section {
-    max-width: 1200px;
-    margin: 60px auto;
-    padding: 0 20px;
-}
+        .sns-section {
+            width: 100%;
+            margin: 60px 0;
+            padding: 0;
+            /* Full Width - remove horizontal padding */
+        }
 
-.sns-section-title {
-    font-family: 'Pretendard', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 40px;
-    color: #000;
-}
+        .sns-section-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #000;
+        }
 
-.sns-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
+        .sns-swiper {
+            width: 100%;
+            /* max-width removed for Full Width */
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 0 20px;
+            /* Internal padding for aesthetic gutter at edges */
+        }
 
-.sns-item {
-    position: relative;
-    width: 100%;
-    padding-bottom: 177.78%; /* 9:16 비율 */
-    overflow: hidden;
-    border-radius: 8px;
-    background: #f5f5f5;
-}
+        .sns-slide {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #f5f5f5;
 
-.sns-item iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
+            /* Mobile Default: Square Aspect Ratio */
+            padding-bottom: 100%;
+            height: 0;
+        }
 
-/* 스토리 썸네일 링크 */
-.sns-story-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    text-decoration: none;
-    overflow: hidden;
-    background: #f5f5f5;
-}
+        /* Desktop: Fixed Height (Standard Grid Size) */
+        @media (min-width: 1025px) {
+            .sns-slide {
+                padding-bottom: 0 !important;
+                height: 450px !important;
+            }
+        }
 
-.sns-story-link img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s;
-}
+        .sns-link {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
 
-.sns-story-link:hover img {
-    transform: scale(1.05);
-}
+        .sns-embed-target {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Reset Flex */
+            display: block;
+            overflow: hidden;
+        }
 
-.sns-story-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: rgba(0,0,0,0.6);
-    color: white;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    backdrop-filter: blur(4px);
-}
+        .sns-embed-target iframe {
+            position: absolute;
+            width: 100% !important;
+            /* Header ~58px. Shift up to hide it. */
+            top: -58px;
+            left: 0;
+            /* Increase height to compensate for top shift + hide footer */
+            height: calc(100% + 120px) !important;
+            border: none;
+            pointer-events: none;
+        }
 
-.sns-story-badge svg {
-    width: 14px;
-    height: 14px;
-}
+        .sns-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: 600;
+            pointer-events: none;
+            /* Allow click to pass through to link */
+        }
 
-.sns-story-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-    color: white;
-    padding: 30px 12px 12px;
-    font-size: 12px;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-    font-weight: 500;
-}
+        .sns-slide:hover .sns-overlay {
+            opacity: 1;
+        }
 
-.sns-story-link:hover .sns-story-overlay {
-    opacity: 1;
-}
 
-/* ========================================
+        /* ========================================
    리뷰 그리드 섹션 스타일 (통합됨)
 ======================================== */
-.review-section {
-    width: 100%;
-    margin: 60px 0;
-    padding: 0;
-    overflow: hidden;
-}
+        .review-section {
+            width: 100%;
+            margin: 60px 0;
+            padding: 0;
+            overflow: hidden;
+        }
 
-.review-section-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+        .review-section-inner {
+            width: 100%;
+            /* Full Width */
+            margin: 0 auto;
+            padding: 0;
+            /* Remove padding */
+        }
 
-.review-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
-}
+        .review-section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 40px;
+        }
 
-.review-section-title {
-    font-family: 'Pretendard', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #000;
-    margin: 0;
-}
+        .review-section-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: #000;
+            margin: 0;
+            line-height: 1;
+        }
 
-.review-view-all {
-    font-family: 'Pretendard', sans-serif;
-    font-size: 14px;
-    color: #666;
-    text-decoration: none;
-    padding: 8px 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    transition: all 0.3s;
-    display: none; /* PC에서는 숨김 */
-}
+        .review-view-all {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.3s;
+            display: none;
+            /* PC에서는 숨김 */
+        }
 
-.review-view-all:hover {
-    background: #f5f5f5;
-    border-color: #999;
-}
+        .review-view-all:hover {
+            background: #f5f5f5;
+            border-color: #999;
+        }
 
-/* PC/태블릿: 가로 스크롤 */
-.review-grid {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    padding-bottom: 10px;
-    -webkit-overflow-scrolling: touch;
-}
+        /* PC/태블릿: 가로 스크롤 */
+        /* Swiper Container */
+        .review-swiper {
+            width: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
 
-.review-grid::-webkit-scrollbar { height: 8px; }
-.review-grid::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-.review-grid::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
-.review-grid::-webkit-scrollbar-thumb:hover { background: #555; }
+        /* Scrollbar positioned below grid */
+        .swiper-scrollbar {
+            position: relative;
+            margin-top: 20px;
+            height: 4px;
+            background: #f0f0f0;
+            border-radius: 2px;
+        }
 
-.review-item {
-    flex: 0 0 280px;
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #fff;
-    border: 1px solid #e5e5e5;
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-}
+        .swiper-scrollbar-drag {
+            background: #666;
+            border-radius: 2px;
+        }
 
-.review-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-}
+        .review-item {
+            /* flex: 0 0 280px; Removed for Swiper */
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            height: 450px;
+            /* Fixed Height on Desktop */
+            display: flex;
+            flex-direction: column;
+        }
 
-.review-item a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .review-item {
+                height: auto !important;
+                aspect-ratio: auto !important;
+                display: block;
+                /* Reset Flex */
+            }
 
-.review-thumb {
-    position: relative;
-    width: 100%;
-    padding-bottom: 100%; /* 1:1 정사각형 */
-    overflow: hidden;
-    background: #f5f5f5;
-}
+            .review-thumb {
+                height: auto !important;
+                padding-bottom: 100% !important;
+                /* 1:1 ratio on Mobile */
+            }
+        }
 
-.review-thumb img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        .review-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
 
-.review-content {
-    padding: 15px;
-}
+        .review-item a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
 
-/* [NEW] 제품 이름 */
-.review-product-name {
-    font-size: 11px;
-    color: #999;
-    margin-bottom: 4px;
-    font-weight: 600;
-}
+        .review-thumb {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            /* Fixed Height for Desktop */
+            padding-bottom: 0;
+            /* Remove Square Ratio */
+            overflow: hidden;
+            background: #f5f5f5;
+            flex-shrink: 0;
+        }
 
-/* [UPDATED] 리뷰 제목 */
-.review-title {
-    font-size: 14px;
-    font-weight: 700;
-    color: #222;
-    margin-bottom: 6px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    line-height: 1.4;
-}
+        .review-thumb img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-/* [UPDATED] 리뷰 본문 */
-.review-text {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    margin-bottom: 8px;
-}
+        .review-content {
+            padding: 15px;
+        }
 
-/* [UPDATED] 별점 */
-.review-rating {
-    margin-bottom: 8px;
-}
+        /* [NEW] 제품 이름 */
+        .review-product-name {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 4px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-.review-rating .stars {
-    color: #FFD700;
-    font-size: 12px;
-    letter-spacing: 1px;
-}
+        /* [UPDATED] 리뷰 제목 */
+        .review-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
-/* [NEW] 메타 정보 (작성자/날짜/조회수) */
-.review-meta {
-    font-size: 11px;
-    color: #aaa;
-    border-top: 1px solid #eee;
-    padding-top: 8px;
-    margin-top: 8px;
-    display: flex;
-    gap: 6px;
-    align-items: center;
-}
+        /* [UPDATED] 리뷰 본문 */
+        .review-text {
+            font-size: 13px;
+            color: #666;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 8px;
+        }
 
-.meta-divider {
-    color: #ddd;
-    font-size: 10px;
-}
+        /* [UPDATED] 별점 */
+        .review-rating {
+            margin-bottom: 8px;
+        }
 
-.review-loading {
-    width: 100%;
-    text-align: center;
-    padding: 60px 20px;
-    color: #999;
-    font-size: 14px;
-}
+        .review-rating .stars {
+            color: #FFD700;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
 
-/* ========================================
+        /* [NEW] 메타 정보 (작성자/날짜/조회수) */
+        .review-meta {
+            font-size: 11px;
+            color: #aaa;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+            margin-top: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            align-items: start;
+            text-align: center;
+        }
+
+        .meta-date,
+        .meta-hit,
+        .meta-vote {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.3;
+        }
+
+        /* Mobile: Force vertical layout */
+        @media (max-width: 1024px) {
+
+            .meta-date,
+            .meta-hit,
+            .meta-vote {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+        }
+
+        .meta-divider {
+            color: #ddd;
+            font-size: 10px;
+        }
+
+        .review-loading {
+            width: 100%;
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* ========================================
    YOUTUBE MIX SECTION STYLES
 ======================================== */
-.youtube-mix-section {
-    width: 100%;
-    margin: 60px 0;
-    padding: 0 20px;
-}
+        .youtube-mix-section {
+            width: 100%;
+            margin: 60px 0;
+            padding: 0;
+        }
 
-.youtube-mix-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-}
+        .youtube-mix-inner {
+            width: 100%;
+            margin: 0 auto;
+        }
 
-.youtube-section-title {
-    font-family: 'Pretendard', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 40px;
-    color: #000;
-}
+        .youtube-section-title {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #000;
+        }
 
-.youtube-grid {
-    display: flex;
-    gap: 20px;
-    width: 100%;
-    align-items: stretch;
-}
+        /* Desktop: Flex Row, Fixed Height */
+        .youtube-grid {
+            display: flex;
+            width: 100%;
+            height: 450px;
+            gap: 0;
+            align-items: stretch;
+            background: #000;
+        }
 
-.yt-item.longform {
-    flex: 3;
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-}
+        .yt-item.longform {
+            flex: 0 0 auto;
+            /* Fixed based on Aspect Ratio */
+            height: 100%;
+            aspect-ratio: 16 / 9;
+            position: relative;
+            overflow: hidden;
+        }
 
-.yt-item.shorts-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+        .yt-item.shorts-group {
+            flex: 1;
+            /* Ret of space */
+            min-width: 0;
+            /* Prevent flex overflow */
+            height: 100%;
+            overflow: hidden;
+            /* Swiper Container */
+            background: #111;
+        }
 
-.video-container {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-}
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+        }
 
-.video-container.vertical {
-    padding-bottom: 177.78%;
-    height: 100%;
-    padding-bottom: 0; 
-}
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
 
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    object-fit: cover;
-}
+        .video-container.vertical {
+            padding-bottom: 0;
+        }
 
-.short-item {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    overflow: hidden;
-}
+        .short-item {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-right: 1px solid #222;
+            /* Separator */
+        }
 
-.short-item.mobile-only {
-    display: none;
-}
-    
-/* ========================================
+        /* ========================================
    하단 브랜드 이미지
 ======================================== */
-.footer-image-container {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-}
+        .footer-image-container {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-.footer-image-container img {
-    width: 100% !important;
-    height: auto !important;
-    display: block;
-    border: none;
-}
+        .footer-image-container img {
+            width: 100% !important;
+            height: auto !important;
+            display: block;
+            border: none;
+        }
 
-/* ========================================
+        /* ========================================
    반응형: 태블릿 (1024px 이하)
 ======================================== */
-@media (max-width: 1024px) {
-    .sns-section,
-    .review-section,
-    .youtube-mix-section {
-        margin: 40px auto;
-    }
+        @media (max-width: 1024px) {
 
-    .sns-section-title,
-    .review-section-title {
-        font-size: 24px;
-        margin-bottom: 30px;
-    }
+            .sns-section,
+            .review-section,
+            .youtube-mix-section {
+                margin: 40px auto;
+            }
 
-    .sns-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
+            .sns-section-title,
+            .review-section-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
 
-    .sns-item { padding-bottom: 125%; }
+            .sns-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
 
-    .review-item { flex: 0 0 240px; }
-}
+            .sns-item {
+                padding-bottom: 125%;
+            }
 
-/* ========================================
+            .review-item {
+                flex: 0 0 240px;
+            }
+        }
+
+        /* ========================================
    반응형: 모바일 (767px 이하)
 ======================================== */
-@media (max-width: 767px) {
-    .section-mq { margin-top: 0px; }
+        @media (max-width: 767px) {
+            .section-mq {
+                margin-top: 0px;
+            }
 
-    .sns-section,
-    .review-section,
-    .youtube-mix-section {
-        padding: 0 15px;
-        margin: 30px auto;
-    }
+            .sns-section,
+            .review-section,
+            .youtube-mix-section {
+                padding: 0 15px;
+                margin: 30px auto;
+            }
 
-    .sns-section-title,
-    .review-section-title {
-        font-size: 20px;
-        margin-bottom: 25px;
-    }
+            .sns-section-title,
+            .review-section-title {
+                font-size: 20px;
+                margin-bottom: 25px;
+            }
 
-    /* SNS Grid */
-    .sns-grid { gap: 12px; }
-    .sns-item { padding-bottom: 100%; border-radius: 6px; }
-    .sns-story-badge { font-size: 10px; padding: 4px 8px; top: 8px; left: 8px; }
-    .sns-story-overlay { font-size: 11px; padding: 20px 10px 10px; }
+            /* SNS Grid */
+            .sns-grid {
+                gap: 12px;
+            }
 
-    /* Review Grid */
-    .review-view-all { display: block; font-size: 13px; padding: 6px 12px; }
-    .review-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 15px;
-        overflow-x: visible;
-        overflow-y: visible;
-        max-width: 500px;
-        margin: 0 auto;
-    }
-    .review-item { flex: none; width: 100%; }
-    .review-item:nth-child(n+5) { display: none; }
-    .review-content { padding: 12px; }
-    .review-title { font-size: 13px; }
-    .review-text { font-size: 11px; }
+            .sns-item {
+                padding-bottom: 100%;
+                border-radius: 6px;
+            }
 
-    /* YouTube Grid */
-    .youtube-grid { display: block; }
-    .yt-item.longform { width: 100%; margin-bottom: 15px; }
-    .video-container { padding-bottom: 56.25%; }
-    .yt-item.shorts-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .short-item { height: auto; }
-    .video-container.vertical { height: 0; padding-bottom: 177.78%; }
-    .short-item.mobile-only { display: block; }
-}
-</style>
+            .sns-story-badge {
+                font-size: 10px;
+                padding: 4px 8px;
+                top: 8px;
+                left: 8px;
+            }
+
+            .sns-story-overlay {
+                font-size: 11px;
+                padding: 20px 10px 10px;
+            }
+
+            /* Review Grid */
+            .review-view-all {
+                display: block;
+                font-size: 13px;
+                padding: 6px 12px;
+                line-height: 1;
+                /* Match title line-height for better alignment */
+            }
+
+            .review-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 15px;
+                overflow-x: visible;
+                overflow-y: visible;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .review-item {
+                flex: none;
+                width: 100%;
+            }
+
+            /* Removed 4-item limit - show all reviews */
+
+            .review-content {
+                padding: 12px;
+            }
+
+            .review-title {
+                font-size: 13px;
+            }
+
+            .review-text {
+                font-size: 11px;
+            }
+
+            /* YouTube Grid Mobile */
+            .youtube-grid {
+                display: block;
+                height: auto;
+            }
+
+            .yt-item.longform {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 9;
+                margin-bottom: 10px;
+            }
+
+            .yt-item.shorts-group {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 2.5 / 1;
+                /* Adjust swiper height area */
+            }
+
+            .short-item {
+                border-radius: 0;
+                border: none;
+            }
+
+            .video-container {
+                height: 100%;
+                /* Fill slide */
+            }
+        }
+    </style>
 </head>
 <!--@css(/layout/basic/css/main.css)-->
 <!--@js(/layout/basic/js/lenis.js)-->
@@ -646,124 +835,126 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
         </p>
         <div df-banner-clone class="content">{#item}</div>
     </div>
-    
+
 </section>
 
 <!-- ========================================
      SNS 컨텐츠 그리드 섹션
      위치: 메인배너(section1)와 sticky섹션 사이
 ======================================== -->
-<div class="sns-section">
+<div class="sns-section reviews-container">
     <h2 class="sns-section-title">SNS CONTENTS</h2>
-    <div class="sns-grid">
-        
-        <!-- 1번: 릴스 (썸네일 방식) -->
-        <div class="sns-item">
-            <!-- 📸 여기에 릴스 URL 입력 -->
-            <a href="https://www.instagram.com/reel/DRbFpEPD1nM/?igsh=MXJyaWRic3RuZTQ3Mg==" 
-               target="_blank" 
-               class="sns-story-link">
-                <!-- 📸 여기에 스토리 스크린샷 이미지 URL 입력 -->
-                <img src="//ecimg.cafe24img.com/pg1867b30565137078/gith6409/SNS%20Grid/2.jpg" alt="Instagram Reel 1">
-                
-                <span class="sns-story-badge">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                    REEL
-                </span>
-                
-                <div class="sns-story-overlay">
-                    탭하여 인스타그램에서 보기 →
-                </div>
-            </a>
+
+    <!-- Changed to Swiper structure -->
+    <div class="sns-swiper swiper">
+        <div class="swiper-wrapper">
+
+            <!-- 1번 -->
+            <div class="swiper-slide sns-slide">
+                <a href="https://www.instagram.com/p/DRg_pWvD-jQ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                    target="_blank" class="sns-link">
+                    <div class="sns-embed-target"
+                        data-url="https://www.instagram.com/p/DRt3nOKAQds/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                        data-thumb="https://www.instagram.com/p/DRt3nOKAQds/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
+                    </div>
+                    <div class="sns-overlay">
+                        <span>Instagram에서 보기</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 2번 -->
+            <div class="swiper-slide sns-slide">
+                <a href="https://www.instagram.com/p/DRt3nOKAQds/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                    target="_blank" class="sns-link">
+                    <div class="sns-embed-target"
+                        data-url="https://www.instagram.com/p/DRt3nOKAQds/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                        data-thumb="https://www.instagram.com/p/DRt3nOKAQds/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
+                    </div>
+                    <div class="sns-overlay">
+                        <span>Instagram에서 보기</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 3번 -->
+            <div class="swiper-slide sns-slide">
+                <a href="https://www.instagram.com/p/DR4K075DXsG/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                    target="_blank" class="sns-link">
+                    <div class="sns-embed-target"
+                        data-url="https://www.instagram.com/p/DR4K075DXsG/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                        data-thumb="https://placehold.co/600x800/e0e0e0/333?text=Instagram+3"></div>
+                    <div class="sns-overlay">
+                        <span>Instagram에서 보기</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 4번 -->
+            <div class="swiper-slide sns-slide">
+                <a href="https://www.instagram.com/p/DSFCzYxAaTR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                    target="_blank" class="sns-link">
+                    <div class="sns-embed-target"
+                        data-url="https://www.instagram.com/p/DSFCzYxAaTR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                        data-thumb="https://placehold.co/600x800/e0e0e0/333?text=Instagram+4"></div>
+                    <div class="sns-overlay">
+                        <span>Instagram에서 보기</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 5번 -->
+            <div class="swiper-slide sns-slide">
+                <a href="https://www.instagram.com/p/DSR7H6TE7z-/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                    target="_blank" class="sns-link">
+                    <div class="sns-embed-target"
+                        data-url="https://www.instagram.com/p/DSR7H6TE7z-/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                        data-thumb="https://placehold.co/600x800/e0e0e0/333?text=Instagram+5"></div>
+                    <div class="sns-overlay"><span>Instagram에서 보기</span></div>
+                </a>
+            </div>
+
+            <!-- 6번 -->
+            <div class="swiper-slide sns-slide">
+                <a href="https://www.instagram.com/p/DQvcBUqk7Gu/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                    target="_blank" class="sns-link">
+                    <div class="sns-embed-target"
+                        data-url="https://www.instagram.com/p/DQvcBUqk7Gu/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                        data-thumb="https://placehold.co/600x800/e0e0e0/333?text=Instagram+6"></div>
+                    <div class="sns-overlay"><span>Instagram에서 보기</span></div>
+                </a>
+            </div>
+
+            <!-- 7번 -->
+            <div class="swiper-slide sns-slide">
+                <a href="https://www.instagram.com/reel/DRYt1WNjz02/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                    target="_blank" class="sns-link">
+                    <div class="sns-embed-target"
+                        data-url="https://www.instagram.com/reel/DRYt1WNjz02/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                        data-thumb="https://placehold.co/600x800/e0e0e0/333?text=Instagram+7"></div>
+                    <div class="sns-overlay"><span>Instagram에서 보기</span></div>
+                </a>
+            </div>
+
+            <!-- 8번 -->
+            <div class="swiper-slide sns-slide">
+                <a href="https://www.instagram.com/p/DScN9W-E2xG/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                    target="_blank" class="sns-link">
+                    <div class="sns-embed-target"
+                        data-url="https://www.instagram.com/p/DScN9W-E2xG/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                        data-thumb="https://www.instagram.com/p/DScN9W-E2xG/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
+                    </div>
+                    <div class="sns-overlay"><span>Instagram에서 보기</span></div>
+                </a>
+            </div>
+
         </div>
-
-        <!-- 2번: 릴스 (썸네일 방식) -->
-        <div class="sns-item">
-            <!-- 📸 여기에 릴스 URL 입력 -->
-            <a href="https://www.instagram.com/reel/DRYt1WNjz02/?igsh=YjRwNmxhemV4Y2c3" 
-               target="_blank" 
-               class="sns-story-link">
-                <!-- 📸 여기에 스토리 스크린샷 이미지 URL 입력 -->
-                <img src="//ecimg.cafe24img.com/pg1867b30565137078/gith6409/SNS%20Grid/1.jpg" alt="Instagram Reel 2">
-                
-                <span class="sns-story-badge">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                    REEL
-                </span>
-                
-                <div class="sns-story-overlay">
-                    탭하여 인스타그램에서 보기 →
-                </div>
-            </a>
-        </div>
-
-        <!-- ★ 3번: 스토리 -->
-        <div class="sns-item">
-            <!-- 📸 여기에 스토리 URL 입력 -->
-            <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODk2OTU4MzUyMzQ3MjA5?story_media_id=3755956038369657352&igsh=d25vOWdxaG02djN0" 
-               target="_blank" 
-               class="sns-story-link">
-                <!-- 📸 여기에 스토리 스크린샷 이미지 URL 입력 -->
-                <img src="//ecimg.cafe24img.com/pg1867b30565137078/gith6409/SNS%20Grid/3.jpg" alt="Instagram Story 1">
-                
-                <span class="sns-story-badge">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                    STORY
-                </span>
-                
-                <div class="sns-story-overlay">
-                    탭하여 인스타그램에서 보기 →
-                </div>
-            </a>
-        </div>
-        <!-- ★ 4번: 스토리 -->
-        <div class="sns-item">
-            <!-- 📸 여기에 스토리 URL 입력 -->
-            <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODk2OTU4MzUyMzQ3MjA5?story_media_id=3767696115911196378&igsh=d25vOWdxaG02djN0" 
-               target="_blank" 
-               class="sns-story-link">
-               <!-- 📸 여기에 스토리 스크린샷 이미지 URL 입력 -->
-                <img src="//ecimg.cafe24img.com/pg1867b30565137078/gith6409/SNS%20Grid/4.jpg" alt="Instagram Story 2">
-                
-                <span class="sns-story-badge">
-                    <svg viewBox="0 0 24 24" fill="white">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                    STORY
-                </span>
-                
-                <div class="sns-story-overlay">
-                    탭하여 인스타그램에서 보기 →
-                </div>
-            </a>
-        </div>
-        <!-- ★ 5번: 틱톡 영상 (주석 처리)
-        <div class="sns-item" data-url="https://www.tiktok.com/@username/video/1234567890123456789"></div>
-        -->
-
-        <!-- ★ 6번: 인스타그램 릴스 (주석 처리)
-        <div class="sns-item" data-url="https://www.instagram.com/reel/C3another456/"></div>
-        -->
-
-        <!-- ★ 7번: 유튜브 일반 영상 (주석 처리)
-        <div class="sns-item" data-url="https://youtu.be/xyz987ABC"></div>
-        -->
-
-        <!-- ★ 8번: 인스타그램 게시물 (주석 처리)
-        <div class="sns-item" data-url="https://www.instagram.com/p/C4example123/"></div>
-        -->
-
+        <div class="swiper-pagination"></div>
     </div>
 </div>
 
 <section class="sc-sticky">
-    <div class="col left" df-banner-code="banner"  hidden>
+    <div class="col left" df-banner-code="banner" hidden>
         <div class="item" df-banner-clone>
             <div class="thumb">{#item}</div>
             <div class="text-area">
@@ -776,8 +967,8 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
 
 
     <div class="col right">
-        <div class="ec-base-product"  module="product_listmain_1">
-             <!--
+        <div class="ec-base-product" module="product_listmain_1">
+            <!--
             $count = 8
             ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
             ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
@@ -788,8 +979,11 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
                 <li id="anchorBoxId_{$product_no}" class="item">
                     <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
                     <div class="thumb-box">
-                        <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img before"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img after"></div>
-                        <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
+                        <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}"
+                                class="img before"><img src="{$image_medium}" id="{$image_medium_id}"
+                                alt="{$seo_alt_tag}" class="img after"></div>
+                        <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}"
+                                style="background-image:url('{$icon_url}');"></span></span>
                         <div class="promotion soldout">
                             {$soldout_icon}
                         </div>
@@ -805,7 +999,10 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
                     </div>
                     <div class="text-box">
                         <div class="text">
-                            <strong class="name"><a href="/product/detail.html{$param}" class="{$product_name_display|display}"><span class="title {$product_name_title_display|display}">{$product_name_title} :</span> {$product_name_tag}</a></strong>
+                            <strong class="name"><a href="/product/detail.html{$param}"
+                                    class="{$product_name_display|display}"><span
+                                        class="title {$product_name_title_display|display}">{$product_name_title}
+                                        :</span> {$product_name_tag}</a></strong>
                             <ul module="product_ListItem" class="spec">
                                 <li class="{$item_display|display} {$column_name}">{$item_content}</li>
                                 <li class="{$item_display|display} {$column_name}">{$item_content}</li>
@@ -818,10 +1015,13 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
                 </li>
                 <li id="anchorBoxId_{$product_no}" class="item">
                     <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
-        
+
                     <div class="thumb-box">
-                        <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img before"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img after"></div>
-                        <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
+                        <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}"
+                                class="img before"><img src="{$image_medium}" id="{$image_medium_id}"
+                                alt="{$seo_alt_tag}" class="img after"></div>
+                        <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}"
+                                style="background-image:url('{$icon_url}');"></span></span>
                         <div class="promotion soldout">
                             {$soldout_icon}
                         </div>
@@ -835,10 +1035,13 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
                             {$custom_option1}
                         </div>
                     </div>
-        
+
                     <div class="text-box">
                         <div class="text">
-                            <strong class="name"><a href="/product/detail.html{$param}" class="{$product_name_display|display}"><span class="title {$product_name_title_display|display}">{$product_name_title} :</span> {$product_name_tag}</a></strong>
+                            <strong class="name"><a href="/product/detail.html{$param}"
+                                    class="{$product_name_display|display}"><span
+                                        class="title {$product_name_title_display|display}">{$product_name_title}
+                                        :</span> {$product_name_tag}</a></strong>
                             <ul module="product_ListItem" class="spec">
                                 <li class="{$item_display|display} {$column_name}">{$item_content}</li>
                                 <li class="{$item_display|display} {$column_name}">{$item_content}</li>
@@ -861,13 +1064,13 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
 
 
 
-    </div>
+</div>
 
 </section>
 
 
 <!-- 배너 관리 [콜렉션+머스트헤브]-->
-<section class="section2" df-banner-code="banner"  hidden style="display: none;">
+<section class="section2" df-banner-code="banner" hidden style="display: none;">
     <div class="item" df-banner-clone>
         <a href="{#href}" target="{#target}">
             <div class="thumb">{#item}</div>
@@ -887,8 +1090,8 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
             <!-- href="여기" 안에다가 링크를 넣어주세요! -->
             <a href="/product/list.html?cate_no=24">VIEW ALL</a>
         </div>
-        <div class="swiper"  module="product_listmain_1">
-             <!--
+        <div class="swiper" module="product_listmain_1">
+            <!--
             $count = 8
             ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
             ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
@@ -899,8 +1102,11 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
                 <li id="anchorBoxId_{$product_no}" class="item swiper-slide">
                     <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
                     <div class="thumb-box">
-                        <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img before"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img after"></div>
-                        <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
+                        <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}"
+                                class="img before"><img src="{$image_medium}" id="{$image_medium_id}"
+                                alt="{$seo_alt_tag}" class="img after"></div>
+                        <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}"
+                                style="background-image:url('{$icon_url}');"></span></span>
                         <div class="promotion soldout">
                             {$soldout_icon}
                         </div>
@@ -916,7 +1122,10 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
                     </div>
                     <div class="text-box">
                         <div class="text">
-                            <strong class="name"><a href="/product/detail.html{$param}" class="{$product_name_display|display}"><span class="title {$product_name_title_display|display}">{$product_name_title} :</span> {$product_name_tag}</a></strong>
+                            <strong class="name"><a href="/product/detail.html{$param}"
+                                    class="{$product_name_display|display}"><span
+                                        class="title {$product_name_title_display|display}">{$product_name_title}
+                                        :</span> {$product_name_tag}</a></strong>
                             <ul module="product_ListItem" class="spec">
                                 <li class="{$item_display|display} {$column_name}">{$item_content}</li>
                                 <li class="{$item_display|display} {$column_name}">{$item_content}</li>
@@ -928,11 +1137,13 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
                     </div>
                 </li>
                 <li id="anchorBoxId_{$product_no}" class="item swiper-slide">
-                    <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
-        
+
                     <div class="thumb-box">
-                        <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img before"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img after"></div>
-                        <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
+                        <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}"
+                                class="img before"><img src="{$image_medium}" id="{$image_medium_id}"
+                                alt="{$seo_alt_tag}" class="img after"></div>
+                        <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}"
+                                style="background-image:url('{$icon_url}');"></span></span>
                         <div class="promotion soldout">
                             {$soldout_icon}
                         </div>
@@ -946,10 +1157,13 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
                             {$custom_option1}
                         </div>
                     </div>
-        
+
                     <div class="text-box">
                         <div class="text">
-                            <strong class="name"><a href="/product/detail.html{$param}" class="{$product_name_display|display}"><span class="title {$product_name_title_display|display}">{$product_name_title} :</span> {$product_name_tag}</a></strong>
+                            <strong class="name"><a href="/product/detail.html{$param}"
+                                    class="{$product_name_display|display}"><span
+                                        class="title {$product_name_title_display|display}">{$product_name_title}
+                                        :</span> {$product_name_tag}</a></strong>
                             <ul module="product_ListItem" class="spec">
                                 <li class="{$item_display|display} {$column_name}">{$item_content}</li>
                                 <li class="{$item_display|display} {$column_name}">{$item_content}</li>
@@ -976,8 +1190,8 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
             <!-- href="여기" 안에다가 링크를 넣어주세요! -->
             <a href="/product/list.html?cate_no=24">VIEW ALL</a>
         </div>
-        <div class="swiper"  module="product_listmain_2">
-             <!--
+        <div class="swiper" module="product_listmain_2">
+            <!--
             $count = 8
             ※ 상품진열갯수를 설정하는 변수입니다. 설정하지 않을 경우, 최대 200개의 상품이 진열 됩니다.
             ※ 진열된 상품이 많으면, 쇼핑몰에 부하가 발생할 수 있습니다.
@@ -988,23 +1202,29 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
                 <li id="anchorBoxId_{$product_no}" class="swiper-slide">
                     <div class="video-wrap">
                         <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}">
-                        	<video src="{$custom_option2}" autoplay muted loop playsinline></video>
-                    	</a>
+                            <video src="{$custom_option2}" autoplay muted loop playsinline></video>
+                        </a>
                     </div>
                     <div class="prd-box">
                         <div class="thumb-box">
-                            <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img before"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img after"></div>
-                            <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
+                            <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}"
+                                    class="img before"><img src="{$image_medium}" id="{$image_medium_id}"
+                                    alt="{$seo_alt_tag}" class="img after"></div>
+                            <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}"
+                                    style="background-image:url('{$icon_url}');"></span></span>
                             <div class="promotion soldout">
                                 {$soldout_icon}
                             </div>
                         </div>
                         <div class="text-box">
-                                <strong class="name"><a href="{$link_product_detail}" class="{$product_name_display|display}"><span class="title {$product_name_title_display|display}">{$product_name_title} :</span> {$product_name_tag}</a></strong>
-                                <ul module="product_ListItem" class="spec">
-                                    <li class="{$item_display|display} {$column_name}">{$item_content}</li>
-                                    <li class="{$item_display|display} {$column_name}">{$item_content}</li>
-                                </ul>
+                            <strong class="name"><a href="{$link_product_detail}"
+                                    class="{$product_name_display|display}"><span
+                                        class="title {$product_name_title_display|display}">{$product_name_title}
+                                        :</span> {$product_name_tag}</a></strong>
+                            <ul module="product_ListItem" class="spec">
+                                <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                                <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                            </ul>
                         </div>
                     </div>
                 </li>
@@ -1012,27 +1232,33 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
 
                     <div class="video-wrap">
                         <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}">
-                        	<video src="{$custom_option2}" autoplay muted loop playsinline></video>
-                    	</a>
+                            <video src="{$custom_option2}" autoplay muted loop playsinline></video>
+                        </a>
                     </div>
 
 
 
                     <div class="prd-box">
                         <div class="thumb-box">
-                            <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img before"><img src="{$image_medium}" id="{$image_medium_id}" alt="{$seo_alt_tag}" class="img after"></div>
-                            <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}" style="background-image:url('{$icon_url}');"></span></span>
+                            <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}"
+                                    class="img before"><img src="{$image_medium}" id="{$image_medium_id}"
+                                    alt="{$seo_alt_tag}" class="img after"></div>
+                            <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}"
+                                    style="background-image:url('{$icon_url}');"></span></span>
                             <div class="promotion soldout">
                                 {$soldout_icon}
                             </div>
                         </div>
                         <div class="text-box">
-                            <strong class="name"><a href="{$link_product_detail}" class="{$product_name_display|display}"><span class="title {$product_name_title_display|display}">{$product_name_title} :</span> {$product_name_tag}</a></strong>
+                            <strong class="name"><a href="{$link_product_detail}"
+                                    class="{$product_name_display|display}"><span
+                                        class="title {$product_name_title_display|display}">{$product_name_title}
+                                        :</span> {$product_name_tag}</a></strong>
                             <ul module="product_ListItem" class="spec">
                                 <li class="{$item_display|display} {$column_name}">{$item_content}</li>
                                 <li class="{$item_display|display} {$column_name}">{$item_content}</li>
                             </ul>
-                    </div>
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -1051,18 +1277,37 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
     <div class="youtube-mix-inner">
         <div class="youtube-grid">
             <div class="yt-item longform">
-                <div class="video-container auto-yt-player" 
-                     data-yt-url="https://www.youtube.com/watch?v=BBGPBIJhtUg">
+                <div class="video-container auto-yt-player" data-yt-url="https://www.youtube.com/watch?v=BBGPBIJhtUg">
                 </div>
             </div>
 
-            <div class="yt-item shorts-group">
-                <div class="short-item">
-                    <div class="video-container vertical auto-yt-player" 
-                         data-yt-url="https://www.youtube.com/shorts/uTZOfuyeaS0">
+            <!-- Mobile: Swiper, PC: Grid/Column -->
+            <div class="yt-item shorts-group swiper">
+                <div class="swiper-wrapper">
+                    <div class="short-item swiper-slide">
+                        <div class="video-container vertical auto-yt-player"
+                            data-yt-url="https://www.youtube.com/shorts/uTZOfuyeaS0">
+                        </div>
+                    </div>
+                    <!-- Duplicate for Swiper Demo -->
+                    <div class="short-item swiper-slide">
+                        <div class="video-container vertical auto-yt-player"
+                            data-yt-url="https://www.youtube.com/shorts/uTZOfuyeaS0">
+                        </div>
+                    </div>
+                    <div class="short-item swiper-slide">
+                        <div class="video-container vertical auto-yt-player"
+                            data-yt-url="https://www.youtube.com/shorts/uTZOfuyeaS0">
+                        </div>
+                    </div>
+                    <div class="short-item swiper-slide">
+                        <div class="video-container vertical auto-yt-player"
+                            data-yt-url="https://www.youtube.com/shorts/uTZOfuyeaS0">
+                        </div>
                     </div>
                 </div>
-                </div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
     </div>
 </section>
@@ -1076,46 +1321,57 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
             <h2 class="review-section-title">CUSTOMER REVIEWS</h2>
             <a href="https://afterdawn.co.kr/board/review/list.html?board_no=4" class="review-view-all">VIEW ALL →</a>
         </div>
-        <div class="review-grid" id="mainReviewGrid">
-            <!-- JavaScript로 자동 채워짐 -->
-            <div class="review-loading">리뷰를 불러오는 중...</div>
+        <div class="review-swiper swiper">
+            <div class="review-swiper-wrapper swiper-wrapper" id="mainReviewGrid">
+                <!-- JavaScript로 자동 채워짐 -->
+                <div class="review-loading swiper-slide">리뷰를 불러오는 중...</div>
+            </div>
         </div>
+        <div class="swiper-scrollbar"></div>
     </div>
 </div>
 
 
 
 <div class="footer-image-container">
-    <img src="https://ecimg.cafe24img.com/pg1867b30565137078/gith6409/%ED%95%98%EB%8B%A8%EB%B6%80%20%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg" alt="AFTER DAWN Brand Image">
+    <img src="https://ecimg.cafe24img.com/pg1867b30565137078/gith6409/%ED%95%98%EB%8B%A8%EB%B6%80%20%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg"
+        alt="AFTER DAWN Brand Image">
 </div>
 
 <style>
-/* [CODE-X] Footer Image Container Fix */
-.footer-image-container {
-    width: 100%;             /* 100vw 대신 100% 사용 권장 (가로 스크롤바 방지) */
-    max-width: 100vw;       /* 화면 너비 초과 방지 */
-    position: relative;
-    left: 0;                /* left 50% 제거 */
-    transform: none;        /* transform 제거 */
-    margin: 0;
-    padding: 0;
-    display: flex;          /* 하단 여백 이슈 방지 */
-    justify-content: center;
-    overflow: hidden;       /* 내부 이미지 넘침 방지 */
-}
+    /* [CODE-X] Footer Image Container Fix */
+    .footer-image-container {
+        width: 100%;
+        /* 100vw 대신 100% 사용 권장 (가로 스크롤바 방지) */
+        max-width: 100vw;
+        /* 화면 너비 초과 방지 */
+        position: relative;
+        left: 0;
+        /* left 50% 제거 */
+        transform: none;
+        /* transform 제거 */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        /* 하단 여백 이슈 방지 */
+        justify-content: center;
+        overflow: hidden;
+        /* 내부 이미지 넘침 방지 */
+    }
 
-.footer-image-container img {
-    width: 100% !important;
-    height: auto !important;
-    display: block;         /* inline 속성으로 인한 하단 미세 여백 제거 */
-    object-fit: cover;
-}
+    .footer-image-container img {
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+        /* inline 속성으로 인한 하단 미세 여백 제거 */
+        object-fit: cover;
+    }
 
-/* 만약 이미지가 반드시 브라우저 전체 너비(Full Bleed)여야 하는데, 
+    /* 만약 이미지가 반드시 브라우저 전체 너비(Full Bleed)여야 하는데, 
    부모 컨테이너(wrap 등)가 너비를 제한하고 있다면 아래 코드를 사용하세요.
    (현재 레이아웃 구조상 위 코드가 안 먹힐 경우에만 사용)
 */
-/*
+    /*
 .footer-image-container {
     width: 100vw;
     position: relative;
@@ -1128,7 +1384,7 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
 */
 </style>
 
-<section class="prd-sect sc-insta" style="display: none;" >
+<section class="prd-sect sc-insta" style="display: none;">
     <div class="group-headline">
         <h2>INSTAGRAM</h2>
         <!-- href="여기" 안에다가 링크를 넣어주세요! -->
@@ -1157,169 +1413,222 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
 
 <!--@define(cmc_log)-->
 <script>
-// CODE-X: V16 최종 (Deep Fetch: 상세페이지 데이터 교차 검증)
-(function() {
-    'use strict';
+    // CODE-X: V16 최종 (Deep Fetch: 상세페이지 데이터 교차 검증)
+    (function () {
+        'use strict';
 
-    // 1. 이미지 추출 헬퍼
-    function getSafeImage(rootEl) {
-        const defaultImage = 'https://img.echosting.cafe24.com/thumb/img_product_small.gif';
-        const images = rootEl.querySelectorAll('img');
-        
-        for (let i = 0; i < images.length; i++) {
-            let img = images[i];
-            let src = img.getAttribute('src') || '';
-            let dataSrc = img.getAttribute('ec-data-src') || img.getAttribute('data-src');
+        // 1. 이미지 추출 헬퍼
+        function getSafeImage(rootEl) {
+            const defaultImage = 'https://img.echosting.cafe24.com/thumb/img_product_small.gif';
+            const images = rootEl.querySelectorAll('img');
 
-            let onerror = img.getAttribute('onerror');
-            if ((src.includes('ecudemo') || src.includes('/file_data/')) && onerror && onerror.includes("this.src=")) {
-                let match = onerror.match(/src=['"](.*?)['"]/);
-                if (match && match[1]) return match[1];
-            }
+            for (let i = 0; i < images.length; i++) {
+                let img = images[i];
+                let src = img.getAttribute('src') || '';
+                let dataSrc = img.getAttribute('ec-data-src') || img.getAttribute('data-src');
 
-            if (dataSrc && !dataSrc.includes('ecudemo')) return dataSrc;
+                let onerror = img.getAttribute('onerror');
+                if ((src.includes('ecudemo') || src.includes('/file_data/')) && onerror && onerror.includes("this.src=")) {
+                    let match = onerror.match(/src=['"](.*?)['"]/);
+                    if (match && match[1]) return match[1];
+                }
 
-            if (src && !src.includes('ecudemo') && !src.includes('icon') && !src.includes('btn') && !src.includes('rating')) {
-                if (src.includes('/product/') || src.includes('cafe24img')) return src;
-            }
-        }
-        return defaultImage;
-    }
+                if (dataSrc && !dataSrc.includes('ecudemo')) return dataSrc;
 
-    // 2. 상세 페이지에서 추천수 가져오기 (비동기 함수)
-    async function fetchDeepVote(url, elementId) {
-        try {
-            const res = await fetch(url);
-            const text = await res.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(text, 'text/html');
-            
-            // 상세페이지 구조에서 추천수 찾기 (txtNum 등)
-            // 예: <span>추천</span> <span class="txtNum">1 ... </span>
-            // 또는 onclick="...vote..." 태그 주변 숫자
-            let vote = '0';
-            
-            // 1. txtNum 클래스 탐색
-            const txtNums = doc.querySelectorAll('.txtNum');
-            for (const num of txtNums) {
-                const parentText = num.parentElement ? num.parentElement.innerText : '';
-                if (parentText.includes('추천')) {
-                    vote = num.innerText.replace(/[^0-9]/g, '');
-                    break;
+                if (src && !src.includes('ecudemo') && !src.includes('icon') && !src.includes('btn') && !src.includes('rating')) {
+                    if (src.includes('/product/') || src.includes('cafe24img')) return src;
                 }
             }
-
-            // 2. 만약 못 찾았다면 '추천' 텍스트 주변 탐색
-            if (vote === '0') {
-                const bodyText = doc.body.innerText;
-                const match = bodyText.match(/추천\s*[:]?\s*(\d+)/);
-                if (match) vote = match[1];
-            }
-
-            // 화면 업데이트
-            if (vote !== '0' && vote !== '') {
-                const targetEl = document.getElementById(elementId);
-                if (targetEl) targetEl.innerText = `추천 ${vote}`;
-            }
-        } catch (err) {
-            console.warn("Deep Fetch Fail:", url);
+            return defaultImage;
         }
-    }
 
-    // 3. 메인 로드 함수
-    function loadReviews() {
-        const reviewGrid = document.querySelector('.review-section .review-grid');
-        if (!reviewGrid) return;
-
-        console.log("CODE-X: V16 Deep Fetch 가동...");
-
-        fetch('/board/review/list.html?board_no=4')
-            .then(res => res.text())
-            .then(html => {
+        // 2. 상세 페이지에서 추천수 가져오기 (비동기 함수)
+        async function fetchDeepVote(url, elementId) {
+            try {
+                const res = await fetch(url);
+                const text = await res.text();
                 const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                
-                const rows = doc.querySelectorAll('.xans-board-listgallery li, .xans-board-listpackage li, .boardList tr, a.link');
-                const processedLinks = new Set();
-                let htmlContent = '';
-                const defaultImage = 'https://img.echosting.cafe24.com/thumb/img_product_small.gif';
-                let count = 0; 
+                const doc = parser.parseFromString(text, 'text/html');
 
-                for (const item of rows) {
-                    if (count >= 8) break; 
+                // 상세페이지 구조에서 추천수 찾기 (txtNum 등)
+                // 예: <span>추천</span> <span class="txtNum">1 ... </span>
+                // 또는 onclick="...vote..." 태그 주변 숫자
+                let vote = '0';
 
-                    const rootEl = (item.tagName === 'A') ? item : item.querySelector('a');
-                    if (!rootEl) continue;
+                // 1. txtNum 클래스 탐색
+                const txtNums = doc.querySelectorAll('.txtNum');
+                for (const num of txtNums) {
+                    const parentText = num.parentElement ? num.parentElement.innerText : '';
+                    if (parentText.includes('추천')) {
+                        vote = num.innerText.replace(/[^0-9]/g, '');
+                        break;
+                    }
+                }
 
-                    // 링크 및 중복 검사
-                    let link = rootEl.getAttribute('href') || '#';
-                    if (link && !link.startsWith('http') && !link.startsWith('/')) link = '/board/review/' + link;
+                // 2. 만약 못 찾았다면 '추천' 텍스트 주변 탐색
+                if (vote === '0') {
+                    const bodyText = doc.body.innerText;
+                    const match = bodyText.match(/추천\s*[:]?\s*(\d+)/);
+                    if (match) vote = match[1];
+                }
 
-                    if (processedLinks.has(link)) continue; 
-                    processedLinks.add(link); 
+                // 화면 업데이트
+                if (vote !== '0' && vote !== '') {
+                    const targetEl = document.getElementById(elementId);
+                    if (targetEl) {
+                        // Maintain span structure for CSS vertical layout
+                        targetEl.innerHTML = `<span>추천</span><span>${vote}</span>`;
+                    }
+                }
+            } catch (err) {
+                // Silent fail for deep fetch
+            }
+        }
 
-                    // 유효성 검사
-                    const noEl = item.querySelector('td:first-child');
-                    if (noEl && (noEl.innerText.includes('공지') || noEl.innerText.trim() === '')) continue;
+        // 3. 메인 로드 함수
+        function loadReviews() {
+            // Target Wrapper for Swiper
+            const reviewWrapper = document.querySelector('.review-swiper .swiper-wrapper');
+            if (!reviewWrapper) return;
 
-                    // 데이터 추출
-                    const productEl = rootEl.querySelector('.product');
-                    const titleEl = rootEl.querySelector('.title');
-                    const contentEl = rootEl.querySelector('.content-desc');
-                    
-                    const productName = productEl ? productEl.innerText.trim() : '';
-                    const title = titleEl ? titleEl.innerText.trim() : 'Review';
-                    let content = contentEl ? contentEl.innerText.replace(/\n/g, ' ').trim() : '';
-                    content = content.replace(/\(.*?에 등록된.*?\)/g, ''); 
+            fetch('/board/review/list.html?board_no=4')
+                .then(res => res.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
 
-                    // 메타 정보
-                    let writer = '***';
-                    let date = '';
-                    
-                    const infoSpans = rootEl.querySelectorAll('.etc-wrap .left span');
-                    if (infoSpans.length > 0) writer = infoSpans[0].innerText.trim();
-                    if (infoSpans.length > 1) date = infoSpans[1].innerText.trim();
+                    const rows = doc.querySelectorAll('.xans-board-listgallery li, .xans-board-listpackage li, .boardList tr, a.link');
+                    const processedLinks = new Set();
+                    let htmlContent = '';
+                    const defaultImage = 'https://img.echosting.cafe24.com/thumb/img_product_small.gif';
+                    let count = 0;
 
-                    // 조회수 / 추천수 (1차 시도: 리스트 페이지)
-                    let hit = '0';
-                    let vote = '0';
+                    for (const item of rows) {
+                        if (count >= 15) break; /* Load more for Swiper */
 
-                    const rtmiItems = rootEl.querySelectorAll('.RTMI');
-                    rtmiItems.forEach(el => {
-                        const label = el.innerText; 
-                        const parent = el.parentElement;
-                        if (parent) {
-                            const num = parent.innerText.replace(/[^0-9]/g, '');
-                            if (label.includes('조회')) hit = num;
-                            if (label.includes('추천')) vote = num;
+                        const rootEl = (item.tagName === 'A') ? item : item.querySelector('a');
+                        if (!rootEl) continue;
+
+                        let link = rootEl.getAttribute('href') || '#';
+                        if (link && !link.startsWith('http') && !link.startsWith('/')) link = '/board/review/' + link;
+
+                        if (processedLinks.has(link)) continue;
+                        processedLinks.add(link);
+
+                        // 유효성 검사
+                        const noEl = item.querySelector('td:first-child');
+                        if (noEl && (noEl.innerText.includes('공지') || noEl.innerText.trim() === '')) continue;
+
+                        // 데이터 추출 using existing logic structure
+                        const productEl = rootEl.querySelector('.product');
+                        const titleEl = rootEl.querySelector('.title');
+                        const contentEl = rootEl.querySelector('.content-desc');
+
+                        const productName = productEl ? productEl.innerText.trim() : '';
+                        const title = titleEl ? titleEl.innerText.trim().replace(/^Re: /, '') : 'Review'; // Remove Re: prefix usually found
+
+                        // desc extraction
+                        let content = '';
+                        if (contentEl) {
+                            content = contentEl.innerText.replace(/\n/g, ' ').trim();
+                        } else {
+                            // Fallback extraction
+                            content = item.innerText.replace(title, '').substring(0, 100).replace(/\n/g, ' ');
                         }
-                    });
+                        content = content.replace(/\(.*?에 등록된.*?\)/g, '').trim();
 
-                    // 별점
-                    let stars = '★★★★★';
-                    const starImg = rootEl.querySelector('img[src*="rating"], img[src*="star"], img[alt*="점"]');
-                    if (starImg) {
-                        const sData = (starImg.getAttribute('src') + starImg.getAttribute('alt')).toLowerCase();
-                        if (sData.includes('rating5') || sData.includes('5점')) stars = '★★★★★';
-                        else if (sData.includes('rating4') || sData.includes('4점')) stars = '★★★★☆';
-                        else if (sData.includes('rating3') || sData.includes('3점')) stars = '★★★☆☆';
-                        else if (sData.includes('rating2') || sData.includes('2점')) stars = '★★☆☆☆';
-                        else if (sData.includes('rating1') || sData.includes('1점')) stars = '★☆☆☆☆';
-                    }
+                        // 메타 정보
+                        let writer = '***';
+                        let date = '';
 
-                    // 이미지 추출
-                    let imgSrc = getSafeImage(rootEl);
-                    if (imgSrc !== defaultImage) {
-                        if (imgSrc.startsWith('//')) imgSrc = 'https:' + imgSrc;
-                        else if (imgSrc.startsWith('/')) imgSrc = 'https://afterdawn.co.kr' + imgSrc;
-                    }
+                        // Try multiple methods to extract date
+                        const infoSpans = rootEl.querySelectorAll('.etc-wrap .left span');
+                        if (infoSpans.length > 0) {
+                            writer = infoSpans[0].innerText.trim();
+                        }
+                        if (infoSpans.length > 1) {
+                            date = infoSpans[1].innerText.trim();
+                        }
 
-                    // ID 생성 (Deep Fetch 타겟팅용)
-                    const voteId = `vote-${count}`;
+                        // Fallback 1: Try to find date in text content
+                        if (!date || date.length < 8) {
+                            const textContent = rootEl.innerText;
+                            const dateMatch = textContent.match(/(\d{4})-(\d{2})-(\d{2})/);
+                            if (dateMatch) {
+                                date = dateMatch[0];
+                            }
+                        }
 
-                    // HTML 조립
-                    htmlContent += `
-                        <div class="review-item" onclick="location.href='${link}'" style="cursor: pointer;">
+                        // Fallback 2: Check all spans for date pattern
+                        if (!date || date.length < 8) {
+                            const allSpans = rootEl.querySelectorAll('span');
+                            for (const span of allSpans) {
+                                const text = span.innerText.trim();
+                                if (/^\d{4}-\d{2}-\d{2}$/.test(text)) {
+                                    date = text;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Format date to YYYY / MM-DD
+                        let dateYear = '';
+                        let dateMonthDay = '';
+                        if (date && date.length >= 8) {
+                            const dateParts = date.split('-');
+                            if (dateParts.length >= 2) {
+                                dateYear = dateParts[0];
+                                dateMonthDay = dateParts.slice(1).join('-');
+                            } else {
+                                dateYear = date;
+                                dateMonthDay = '';
+                            }
+                        } else {
+                            dateYear = '';
+                            dateMonthDay = '';
+                        }
+
+                        // 조회수 / 추천수
+                        let hit = '0';
+                        let vote = '0';
+                        const rtmiItems = rootEl.querySelectorAll('.RTMI');
+                        rtmiItems.forEach(el => {
+                            const label = el.innerText;
+                            const parent = el.parentElement;
+                            if (parent) {
+                                const num = parent.innerText.replace(/[^0-9]/g, '');
+                                if (label.includes('조회')) hit = num;
+                                if (label.includes('추천')) vote = num;
+                            }
+                        });
+
+                        // 별점
+                        let stars = '★★★★★';
+                        const starImg = rootEl.querySelector('img[src*="rating"], img[src*="star"], img[alt*="점"]');
+                        if (starImg) {
+                            const alt = starImg.getAttribute('alt') || '';
+                            const match = alt.match(/(\d)/);
+                            if (match) {
+                                const rating = parseInt(match[1]);
+                                stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+                            }
+                        }
+
+                        // 이미지 추출
+                        let imgSrc = getSafeImage(rootEl);
+                        if (imgSrc !== defaultImage) {
+                            if (imgSrc.startsWith('//')) imgSrc = 'https:' + imgSrc;
+                            else if (imgSrc.startsWith('/')) imgSrc = 'https://afterdawn.co.kr' + imgSrc;
+                        }
+
+                        // HTML Generation: Add swiper-slide class
+                        const voteId = `vote-${count}`;
+
+                        // Check if writer is Naver Pay pattern - hide completely if so
+                        const isNaverPay = /^네\*+$/.test(writer);
+
+                        htmlContent += `
+                        <div class="review-item swiper-slide" onclick="location.href='${link}'" style="cursor: pointer;">
                             <div class="review-thumb">
                                 <img src="${imgSrc}" alt="${productName}" loading="lazy" style="object-fit: cover;" onerror="this.src='${defaultImage}'">
                             </div>
@@ -1329,131 +1638,191 @@ src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1"
                                 <p class="review-text">${content}</p>
                                 <div class="review-rating"><span class="stars">${stars}</span></div>
                                 <div class="review-meta">
-                                    <span class="meta-writer">${writer}</span>
-                                    <span class="meta-divider">|</span>
-                                    <span class="meta-date">${date}</span>
-                                    <span class="meta-hit">조회 ${hit}</span>
-                                    <span class="meta-divider">|</span>
-                                    <span class="meta-vote" id="${voteId}">추천 ${vote}</span>
+                                    <div class="meta-date">
+                                        <span>${dateYear}</span>
+                                        <span>${dateMonthDay}</span>
+                                    </div>
+                                    <div class="meta-hit">
+                                        <span>조회</span>
+                                        <span>${hit}</span>
+                                    </div>
+                                    <div class="meta-vote" id="${voteId}">
+                                        <span>추천</span>
+                                        <span>${vote}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     `;
-                    
-                    // [Deep Fetch 트리거] 추천수가 0이면 상세페이지를 찔러본다
-                    if (vote === '0' || vote === '') {
-                        fetchDeepVote(link, voteId);
+
+                        // Deep Fetch Trigger
+                        if (vote === '0' || vote === '') {
+                            fetchDeepVote(link, voteId);
+                        }
+
+                        count++;
                     }
 
-                    count++; 
+                    if (htmlContent) {
+                        reviewWrapper.innerHTML = htmlContent;
+
+                        // Initialize Swiper
+                        setTimeout(() => {
+                            new Swiper('.review-swiper', {
+                                slidesPerView: 2.2, // Mobile default
+                                spaceBetween: 12,
+                                scrollbar: {
+                                    el: ".swiper-scrollbar",
+                                    hide: false,
+                                    draggable: true,
+                                },
+                                breakpoints: {
+                                    768: {
+                                        slidesPerView: 3.2,
+                                        spaceBetween: 15
+                                    },
+                                    1025: {
+                                        slidesPerView: 5.5, /* Desktop 5.5 Items */
+                                        spaceBetween: 20
+                                    }
+                                }
+                            });
+                        }, 100);
+
+                    } else {
+                        reviewWrapper.innerHTML = '<div class="review-loading swiper-slide">등록된 리뷰가 없습니다.</div>';
+                    }
+                })
+                .catch(err => {
+                    console.error('Review Load Error:', err);
+                    reviewWrapper.innerHTML = '<div class="review-loading swiper-slide">리뷰를 불러오지 못했습니다.</div>';
+                });
+        }
+        // Initialize after DOM Content Loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadReviews);
+        } else {
+            loadReviews();
+        }
+    })();
+</script>
+
+<script>
+    // [CODE-X] YouTube Automation: URL 자동 감지 및 플레이어 생성
+    (function () {
+        'use strict';
+
+        function initYoutubePlayers() {
+            const players = document.querySelectorAll('.auto-yt-player');
+
+            players.forEach(function (player) {
+                // 이미 iframe이 생성되었다면 패스
+                if (player.querySelector('iframe')) return;
+
+                const rawUrl = player.getAttribute('data-yt-url');
+                if (!rawUrl) return;
+
+                let videoId = null;
+
+                // 1. Shorts 링크 파싱 (youtube.com/shorts/ID)
+                if (rawUrl.includes('/shorts/')) {
+                    videoId = rawUrl.split('/shorts/')[1].split('?')[0];
+                }
+                // 2. 일반 영상 링크 파싱 (watch?v=ID)
+                else if (rawUrl.includes('v=')) {
+                    videoId = rawUrl.split('v=')[1].split('&')[0];
+                }
+                // 3. 공유 단축 링크 파싱 (youtu.be/ID)
+                else if (rawUrl.includes('youtu.be/')) {
+                    videoId = rawUrl.split('youtu.be/')[1].split('?')[0];
                 }
 
-                reviewGrid.innerHTML = htmlContent;
-            
-            // [CODE-X FIX] 콘텐츠 삽입 후 스크롤 높이 재계산 요청
-                setTimeout(() => { window.dispatchEvent(new Event('resize')); }, 100);
-                setTimeout(() => { window.dispatchEvent(new Event('resize')); }, 500);
-            
-                console.log(`CODE-X: V16 완료. 총 ${count}개 로드됨.`);
-            })
-            .catch(error => {
-                console.error("CODE-X Error:", error);
-                reviewGrid.innerHTML = '<div class="review-loading">오류가 발생했습니다.</div>';
+                // ID 추출 성공 시 iframe 생성
+                if (videoId) {
+                    const iframe = document.createElement('iframe');
+                    // 옵션 설명: playsinline(iOS전체화면방지), rel=0(관련영상차단), autoplay/mute(자동재생)
+                    iframe.src = `https://www.youtube.com/embed/${videoId}?playsinline=1&rel=0&autoplay=1&mute=1&loop=1&playlist=${videoId}`;
+                    iframe.title = "YouTube video player";
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                    iframe.setAttribute('allowfullscreen', '');
+
+                    // 스타일 강제 적용 (CSS 누락 방지)
+                    iframe.style.position = 'absolute';
+                    iframe.style.top = '0';
+                    iframe.style.left = '0';
+                    iframe.style.width = '100%';
+                    iframe.style.height = '100%';
+                    iframe.style.border = 'none';
+
+                    player.appendChild(iframe);
+                }
             });
-    }
+        }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadReviews);
-    } else {
-        loadReviews();
-    }
-})();
+        // 실행 트리거
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initYoutubePlayers);
+        } else {
+            initYoutubePlayers();
+        }
+    })();
 </script>
 
 <script>
-// [CODE-X] YouTube Automation: URL 자동 감지 및 플레이어 생성
-(function() {
-    'use strict';
+    // [CODE-X Fix] Lenis Scroll Sync Patch
+    // 기존 스크립트 블록들 가장 아래에 별도로 추가해주셔도 됩니다.
 
-    function initYoutubePlayers() {
-        const players = document.querySelectorAll('.auto-yt-player');
-        
-        players.forEach(function(player) {
-            // 이미 iframe이 생성되었다면 패스
-            if (player.querySelector('iframe')) return;
+    (function () {
+        // 1. 높이 재계산 트리거 함수
+        function refreshScroll() {
+            // 윈도우 리사이즈 이벤트를 강제로 발생시켜 Lenis가 높이를 재계산하게 유도
+            window.dispatchEvent(new Event('resize'));
+            console.log('CODE-X: Scroll Layout Refreshed');
+        }
 
-            const rawUrl = player.getAttribute('data-yt-url');
-            if (!rawUrl) return;
-
-            let videoId = null;
-
-            // 1. Shorts 링크 파싱 (youtube.com/shorts/ID)
-            if (rawUrl.includes('/shorts/')) {
-                videoId = rawUrl.split('/shorts/')[1].split('?')[0];
-            } 
-            // 2. 일반 영상 링크 파싱 (watch?v=ID)
-            else if (rawUrl.includes('v=')) {
-                videoId = rawUrl.split('v=')[1].split('&')[0];
-            } 
-            // 3. 공유 단축 링크 파싱 (youtu.be/ID)
-            else if (rawUrl.includes('youtu.be/')) {
-                videoId = rawUrl.split('youtu.be/')[1].split('?')[0];
-            }
-
-            // ID 추출 성공 시 iframe 생성
-            if (videoId) {
-                const iframe = document.createElement('iframe');
-                // 옵션 설명: playsinline(iOS전체화면방지), rel=0(관련영상차단), autoplay/mute(자동재생)
-                iframe.src = `https://www.youtube.com/embed/${videoId}?playsinline=1&rel=0&autoplay=1&mute=1&loop=1&playlist=${videoId}`;
-                iframe.title = "YouTube video player";
-                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-                iframe.setAttribute('allowfullscreen', '');
-                
-                // 스타일 강제 적용 (CSS 누락 방지)
-                iframe.style.position = 'absolute';
-                iframe.style.top = '0';
-                iframe.style.left = '0';
-                iframe.style.width = '100%';
-                iframe.style.height = '100%';
-                iframe.style.border = 'none';
-                
-                player.appendChild(iframe);
-            }
+        // 2. 이미지가 모두 로드된 후 재계산 (특히 하단 대형 이미지)
+        window.addEventListener('load', function () {
+            refreshScroll();
+            // 혹시 모를 지연 로딩을 대비해 1초 뒤 한번 더 실행
+            setTimeout(refreshScroll, 1000);
         });
-    }
 
-    // 실행 트리거
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initYoutubePlayers);
-    } else {
-        initYoutubePlayers();
-    }
-})();
+        // 3. 하단 이미지 전용 감지기
+        const footerImg = document.querySelector('.footer-image-container img');
+        if (footerImg) {
+            footerImg.onload = refreshScroll;
+        }
+    })();
 </script>
 
 <script>
-// [CODE-X Fix] Lenis Scroll Sync Patch
-// 기존 스크립트 블록들 가장 아래에 별도로 추가해주셔도 됩니다.
+    // [CODE-X Fix] Banner Manager Visibility Patch
+    // Cafe24 배너 매니저가 로드되었으나 [hidden] 속성 + CSS 우선순위 문제로 보이지 않는 현상 수정
+    (function () {
+        function showBanners() {
+            // 모든 배너 타겟 조회
+            const banners = document.querySelectorAll('[df-banner-code][hidden]');
+            banners.forEach(banner => {
+                // 내용물(이미지 등)이 채워졌는지 확인 (item 클래스 유무 혹은 img 태그 유무)
+                if (banner.querySelector('img') || banner.querySelector('.item')) {
+                    // 내용이 있다면 강제로 보임 처리
+                    banner.removeAttribute('hidden');
+                    banner.style.display = 'block';
+                }
+            });
+        }
 
-(function() {
-    // 1. 높이 재계산 트리거 함수
-    function refreshScroll() {
-        // 윈도우 리사이즈 이벤트를 강제로 발생시켜 Lenis가 높이를 재계산하게 유도
-        window.dispatchEvent(new Event('resize')); 
-        console.log('CODE-X: Scroll Layout Refreshed');
-    }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', showBanners);
+        } else {
+            showBanners();
+        }
 
-    // 2. 이미지가 모두 로드된 후 재계산 (특히 하단 대형 이미지)
-    window.addEventListener('load', function() {
-        refreshScroll();
-        // 혹시 모를 지연 로딩을 대비해 1초 뒤 한번 더 실행
-        setTimeout(refreshScroll, 1000);
-    });
-
-    // 3. 하단 이미지 전용 감지기
-    const footerImg = document.querySelector('.footer-image-container img');
-    if (footerImg) {
-        footerImg.onload = refreshScroll;
-    }
-})();
+        // 지연 로딩 대비 (1초, 3초 후 재확인)
+        window.addEventListener('load', function () {
+            showBanners();
+            setTimeout(showBanners, 1000);
+            setTimeout(showBanners, 3000);
+        });
+    })();
 </script>

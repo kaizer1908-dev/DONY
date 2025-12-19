@@ -2,134 +2,170 @@
 <!--@js(/js/pop_swp.js)-->
 
 <style>
-/* ============================================
-   듀얼 팝업 전용 스타일
+    /* ============================================
+   트리플 팝업 전용 스타일
 ============================================ */
 
-/* 공통: 팝업 컨테이너 */
-.dual-popup-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none; /* 배경 클릭 방지 */
-    z-index: 9999;
-}
-
-/* PC: 중앙에 2개 나란히 배치 */
-@media (min-width: 768px) {
-    .dual-popup-wrapper {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        gap: 20px; /* 팝업 간 간격 */
-        pointer-events: auto;
-    }
-    
-    .pop_swp {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
-        margin: 0 !important;
-    }
-    
-    /* 딤드 효과는 하나만 표시 */
-    .pop_swp:not(:first-child) .dimmed2 {
-        display: none;
-    }
-}
-
-/* 모바일: 스와이프 슬라이드 */
-@media (max-width: 767px) {
-    .dual-popup-wrapper {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        max-width: 400px;
-        pointer-events: auto;
-    }
-    
-    .mobile-swiper-container {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .pop_swp {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
+    /* 공통: 팝업 컨테이너 */
+    .dual-popup-container {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+        pointer-events: none;
+        /* 배경 클릭 방지 */
+        z-index: 9999;
     }
-    
-    /* 스와이프 인디케이터 */
-    .mobile-pagination {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 15px;
+
+    /* PC: 중앙에 3개 나란히 배치 */
+    @media (min-width: 768px) {
+        .dual-popup-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 20px;
+            /* 팝업 간 간격 */
+            pointer-events: auto;
+        }
+
+        .pop_swp {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            transform: none !important;
+            margin: 0 !important;
+        }
+
+        /* 딤드 효과는 하나만 표시 */
+        .pop_swp:not(:first-child) .dimmed2 {
+            display: none;
+        }
     }
-    
-    .mobile-pagination span {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.5);
-        cursor: pointer;
-        transition: all 0.3s;
+
+    /* 모바일: 중앙 스택 (겹쳐서 표시) */
+    @media (max-width: 767px) {
+        .dual-popup-wrapper {
+            position: absolute;
+            top: 44%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            min-height: 400px;
+            /* 팝업이 겹칠 수 있도록 최소 높이 설정 */
+            pointer-events: auto;
+        }
+
+        .pop_swp {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            transform: none !important;
+            width: 100% !important;
+            margin: 0 !important;
+            overflow: visible !important;
+            /* 버튼이 잘리지 않도록 */
+            transition: all 0.5s ease-out !important;
+            /* 책장 넘기는 효과 */
+            transform-origin: top center !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        /* 종이 겹침 효과: z-index가 낮을수록 아래로, 작게 */
+        .pop_swp[style*="z-index: 40"] {
+            transform: translateY(15px) scale(0.96) !important;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .pop_swp[style*="z-index: 30"] {
+            transform: translateY(30px) scale(0.92) !important;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .pop_swp .pop-content {
+            overflow: visible !important;
+            /* 버튼이 잘리지 않도록 */
+        }
+
+        /* 딤드 효과는 하나만 표시 */
+        .pop_swp:not(:first-child) .dimmed2 {
+            display: none;
+        }
+
+        .dual-popup-wrapper::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* 닫기 버튼이 항상 보이도록 */
+        .pop_swp .closeInfo {
+            position: relative !important;
+            z-index: 100 !important;
+            display: flex !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            justify-content: space-between !important;
+            gap: 10px !important;
+            padding: 8px 20px !important;
+            margin: 0 !important;
+            background: rgba(0, 0, 0, 0.8) !important;
+            width: 100% !important;
+        }
+
+        .pop_swp .closeInfo a {
+            display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            color: #fff !important;
+            cursor: pointer !important;
+            padding: 8px 15px !important;
+            font-size: 14px !important;
+            text-decoration: none !important;
+        }
     }
-    
-    .mobile-pagination span.active {
-        background: #fff;
-        width: 24px;
-        border-radius: 4px;
-    }
-    
-    /* 딤드 효과는 하나만 표시 */
-    .pop_swp:not(:first-child) .dimmed2 {
-        display: none;
-    }
-}
 </style>
 
-<!-- 듀얼 팝업 컨테이너 -->
+<!-- 트리플 팝업 컨테이너 -->
 <div class="dual-popup-container" id="dualPopupContainer">
     <div class="dual-popup-wrapper" id="dualPopupWrapper">
-        
-        <!-- 팝업 1: popup-bnr -->
-        <div class="pop_swp popup-left" df-banner-code="popup-bnr" hidden data-cookie-name="popupClose1">
+
+        <!-- 팝업 3: popup-bnr3 (최우선) -->
+        <div class="pop_swp popup-3" df-banner-code="popup-bnr3" hidden data-cookie-name="popupClose3">
             <div class="dimmed2"></div>
             <div class="pop-content">
                 <div class="pop_swiper">
                     <ul class="swiper-wrapper">
                         <li class="swiper-slide" df-banner-clone>
                             <a href="{#href}" target="{#target}">{#item}</a>
-                        </li>       
+                        </li>
                     </ul>
                     <div class="swiper-pagination"></div>
                 </div>
                 <div class="closeInfo">
-                    <a class="closeToday" data-popup="1">오늘 하루 보지 않기</a>
-                    <a class="closePop" data-popup="1">닫기</a>
+                    <a class="closeToday" data-popup="3">오늘 하루 보지 않기</a>
+                    <a class="closePop" data-popup="3">닫기</a>
                 </div>
             </div>
         </div>
 
         <!-- 팝업 2: popup-bnr2 -->
-        <div class="pop_swp popup-right" df-banner-code="popup-bnr2" hidden data-cookie-name="popupClose2">
+        <div class="pop_swp popup-2" df-banner-code="popup-bnr2" hidden data-cookie-name="popupClose2">
             <div class="dimmed2"></div>
             <div class="pop-content">
                 <div class="pop_swiper">
                     <ul class="swiper-wrapper">
                         <li class="swiper-slide" df-banner-clone>
                             <a href="{#href}" target="{#target}">{#item}</a>
-                        </li>       
+                        </li>
                     </ul>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -140,192 +176,145 @@
             </div>
         </div>
 
-    </div>
-    
-    <!-- 모바일 전용 페이지네이션 -->
-    <div class="mobile-pagination" style="display: none;">
-        <span class="active" data-index="0"></span>
-        <span data-index="1"></span>
+        <!-- 팝업 1: popup-bnr -->
+        <div class="pop_swp popup-1" df-banner-code="popup-bnr" hidden data-cookie-name="popupClose1">
+            <div class="dimmed2"></div>
+            <div class="pop-content">
+                <div class="pop_swiper">
+                    <ul class="swiper-wrapper">
+                        <li class="swiper-slide" df-banner-clone>
+                            <a href="{#href}" target="{#target}">{#item}</a>
+                        </li>
+                    </ul>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="closeInfo">
+                    <a class="closeToday" data-popup="1">오늘 하루 보지 않기</a>
+                    <a class="closePop" data-popup="1">닫기</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <script>
-(function() {
-    'use strict';
-    
-    // ==========================================
-    // 쿠키 관리 함수
-    // ==========================================
-    function setCookie(name, value, days) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "") + expires + "; path=/";
-    }
-    
-    function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    }
-    
-    // ==========================================
-    // 팝업 표시 여부 확인
-    // ==========================================
-    var popup1 = document.querySelector('.popup-left');
-    var popup2 = document.querySelector('.popup-right');
-    var container = document.getElementById('dualPopupContainer');
-    
-    var popup1Hidden = getCookie('popupClose1') === 'Y';
-    var popup2Hidden = getCookie('popupClose2') === 'Y';
-    
-    // 두 팝업 모두 닫혀있으면 컨테이너 숨김
-    if (popup1Hidden && popup2Hidden) {
-        container.style.display = 'none';
-    } else {
-        // 각 팝업 표시
-        if (!popup1Hidden && popup1) popup1.style.display = 'block';
-        if (!popup2Hidden && popup2) popup2.style.display = 'block';
-    }
-    
-    // ==========================================
-    // 닫기 버튼 이벤트
-    // ==========================================
-    document.querySelectorAll('.closeToday').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var popupNum = this.getAttribute('data-popup');
-            var cookieName = 'popupClose' + popupNum;
-            var popupEl = popupNum === '1' ? popup1 : popup2;
-            
-            setCookie(cookieName, 'Y', 1);
-            popupEl.style.display = 'none';
-            
-            // 두 팝업 모두 닫혔는지 확인
-            checkAllClosed();
-        });
-    });
-    
-    document.querySelectorAll('.closePop').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var popupNum = this.getAttribute('data-popup');
-            var popupEl = popupNum === '1' ? popup1 : popup2;
-            
-            popupEl.style.display = 'none';
-            
-            // 두 팝업 모두 닫혔는지 확인
-            checkAllClosed();
-        });
-    });
-    
-    function checkAllClosed() {
-        var popup1Display = popup1 ? window.getComputedStyle(popup1).display : 'none';
-        var popup2Display = popup2 ? window.getComputedStyle(popup2).display : 'none';
-        
-        if (popup1Display === 'none' && popup2Display === 'none') {
-            container.style.display = 'none';
-        }
-    }
-    
-    // ==========================================
-    // 모바일: 스와이프 기능 구현
-    // ==========================================
-    if (window.innerWidth < 768) {
-        var wrapper = document.getElementById('dualPopupWrapper');
-        var pagination = document.querySelector('.mobile-pagination');
-        var dots = pagination.querySelectorAll('span');
-        
-        pagination.style.display = 'flex';
-        
-        var currentIndex = 0;
-        var startX = 0;
-        var isDragging = false;
-        
-        // 초기 위치 설정
-        function updatePosition(animated) {
-            var popups = wrapper.querySelectorAll('.pop_swp');
-            popups.forEach(function(popup, index) {
-                if (animated) {
-                    popup.style.transition = 'transform 0.3s ease-out';
-                } else {
-                    popup.style.transition = 'none';
-                }
-                
-                if (index === currentIndex) {
-                    popup.style.display = 'block';
-                    popup.style.transform = 'translateX(0)';
-                } else {
-                    popup.style.transform = 'translateX(' + ((index - currentIndex) * 100) + '%)';
-                    setTimeout(function() {
-                        if (index !== currentIndex) {
-                            popup.style.display = 'none';
-                        }
-                    }, animated ? 300 : 0);
-                }
-            });
-            
-            // 페이지네이션 업데이트
-            dots.forEach(function(dot, index) {
-                dot.classList.toggle('active', index === currentIndex);
-            });
-        }
-        
-        // 터치 이벤트
-        wrapper.addEventListener('touchstart', function(e) {
-            startX = e.touches[0].clientX;
-            isDragging = true;
-        });
-        
-        wrapper.addEventListener('touchmove', function(e) {
-            if (!isDragging) return;
-            
-            var currentX = e.touches[0].clientX;
-            var diff = currentX - startX;
-            
-            wrapper.querySelectorAll('.pop_swp').forEach(function(popup, index) {
-                popup.style.transition = 'none';
-                var offset = ((index - currentIndex) * 100) + (diff / wrapper.offsetWidth * 100);
-                popup.style.transform = 'translateX(' + offset + '%)';
-            });
-        });
-        
-        wrapper.addEventListener('touchend', function(e) {
-            if (!isDragging) return;
-            
-            var endX = e.changedTouches[0].clientX;
-            var diff = endX - startX;
-            
-            // 50px 이상 스와이프 시 전환
-            if (Math.abs(diff) > 50) {
-                if (diff > 0 && currentIndex > 0) {
-                    currentIndex--;
-                } else if (diff < 0 && currentIndex < 1) {
-                    currentIndex++;
-                }
+    (function () {
+        'use strict';
+
+        // ==========================================
+        // 쿠키 관리 함수
+        // ==========================================
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
             }
-            
-            updatePosition(true);
-            isDragging = false;
-        });
-        
-        // 페이지네이션 클릭
-        dots.forEach(function(dot) {
-            dot.addEventListener('click', function() {
-                currentIndex = parseInt(this.getAttribute('data-index'));
-                updatePosition(true);
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // ==========================================
+        // 팝업 표시 여부 확인
+        // ==========================================
+        var popup1 = document.querySelector('.popup-1');
+        var popup2 = document.querySelector('.popup-2');
+        var popup3 = document.querySelector('.popup-3');
+        var container = document.getElementById('dualPopupContainer');
+
+        var popup1Hidden = getCookie('popupClose1') === 'Y';
+        var popup2Hidden = getCookie('popupClose2') === 'Y';
+        var popup3Hidden = getCookie('popupClose3') === 'Y';
+
+        // 세 팝업 모두 닫혀있으면 컨테이너 숨김
+        if (popup1Hidden && popup2Hidden && popup3Hidden) {
+            container.style.display = 'none';
+        } else {
+            // 각 팝업 표시
+            if (!popup1Hidden && popup1) popup1.style.display = 'block';
+            if (!popup2Hidden && popup2) popup2.style.display = 'block';
+            if (!popup3Hidden && popup3) popup3.style.display = 'block';
+        }
+
+        // ==========================================
+        // 닫기 버튼 이벤트
+        // ==========================================
+        document.querySelectorAll('.closeToday').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var popupNum = this.getAttribute('data-popup');
+                var cookieName = 'popupClose' + popupNum;
+                var popupEl = popupNum === '1' ? popup1 : popupNum === '2' ? popup2 : popup3;
+
+                setCookie(cookieName, 'Y', 1);
+                popupEl.style.display = 'none';
+
+                // 모바일 스택 업데이트
+                updateMobileStack();
+
+                // 모든 팝업 닫혔는지 확인
+                checkAllClosed();
             });
         });
-        
-        // 초기 표시
-        updatePosition(false);
-    }
-    
-})();
+
+        document.querySelectorAll('.closePop').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var popupNum = this.getAttribute('data-popup');
+                var popupEl = popupNum === '1' ? popup1 : popupNum === '2' ? popup2 : popup3;
+
+                popupEl.style.display = 'none';
+
+                // 모바일 스택 업데이트
+                updateMobileStack();
+
+                // 모든 팝업 닫혔는지 확인
+                checkAllClosed();
+            });
+        });
+
+        function checkAllClosed() {
+            var popup1Display = popup1 ? window.getComputedStyle(popup1).display : 'none';
+            var popup2Display = popup2 ? window.getComputedStyle(popup2).display : 'none';
+            var popup3Display = popup3 ? window.getComputedStyle(popup3).display : 'none';
+
+            if (popup1Display === 'none' && popup2Display === 'none' && popup3Display === 'none') {
+                container.style.display = 'none';
+            }
+        }
+
+        // ==========================================
+        // 모바일: 스택 레이아웃 (우선순위: 3 > 2 > 1)
+        // ==========================================
+        function updateMobileStack() {
+            if (window.innerWidth >= 768) return; // PC는 무시
+
+            var visiblePopups = [];
+
+            // 표시되는 팝업 수집 (우선순위 순서: 3, 2, 1)
+            if (popup3 && window.getComputedStyle(popup3).display !== 'none') visiblePopups.push(popup3);
+            if (popup2 && window.getComputedStyle(popup2).display !== 'none') visiblePopups.push(popup2);
+            if (popup1 && window.getComputedStyle(popup1).display !== 'none') visiblePopups.push(popup1);
+
+            // Z-index 할당 (첫번째가 가장 위)
+            visiblePopups.forEach(function (popup, index) {
+                popup.style.zIndex = 50 - (index * 10); // 50, 40, 30
+            });
+        }
+
+        // 초기 실행
+        updateMobileStack();
+        window.addEventListener('resize', updateMobileStack);
+
+    })();
 </script>
