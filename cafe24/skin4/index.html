@@ -90,26 +90,37 @@
             }
 
             function fetchInstagramThumbnail(instagramUrl, targetElement) {
-                // Instagram oEmbed API
-                const oembedUrl = `https://graph.instagram.com/oembed?url=${encodeURIComponent(instagramUrl)}`;
+                // Use Instagram's official embed (blockquote + script)
+                targetElement.innerHTML = `
+                    <blockquote class="instagram-media" 
+                        data-instgrm-captioned 
+                        data-instgrm-permalink="${instagramUrl}"
+                        style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5); margin:0; max-width:100%; min-width:100%; padding:0; width:calc(100% - 2px);">
+                    </blockquote>
+                `;
 
-                fetch(oembedUrl)
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.thumbnail_url) {
-                            targetElement.innerHTML = `<img src="${data.thumbnail_url}" alt="Instagram Post" style="width: 100%; height: 100%; object-fit: cover; border: none; display: block;">`;
+                // Load Instagram embed script if not already loaded
+                if (!window.instgrm) {
+                    const script = document.createElement('script');
+                    script.async = true;
+                    script.src = '//www.instagram.com/embed.js';
+                    script.onload = () => {
+                        if (window.instgrm) {
+                            window.instgrm.Embeds.process();
                         }
-                    })
-                    .catch(err => {
-                        // Fallback to placeholder
-                        targetElement.innerHTML = `<div style="width: 100%; height: 100%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #999;">Instagram 콘텐츠</div>`;
-                    });
+                    };
+                    document.body.appendChild(script);
+                } else {
+                    // Script already loaded, just process embeds
+                    window.instgrm.Embeds.process();
+                }
             }
 
             function initSnsSwiper() {
                 const snsSwiper = new Swiper('.sns-swiper', {
-                    slidesPerView: 2.2, /* Mobile Defaults */
-                    spaceBetween: 10,
+                    slidesPerView: 1.15, /* Fullscreen: Show 1 slide + peek */
+                    spaceBetween: 15,
+                    centeredSlides: true, /* Center active slide */
                     observer: true,
                     observeParents: true,
                     scrollbar: {
@@ -119,13 +130,14 @@
                     },
                     breakpoints: {
                         768: {
-                            slidesPerView: 3.2,
-                            spaceBetween: 15
+                            slidesPerView: 1.2,
+                            spaceBetween: 20
                         },
                         1025: {
-                            /* Desktop: Enabled Swiper (Slider) */
-                            slidesPerView: 5.5, /* Show 5.5 items for better density on full width */
-                            spaceBetween: 20
+                            /* Desktop: Show more slides */
+                            slidesPerView: 3.5,
+                            spaceBetween: 25,
+                            centeredSlides: false
                         }
                     }
                 });
@@ -214,7 +226,8 @@
             width: 100%;
             margin: 60px 0;
             padding: 0;
-            /* Full Width - remove horizontal padding */
+            overflow: hidden;
+            /* Prevent content from breaking layout bounds */
         }
 
         .sns-section-title {
@@ -228,30 +241,27 @@
 
         .sns-swiper {
             width: 100%;
-            /* max-width removed for Full Width */
             margin: 0 auto;
-            overflow: hidden;
-            padding: 0 20px;
-            /* Internal padding for aesthetic gutter at edges */
+            overflow: visible;
+            /* Allow peek effect on sides */
+            padding: 0 15px;
+            max-width: 100%;
+            /* Prevent overflow */
         }
 
         .sns-slide {
             position: relative;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
             background: #f5f5f5;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
 
-            /* Mobile Default: Square Aspect Ratio */
-            padding-bottom: 100%;
-            height: 0;
-        }
-
-        /* Desktop: Fixed Height (Standard Grid Size) */
-        @media (min-width: 1025px) {
-            .sns-slide {
-                padding-bottom: 0 !important;
-                height: 450px !important;
-            }
+            /* Fullscreen style: Large aspect ratio */
+            padding-bottom: 0;
+            aspect-ratio: 3 / 4;
+            /* Taller for mobile fullscreen feel */
+            height: auto;
         }
 
         .sns-link {
@@ -270,19 +280,29 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Reset Flex */
             display: block;
-            overflow: hidden;
+            overflow: hidden !important;
+            /* Force hide overflow content */
+        }
+
+        /* Instagram blockquote embed - force 1:1 crop */
+        .sns-embed-target .instagram-media {
+            min-width: 100% !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            margin: 0 !important;
         }
 
         .sns-embed-target iframe {
             position: absolute;
             width: 100% !important;
-            /* Header ~58px. Shift up to hide it. */
-            top: -58px;
             left: 0;
-            /* Increase height to compensate for top shift + hide footer */
-            height: calc(100% + 120px) !important;
+            /* Remove clip-path, use scaling and positioning instead */
+            /* Scale up to 150% and shift up to center image and push bottom UI out */
+            top: 50%;
+            transform: translateY(-50%) scale(1.5);
+            transform-origin: center center;
+            height: 100% !important;
             border: none;
             pointer-events: none;
         }
@@ -330,7 +350,8 @@
 
         .review-section-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            /* 중앙 정렬 */
             align-items: baseline;
             margin-bottom: 40px;
         }
@@ -354,7 +375,7 @@
             border-radius: 4px;
             transition: all 0.3s;
             display: none;
-            /* PC에서는 숨김 */
+            /* Hide VIEW ALL button on all devices */
         }
 
         .review-view-all:hover {
@@ -362,13 +383,15 @@
             border-color: #999;
         }
 
-        /* PC/태블릿: 가로 스크롤 */
         /* Swiper Container */
         .review-swiper {
             width: 100%;
             margin: 0 auto;
-            overflow: hidden;
-            padding: 0 20px;
+            overflow: visible;
+            /* Allow peek effect */
+            padding: 0 15px;
+            max-width: 100%;
+            /* Prevent overflow */
         }
 
         /* Scrollbar positioned below grid */
@@ -386,16 +409,17 @@
         }
 
         .review-item {
-            /* flex: 0 0 280px; Removed for Swiper */
             position: relative;
-            border-radius: 8px;
+            border-radius: 16px;
             overflow: hidden;
             background: #fff;
             border: 1px solid #e5e5e5;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
-            height: 450px;
-            /* Fixed Height on Desktop */
+
+            /* Fullscreen style: Flexible height */
+            height: auto;
             display: flex;
             flex-direction: column;
         }
@@ -430,10 +454,9 @@
         .review-thumb {
             position: relative;
             width: 100%;
-            height: 280px;
-            /* Fixed Height for Desktop */
+            /* Fullscreen style: Taller aspect ratio */
+            aspect-ratio: 3 / 4;
             padding-bottom: 0;
-            /* Remove Square Ratio */
             overflow: hidden;
             background: #f5f5f5;
             flex-shrink: 0;
@@ -578,23 +601,37 @@
         }
 
         .yt-item.longform {
-            flex: 0 0 auto;
-            /* Fixed based on Aspect Ratio */
+            flex: 1;
+            /* 남은 공간 모두 차지 */
+            min-width: 0;
             height: 100%;
-            aspect-ratio: 16 / 9;
             position: relative;
             overflow: hidden;
         }
 
+        .yt-item.longform .video-container {
+            width: 100%;
+            height: 100%;
+        }
+
         .yt-item.shorts-group {
-            flex: 1;
-            /* Ret of space */
-            min-width: 0;
-            /* Prevent flex overflow */
+            flex: 0 0 auto;
+            /* 고정 너비 */
             height: 100%;
             overflow: hidden;
-            /* Swiper Container */
             background: #111;
+            display: flex;
+        }
+
+        /* Shorts Swiper - fixed width */
+        .shorts-swiper {
+            width: auto !important;
+            height: 100%;
+        }
+
+        .shorts-swiper .swiper-wrapper {
+            height: 100%;
+            width: auto;
         }
 
         .video-container {
@@ -621,11 +658,18 @@
 
         .short-item {
             position: relative;
-            width: 100%;
+            width: calc(450px * 9 / 16) !important;
+            /* 고정 너비: 253px */
             height: 100%;
             overflow: hidden;
             border-right: 1px solid #222;
-            /* Separator */
+            flex-shrink: 0;
+        }
+
+        /* Each short: 9:16 ratio, fixed size */
+        .short-item .video-container {
+            width: 100%;
+            height: 100%;
         }
 
         /* ========================================
@@ -695,6 +739,63 @@
             .review-section-title {
                 font-size: 20px;
                 margin-bottom: 25px;
+            }
+
+            /* SNS Swiper: Mobile shows max 5 slides */
+            .sns-swiper .swiper-slide:nth-child(n+6) {
+                display: none;
+            }
+
+            /* Review Section Mobile Header */
+            .review-section-header {
+                justify-content: center;
+                /* Center align title */
+                margin-bottom: 30px;
+            }
+
+            .review-view-all {
+                display: none !important;
+                /* Hide VIEW ALL button from header on mobile */
+            }
+
+            /* Review Swiper: Mobile shows max 5 slides */
+            .review-swiper .swiper-slide:nth-child(n+6) {
+                display: none;
+            }
+
+            /* 5th slide: Add semi-transparent overlay with VIEW ALL button */
+            .review-swiper .swiper-slide:nth-child(5) {
+                position: relative;
+            }
+
+            .review-swiper .swiper-slide:nth-child(5)::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: none;
+                border-radius: 16px;
+            }
+
+            .review-swiper .swiper-slide:nth-child(5)::before {
+                content: 'VIEW ALL →';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 10;
+                color: #fff;
+                font-size: 18px;
+                font-weight: 700;
+                font-family: 'Pretendard', sans-serif;
+                pointer-events: none;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             }
 
             /* SNS Grid */
@@ -843,7 +944,7 @@
      위치: 메인배너(section1)와 sticky섹션 사이
 ======================================== -->
 <div class="sns-section reviews-container">
-    <h2 class="sns-section-title">SNS CONTENTS</h2>
+    <h2 class="sns-section-title"></h2>
 
     <!-- Changed to Swiper structure -->
     <div class="sns-swiper swiper">
@@ -854,8 +955,8 @@
                 <a href="https://www.instagram.com/p/DRg_pWvD-jQ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
                     target="_blank" class="sns-link">
                     <div class="sns-embed-target"
-                        data-url="https://www.instagram.com/p/DRt3nOKAQds/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-                        data-thumb="https://www.instagram.com/p/DRt3nOKAQds/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
+                        data-url="https://www.instagram.com/p/DRg_pWvD-jQ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                        data-thumb="https://www.instagram.com/p/DRg_pWvD-jQ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
                     </div>
                     <div class="sns-overlay">
                         <span>Instagram에서 보기</span>
@@ -883,7 +984,8 @@
                     target="_blank" class="sns-link">
                     <div class="sns-embed-target"
                         data-url="https://www.instagram.com/p/DR4K075DXsG/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-                        data-thumb="https://placehold.co/600x800/e0e0e0/333?text=Instagram+3"></div>
+                        data-thumb="https://www.instagram.com/p/DR4K075DXsG/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
+                    </div>
                     <div class="sns-overlay">
                         <span>Instagram에서 보기</span>
                     </div>
@@ -896,7 +998,8 @@
                     target="_blank" class="sns-link">
                     <div class="sns-embed-target"
                         data-url="https://www.instagram.com/p/DSFCzYxAaTR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-                        data-thumb="https://placehold.co/600x800/e0e0e0/333?text=Instagram+4"></div>
+                        data-thumb="https://www.instagram.com/p/DSFCzYxAaTR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
+                    </div>
                     <div class="sns-overlay">
                         <span>Instagram에서 보기</span>
                     </div>
@@ -909,7 +1012,8 @@
                     target="_blank" class="sns-link">
                     <div class="sns-embed-target"
                         data-url="https://www.instagram.com/p/DSR7H6TE7z-/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-                        data-thumb="https://placehold.co/600x800/e0e0e0/333?text=Instagram+5"></div>
+                        data-thumb="https://www.instagram.com/p/DSR7H6TE7z-/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
+                    </div>
                     <div class="sns-overlay"><span>Instagram에서 보기</span></div>
                 </a>
             </div>
@@ -920,7 +1024,8 @@
                     target="_blank" class="sns-link">
                     <div class="sns-embed-target"
                         data-url="https://www.instagram.com/p/DQvcBUqk7Gu/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-                        data-thumb="https://placehold.co/600x800/e0e0e0/333?text=Instagram+6"></div>
+                        data-thumb="https://www.instagram.com/p/DQvcBUqk7Gu/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
+                    </div>
                     <div class="sns-overlay"><span>Instagram에서 보기</span></div>
                 </a>
             </div>
@@ -931,7 +1036,8 @@
                     target="_blank" class="sns-link">
                     <div class="sns-embed-target"
                         data-url="https://www.instagram.com/reel/DRYt1WNjz02/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
-                        data-thumb="https://placehold.co/600x800/e0e0e0/333?text=Instagram+7"></div>
+                        data-thumb="https://www.instagram.com/reel/DRYt1WNjz02/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==">
+                    </div>
                     <div class="sns-overlay"><span>Instagram에서 보기</span></div>
                 </a>
             </div>
@@ -1273,6 +1379,7 @@
     유투브 섹션
 ======================================== -->
 
+<!-- YouTube Section - Commented Out
 <section class="youtube-mix-section">
     <div class="youtube-mix-inner">
         <div class="youtube-grid">
@@ -1281,36 +1388,31 @@
                 </div>
             </div>
 
-            <!-- Mobile: Swiper, PC: Grid/Column -->
+            <!-- Mobile: Swiper, PC: Grid/Column -- >
             <div class="yt-item shorts-group swiper">
                 <div class="swiper-wrapper">
+                    <!-- 숏폼 1 -- >
                     <div class="short-item swiper-slide">
                         <div class="video-container vertical auto-yt-player"
                             data-yt-url="https://www.youtube.com/shorts/uTZOfuyeaS0">
                         </div>
                     </div>
-                    <!-- Duplicate for Swiper Demo -->
+
+                    <!-- 숏폼 2 (준비되면 활성화) -- >
+                    <!-- 
                     <div class="short-item swiper-slide">
                         <div class="video-container vertical auto-yt-player"
-                            data-yt-url="https://www.youtube.com/shorts/uTZOfuyeaS0">
+                            data-yt-url="https://www.youtube.com/shorts/VIDEO_ID_2">
                         </div>
                     </div>
-                    <div class="short-item swiper-slide">
-                        <div class="video-container vertical auto-yt-player"
-                            data-yt-url="https://www.youtube.com/shorts/uTZOfuyeaS0">
-                        </div>
-                    </div>
-                    <div class="short-item swiper-slide">
-                        <div class="video-container vertical auto-yt-player"
-                            data-yt-url="https://www.youtube.com/shorts/uTZOfuyeaS0">
-                        </div>
-                    </div>
+                    -- >
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
         </div>
     </div>
 </section>
+-->
 
 <!-- ========================================
      고객 리뷰 그리드 (자동 로드)
@@ -1669,8 +1771,9 @@
                         // Initialize Swiper
                         setTimeout(() => {
                             new Swiper('.review-swiper', {
-                                slidesPerView: 2.2, // Mobile default
-                                spaceBetween: 12,
+                                slidesPerView: 1.15, // Fullscreen: Show 1 slide + peek
+                                spaceBetween: 15,
+                                centeredSlides: true, // Center active slide
                                 scrollbar: {
                                     el: ".swiper-scrollbar",
                                     hide: false,
@@ -1678,15 +1781,27 @@
                                 },
                                 breakpoints: {
                                     768: {
-                                        slidesPerView: 3.2,
-                                        spaceBetween: 15
+                                        slidesPerView: 1.2,
+                                        spaceBetween: 20
                                     },
                                     1025: {
-                                        slidesPerView: 5.5, /* Desktop 5.5 Items */
-                                        spaceBetween: 20
+                                        slidesPerView: 3.5, /* Desktop: Show more slides */
+                                        spaceBetween: 25,
+                                        centeredSlides: false
                                     }
                                 }
                             });
+
+                            // Add click handler to 5th slide for mobile VIEW ALL
+                            const fifthSlide = document.querySelector('.review-swiper .swiper-slide:nth-child(5)');
+                            if (fifthSlide && window.innerWidth <= 767) {
+                                fifthSlide.style.cursor = 'pointer';
+                                fifthSlide.addEventListener('click', (e) => {
+                                    // Prevent default review item click
+                                    e.stopPropagation();
+                                    window.location.href = 'https://afterdawn.co.kr/board/review/list.html?board_no=4';
+                                });
+                            }
                         }, 100);
 
                     } else {
@@ -1759,11 +1874,28 @@
             });
         }
 
-        // 실행 트리거
+        // Shorts Swiper initialization
+        function initShortsSwiper() {
+            const shortsSwiper = new Swiper('.shorts-swiper', {
+                slidesPerView: 'auto',
+                spaceBetween: 0,
+                freeMode: false,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+        }
+
+        // Initialize both
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initYoutubePlayers);
+            document.addEventListener('DOMContentLoaded', function () {
+                initYoutubePlayers();
+                initShortsSwiper();
+            });
         } else {
             initYoutubePlayers();
+            initShortsSwiper();
         }
     })();
 </script>

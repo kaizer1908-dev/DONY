@@ -110,7 +110,30 @@ font-size: 12px;color: #858585;}
 }
 
 /********************* Mobile / Tablet *********************/
-/* @media all and (max-width:1024px) {
-    .xans-board-read .ec-base-table .head { padding: 20px 16px; }
-    .xans-board-read .ec-base-table .attach {margin: 0 16px; }
-} */
+@media (max-width: 767px) {
+    /* Fix mobile layout for review detail meta information */
+    .xans-board-read .ec-base-table .description {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .xans-board-read .ec-base-table .etcArea {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 0;
+    }
+    
+    .xans-board-read .ec-base-table .etcArea li {
+        padding: 0 4px; /* Reduce padding from 8px to 4px */
+        white-space: nowrap; /* Prevent text wrapping */
+        flex-shrink: 0;
+    }
+    
+    .xans-board-read .ec-base-table .etcArea li span {
+        white-space: nowrap; /* Prevent label wrapping */
+    }
+    
+    .xans-board-read .ec-base-table .etcArea .txtNum {
+        white-space: nowrap;
+    }
+}
