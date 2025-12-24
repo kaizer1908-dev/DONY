@@ -1,0 +1,809 @@
+<!--@layout(/layout/basic/layout.html)-->
+<html lang="ko">
+
+<head>
+    <meta name="facebook-domain-verification" content="qn7jiynlbml1rnyt0jw6xu408ywrn9" />
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '830401176040389');
+        fbq('track', 'PageView');
+    </script>
+
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=830401176040389&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AFTER DAWN - New Layout</title>
+
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+    <style>
+        /* ========================================
+   기본 리셋 및 공통 스타일
+======================================== */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* ========================================
+   메인 배너 애니메이션 (탑배너용)
+======================================== */
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .section-mq {
+            overflow: hidden;
+            width: 100%;
+            height: 6.875vw;
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+        }
+
+        .section-mq .wrap {
+            display: flex;
+            width: max-content;
+            animation: scroll-left 30s linear infinite;
+        }
+
+        .section-mq .wrap span {
+            white-space: nowrap;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 3.49vw;
+            padding-right: 1.875vw;
+            line-height: 1;
+        }
+
+        .section-mq .wrap:hover {
+            animation-play-state: paused;
+        }
+
+        /* ========================================
+   STICKY OVERLAY SECTION
+======================================== */
+        .sticky-overlay-section {
+            position: relative;
+            min-height: 200vh;
+            /* 스크롤 공간 확보 */
+        }
+
+        /* 배경: 제품 4개 */
+        .product-background {
+            width: 100%;
+            padding: 60px 0;
+            background: #fff;
+        }
+
+        .product-background .prd-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* PC: 4x1 가로 배치 */
+            gap: 20px;
+            max-width: 1200px;
+            /* 브랜드 섹션과 동일 */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .product-background .prd-list .item {
+            aspect-ratio: 3 / 4;
+            /* 브랜드 그리드와 동일 */
+        }
+
+        /* ========================================
+   제품 HOVER 오버레이 조정
+   - 화면 전체 오버레이는 방지
+   - 썸네일 내 이미지 hover는 허용
+======================================== */
+        /* .item-link가 전체 화면을 덮지 않도록 */
+        .sticky-overlay-section .item-link,
+        .product-background .item-link {
+            position: static !important;
+            width: 100% !important;
+            height: auto !important;
+        }
+
+        /* hover 시에도 .item-link를 fixed/absolute로 만들지 않음 */
+        .sticky-overlay-section .item:hover .item-link,
+        .product-background .item:hover .item-link {
+            position: static !important;
+            z-index: auto !important;
+            transform: none !important;
+            left: auto !important;
+            top: auto !important;
+            right: auto !important;
+            bottom: auto !important;
+        }
+
+        /* .item 자체가 화면을 덮는 것 방지 */
+        .sticky-overlay-section .item:hover,
+        .product-background .item:hover {
+            transform: none !important;
+            z-index: 1 !important;
+        }
+
+        /* Sticky 레이어 */
+        .sticky-content {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        /* KV2 이미지 */
+        .keyvisual-2-section {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .keyvisual-2-section img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ========================================
+   BRAND SECTION (Sticky Container 내부)
+======================================== */
+        .brand-section {
+            width: 100%;
+            padding: 80px 20px;
+            background: #f9f9f9;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        /* 배경 이미지 오버레이 (선택사항) */
+        .brand-section.with-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(249, 249, 249, 0.9);
+            z-index: 0;
+        }
+
+        .brand-section>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-info {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .brand-name {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .brand-slogan {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .brand-description {
+            font-family: 'Pretendard', sans-serif;
+            font-size: 14px;
+            color: #999;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* 브랜드 그리드 컨테이너 (3개 정적 그리드) */
+        .brand-grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .brand-grid-item {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            /* 제품 그리드와 동일 */
+            border-radius: 16px;
+            overflow: hidden;
+            display: block;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .brand-grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .brand-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .grid-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: #fff;
+            font-family: 'Pretendard', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        /* SNS Slide 스타일 (인스타그램 탭용) */
+        .sns-slide {
+            position: relative;
+            background: #f5f5f5;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .sns-link {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+        }
+
+        .sns-embed-target {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            \n height: 100%;
+            display: block;
+            overflow: hidden !important;
+        }
+
+        .sns-embed-target .instagram-media {
+            min-width: 100% !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            margin: 0 !important;
+        }
+
+        .sns-embed-target iframe {
+            position: absolute;
+            width: 100% !important;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%) scale(1.5);
+            transform-origin: center center;
+            height: 100% !important;
+            border: none;
+            pointer-events: none;
+        }
+
+        .sns-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        .sns-slide:hover .sns-overlay {
+            opacity: 1;
+        }
+
+        /* Review Item 스타일 (리뷰 탭용) */
+        .review-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .review-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-thumb {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            padding-bottom: 0;
+            overflow: hidden;
+            background: #f5f5f5;
+            flex-shrink: 0;
+        }
+
+        .review-thumb img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .review-content {
+            padding: 15px;
+        }
+
+        .review-product-name {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 4px;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .review-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 6px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .review-text {
+            font-size: 13px;
+            color: #666;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 8px;
+        }
+
+        .review-rating {
+            margin-bottom: 8px;
+        }
+
+        .review-rating .stars {
+            color: #FFD700;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .review-meta {
+            font-size: 11px;
+            color: #aaa;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+            margin-top: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            align-items: start;
+            text-align: center;
+        }
+
+        .meta-date,
+        .meta-hit,
+        .meta-vote {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.3;
+        }
+
+        .review-loading {
+            width: 100%;
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* Event Item 스타일 */
+        .event-item {
+            background: #fff;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-item a {
+            text-decoration: none;
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* ========================================
+   반응형: 태블릿/데스크톱
+======================================== */
+        @media (min-width: 768px) {
+
+            /* PC: 그리드 표시 */
+            .brand-grid-container {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 30px;
+                max-width: 1200px;
+            }
+
+            /* PC: Swiper 숨김 */
+            .brand-grid-swiper {
+                display: none;
+            }
+        }
+
+        /* ========================================
+   반응형: 모바일
+======================================== */
+        @media (max-width: 767px) {
+            .product-section .prd-list {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 0;
+                max-width: 100%;
+            }
+
+            .product-section .prd-list .item {
+                margin: 0;
+            }
+
+            /* 모바일: 브랜드 그리드를 Swiper로 표시 */
+            .brand-grid-container {
+                display: none;
+                /* 기본 그리드 숨김 */
+            }
+
+            .brand-grid-swiper {
+                display: block;
+            }
+
+            .brand-grid-swiper .swiper-slide {
+                width: 85% !important;
+                /* 좌우 peek 효과 */
+            }
+
+            .brand-name {
+                font-size: 32px;
+            }
+
+            .brand-slogan {
+                font-size: 16px;
+            }
+
+            .brand-grid-container {
+                gap: 15px;
+            }
+
+            .grid-label {
+                font-size: 16px;
+                padding: 15px;
+            }
+
+            .meta-date,
+            .meta-hit,
+            .meta-vote {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+
+            .review-item {
+                height: auto !important;
+                aspect-ratio: auto !important;
+                display: block;
+            }
+
+            .review-thumb {
+                height: auto !important;
+                padding-bottom: 100% !important;
+            }
+        }
+    </style>
+</head>
+<!--@css(/layout/basic/css/main.css)-->
+<!--@js(/layout/basic/js/lenis.js)-->
+<!--@js(/layout/basic/js/gsap.js)-->
+<!--@js(/layout/basic/js/scrollTrigger.js)-->
+<!--@js(/layout/basic/js/main.js)-->
+
+<!-- 팝업 html 추가 -->
+<!--@import(/popup/pop_swp_dual.html)-->
+
+<!-- ========================================
+     섹션 1: 메인 키비주얼 (배너)
+======================================== -->
+<section class="section1">
+    <div class="swiper pc" df-banner-code="pc">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" df-banner-clone>{#item}</div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <div class="swiper m" df-banner-code="m">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" df-banner-clone>{#item}</div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <div df-banner-code="main-font" hidden class="main-title">
+        <strong>AFTER DAWN</strong>
+        <p class="desc">
+            After Dawn, Before the Day 새벽 이후, 빛이 퍼지기 시작하는 시간.
+        </p>
+        <div df-banner-clone class="content">{#item}</div>
+    </div>
+</section>
+
+<!-- ========================================
+     섹션 3-5: Sticky Overlay Container
+     - 배경: 제품 4개
+     - Sticky: KV2 + 브랜드 섹션
+======================================== -->
+<section class="sticky-overlay-section">
+    <!-- 배경 레이어: 제품 4개 -->
+    <div class="product-background">
+        <div class="ec-base-product" module="product_listmain_1">
+            <!--
+            $count = 4
+            ※ 상품진열갯수를 4개로 설정
+            $basket_result = /product/add_basket.html
+            $basket_option = /product/basket_option.html
+            -->
+            <ul class="prd-list">
+                <li id="anchorBoxId_{$product_no}" class="item">
+                    <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
+                    <div class="thumb-box">
+                        <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}"
+                                class="img before"><img src="{$image_medium}" id="{$image_medium_id}"
+                                alt="{$seo_alt_tag}" class="img after"></div>
+                        <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}"
+                                style="background-image:url('{$icon_url}');"></span></span>
+                        <div class="promotion soldout">
+                            {$soldout_icon}
+                        </div>
+                        <div class="colorhip_wrap {$colorchip_display|display}">
+                            <div class="color" module="product_Colorchip">
+                                <span class="chips" style="background-color:{$color}"></span>
+                                <span class="chips" style="background-color:{$color}"></span>
+                            </div>
+                        </div>
+                        <div class="add-text">
+                            {$custom_option1}
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <div class="text">
+                            <strong class="name"><a href="/product/detail.html{$param}"
+                                    class="{$product_name_display|display}"><span
+                                        class="title {$product_name_title_display|display}">{$product_name_title}
+                                        :</span> {$product_name_tag}</a></strong>
+                            <ul module="product_ListItem" class="spec">
+                                <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                                <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                            </ul>
+                        </div>
+                        <div class="icon">
+                            {$product_icons}
+                        </div>
+                    </div>
+                </li>
+                <li id="anchorBoxId_{$product_no}" class="item">
+                    <a href="/product/detail.html{$param}" name="anchorBoxName_{$product_no}" class="item-link"></a>
+                    <div class="thumb-box">
+                        <div class="thumb-img"><img src="{$image_big}" id="{$image_medium_id}" alt="{$seo_alt_tag}"
+                                class="img before"><img src="{$image_medium}" id="{$image_medium_id}"
+                                alt="{$seo_alt_tag}" class="img after"></div>
+                        <span module="product_Imagestyle"><span class="prdIcon {$icon_class_name}"
+                                style="background-image:url('{$icon_url}');"></span></span>
+                        <div class="promotion soldout">
+                            {$soldout_icon}
+                        </div>
+                        <div class="colorhip_wrap {$colorchip_display|display}">
+                            <div class="color" module="product_Colorchip">
+                                <span class="chips" style="background-color:{$color}"></span>
+                                <span class="chips" style="background-color:{$color}"></span>
+                            </div>
+                        </div>
+                        <div class="add-text">
+                            {$custom_option1}
+                        </div>
+                    </div>
+                    <div class="text-box">
+                        <div class="text">
+                            <strong class="name"><a href="/product/detail.html{$param}"
+                                    class="{$product_name_display|display}"><span
+                                        class="title {$product_name_title_display|display}">{$product_name_title}
+                                        :</span> {$product_name_tag}</a></strong>
+                            <ul module="product_ListItem" class="spec">
+                                <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                                <li class="{$item_display|display} {$column_name}">{$item_content}</li>
+                            </ul>
+                        </div>
+                        <div class="icon">
+                            {$product_icons}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sticky 레이어: KV2 + 브랜드 섹션 -->
+    <div class="sticky-content">
+        <!-- KV2 이미지 -->
+        <div class="keyvisual-2-section">
+            <img src="https://ecimg.cafe24img.com/pg1867b30565137078/gith6409/%ED%95%98%EB%8B%A8%EB%B6%80%20%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg"
+                alt="AFTER DAWN Brand Image">
+        </div>
+
+        <!-- 브랜드 섹션 -->
+        <div class="brand-section">
+            <div class="brand-info">
+                <h2 class="brand-name">AFTER DAWN</h2>
+                <p class="brand-slogan">After Dawn, Before the Day</p>
+                <p class="brand-description">
+                    새벽 이후, 빛이 퍼지기 시작하는 시간.<br>
+                    하루를 시작하는 당신의 피부에 빛을 더합니다.
+                </p>
+            </div>
+
+            <!-- 3개 정적 그리드 (PC용) -->
+            <div class="brand-grid-container">
+                <!-- 인스타그램 그리드 -->
+                <a href="https://www.instagram.com/afterdawn.kr" target="_blank" class="brand-grid-item">
+                    <img src="https://via.placeholder.com/400x533/f5f5f5/999999?text=INSTAGRAM" alt="Instagram">
+                    <div class="grid-label">INSTAGRAM</div>
+                </a>
+
+                <!-- 리뷰 그리드 -->
+                <a href="/board/review/list.html?board_no=4" class="brand-grid-item">
+                    <img src="https://via.placeholder.com/400x533/f5f5f5/999999?text=REVIEWS" alt="Reviews">
+                    <div class="grid-label">REVIEWS</div>
+                </a>
+
+                <!-- 이벤트 그리드 -->
+                <a href="/board/event/list.html" class="brand-grid-item">
+                    <img src="https://via.placeholder.com/400x533/f5f5f5/999999?text=EVENTS" alt="Events">
+                    <div class="grid-label">EVENTS</div>
+                </a>
+            </div>
+
+            <!-- Swiper 구조 (모바일용) -->
+            <div class="brand-grid-swiper swiper">
+                <div class="swiper-wrapper">
+                    <!-- 인스타그램 -->
+                    <div class="swiper-slide">
+                        <a href="https://www.instagram.com/afterdawn.kr" target="_blank" class="brand-grid-item">
+                            <img src="https://via.placeholder.com/400x533/f5f5f5/999999?text=INSTAGRAM" alt="Instagram">
+                            <div class="grid-label">INSTAGRAM</div>
+                        </a>
+                    </div>
+
+                    <!-- 리뷰 -->
+                    <div class="swiper-slide">
+                        <a href="/board/review/list.html?board_no=4" class="brand-grid-item">
+                            <img src="https://via.placeholder.com/400x533/f5f5f5/999999?text=REVIEWS" alt="Reviews">
+                            <div class="grid-label">REVIEWS</div>
+                        </a>
+                    </div>
+
+                    <!-- 이벤트 -->
+                    <div class="swiper-slide">
+                        <a href="/board/event/list.html" class="brand-grid-item">
+                            <img src="https://via.placeholder.com/400x533/f5f5f5/999999?text=EVENTS" alt="Events">
+                            <div class="grid-label">EVENTS</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--@define(cmc_log)-->
+<script>
+    // 브랜드 그리드 Swiper 초기화 (모바일용)
+    (function () {
+        'use strict';
+
+        function initBrandGridSwiper() {
+            const brandSwiper = new Swiper('.brand-grid-swiper', {
+                slidesPerView: 1.2, // 좌우 peek 효과
+                spaceBetween: 15,
+                centeredSlides: true,
+                breakpoints: {
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 30,
+                        centeredSlides: false
+                    }
+                }
+            });
+        }
+
+        // Initialize
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initBrandGridSwiper);
+        } else {
+            // DOM already loaded
+            if (typeof Swiper !== 'undefined') {
+                initBrandGridSwiper();
+            } else {
+                // Swiper not loaded yet, wait a bit
+                setTimeout(initBrandGridSwiper, 100);
+            }
+        }
+    })();
+</script>
+
+<!-- Banner Manager Script -->
+<style>
+    [df-banner-code][hidden] {
+        display: none !important
+    }
+</style>
+<script>
+    if (!document.getElementById('dfbm-script-43823')) {
+        var dfbm_src = '//ecimg.cafe24img.com/pg1867b30565137078/gith6409/web/upload/appfiles/ZaReJam3QiELznoZeGGkMG/5eee9d05a3cd9a2686b91e8ab543b468.js';
+        document.write('<script id="dfbm-script-43823" src="' + dfbm_src + '?v=' + Date.now() + '"><\/script>');
+    }
+</script>
+
+</html>
